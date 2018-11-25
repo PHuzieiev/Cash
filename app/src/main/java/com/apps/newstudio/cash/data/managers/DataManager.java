@@ -35,4 +35,5 @@ public class DataManager {
     public PreferenceManager getPreferenceManager() {
         return mPreferenceManager;
     }
+
 }

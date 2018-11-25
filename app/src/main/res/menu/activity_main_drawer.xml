@@ -5,34 +5,45 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/item_organizations"
+            android:icon="@drawable/ic_organization"
+            android:title="@string/drawer_item_organizations_eng" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/item_currencies"
+            android:icon="@drawable/ic_currency"
+            android:title="@string/drawer_item_currencies_eng" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/item_converter"
+            android:icon="@drawable/ic_converter"
+            android:title="@string/drawer_item_converter_eng" />
+
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/item_results"
+            android:icon="@drawable/ic_result"
+            android:title="@string/drawer_item_results_eng" />
+
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
+        <item android:title="@string/drawer_item_others_eng"
+            android:id="@+id/item_others">
+            <menu>
+                <item
+                    android:id="@+id/item_update"
+                    android:icon="@drawable/ic_update"
+                    android:title="@string/drawer_item_update_eng" />
+                <item
+                    android:id="@+id/item_language"
+                    android:icon="@drawable/ic_language"
+                    android:title="@string/drawer_item_language_eng" />
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_about"
+                    android:icon="@drawable/ic_about"
+                    android:title="@string/drawer_item_about_eng" />
+                </group>
+            </menu>
+        </item>
+
 
 </menu>

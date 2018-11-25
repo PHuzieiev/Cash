@@ -1,9 +1,59 @@
 <resources>
-    <string name="app_name">Cash</string>
+    <string name="app_name">Money Converter</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+
+
+    <string name="main_activity_title">Main activity</string>
+
+    //Values in English
+    <string name="nav_header_title_eng">Money Converter (Ukraine)</string>
+    <string name="nav_header_subtitle_eng">Menu</string>
+
+    <string name="drawer_item_organizations_eng">Organizations</string>
+    <string name="drawer_item_currencies_eng">Currencies</string>
+    <string name="drawer_item_converter_eng">Converter</string>
+    <string name="drawer_item_results_eng">Results</string>
+    <string name="drawer_item_others_eng">Others</string>
+    <string name="drawer_item_update_eng">Update data</string>
+    <string name="drawer_item_language_eng">Language</string>
+    <string name="drawer_item_about_eng">About app</string>
+
+    <string name="menu_item_search_title_eng">Search in list</string>
+    <string name="menu_item_search_hint_eng">Enter word</string>
+
+    //Values in Russian
+    <string name="nav_header_title_rus">Money Converter (Украина)</string>
+    <string name="nav_header_subtitle_rus">Меню</string>
+
+    <string name="drawer_item_organizations_rus">Организации</string>
+    <string name="drawer_item_currencies_rus">Курс валют</string>
+    <string name="drawer_item_converter_rus">Конвертер</string>
+    <string name="drawer_item_results_rus">Результаты</string>
+    <string name="drawer_item_others_rus">Другое</string>
+    <string name="drawer_item_update_rus">Обновить данные</string>
+    <string name="drawer_item_language_rus">Язык</string>
+    <string name="drawer_item_about_rus">О приложении</string>
+    <string name="menu_item_search_title_rus">Поиск в списке</string>
+    <string name="menu_item_search_hint_rus">Введите слово</string>
+
+    //Values in Ukraine
+    <string name="nav_header_title_ukr">Money Converter (Україна)</string>
+    <string name="nav_header_subtitle_ukr">Меню</string>
+
+    <string name="drawer_item_organizations_ukr">Організації</string>
+    <string name="drawer_item_currencies_ukr">Курс валют</string>
+    <string name="drawer_item_converter_ukr">Конвертер</string>
+    <string name="drawer_item_results_ukr">Результати</string>
+    <string name="drawer_item_others_ukr">Інше</string>
+    <string name="drawer_item_update_ukr">Оновити дані</string>
+    <string name="drawer_item_language_ukr">Мова</string>
+    <string name="drawer_item_about_ukr">Про додаток</string>
+    <string name="menu_item_search_title_ukr">Пошук в списку</string>
+    <string name="menu_item_search_hint_ukr">Введіть слово</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

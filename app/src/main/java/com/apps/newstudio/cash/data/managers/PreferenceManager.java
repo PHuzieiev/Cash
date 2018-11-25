@@ -12,8 +12,8 @@ public class PreferenceManager {
      * Gets SharedPreferences object from CashApplication object
      * @return SharedPreferences mSharedPreferences
      */
-    public SharedPreferences getSharedPreferences() {
-        return CashApplication.getSharedPreferences();
+    public PreferenceManager() {
+        mSharedPreferences = CashApplication.getSharedPreferences();
     }
 
     /**
