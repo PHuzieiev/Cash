@@ -1,7 +1,11 @@
 package com.apps.newstudio.cash.data.network.models;
 
+import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Currencies {
 
@@ -147,380 +151,152 @@ public class Currencies {
     @Expose
     private TJS tJS;
 
-    public EUR getEUR() {
-        return eUR;
+    public List<CurrenciesEntity> getAll(String organizationId, String date) {
+        List<CurrenciesEntity> result = new ArrayList<>();
+
+        try {
+            result.add(new CurrenciesEntity("eUR"+organizationId, organizationId, "", "", "eUR", eUR.getAsk(), eUR.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("rUB"+organizationId, organizationId, "", "", "rUB", rUB.getAsk(), rUB.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("uSD"+organizationId, organizationId, "", "", "uSD", uSD.getAsk(), uSD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("aED"+organizationId, organizationId, "", "", "aED", aED.getAsk(), aED.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("aMD"+organizationId, organizationId, "", "", "aMD", aMD.getAsk(), aMD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("aUD"+organizationId, organizationId, "", "", "aUD", aUD.getAsk(), aUD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("aZN"+organizationId, organizationId, "", "", "aZN", aZN.getAsk(), aZN.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("bGN"+organizationId, organizationId, "", "", "bGN", bGN.getAsk(), bGN.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("bRL"+organizationId, organizationId, "", "", "bRL", bRL.getAsk(), bRL.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("bYN"+organizationId, organizationId, "", "", "bYN", bYN.getAsk(), bYN.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("cAD"+organizationId, organizationId, "", "", "cAD", cAD.getAsk(), cAD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("cHF"+organizationId, organizationId, "", "", "cHF", cHF.getAsk(), cHF.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("cLP"+organizationId, organizationId, "", "", "cLP", cLP.getAsk(), cLP.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("cNY"+organizationId, organizationId, "", "", "cNY", cNY.getAsk(), cNY.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("cZK"+organizationId, organizationId, "", "", "cZK", cZK.getAsk(), cZK.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("dKK"+organizationId, organizationId, "", "", "dKK", dKK.getAsk(), dKK.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("eGP"+organizationId, organizationId, "", "", "eGP", eGP.getAsk(), eGP.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("gBP"+organizationId, organizationId, "", "", "gBP", gBP.getAsk(), gBP.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("gEL"+organizationId, organizationId, "", "", "gEL", gEL.getAsk(), gEL.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("hKD"+organizationId, organizationId, "", "", "hKD", hKD.getAsk(), hKD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("hRK"+organizationId, organizationId, "", "", "hRK", hRK.getAsk(), hRK.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("hUF"+organizationId, organizationId, "", "", "hUF", hUF.getAsk(), hUF.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("iLS"+organizationId, organizationId, "", "", "iLS", iLS.getAsk(), iLS.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("iNR"+organizationId, organizationId, "", "", "iNR", iNR.getAsk(), iNR.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("jPY"+organizationId, organizationId, "", "", "jPY", jPY.getAsk(), jPY.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("kRW"+organizationId, organizationId, "", "", "kRW", kRW.getAsk(), kRW.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("kWD"+organizationId, organizationId, "", "", "kWD", kWD.getAsk(), kWD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("kZT"+organizationId, organizationId, "", "", "kZT", kZT.getAsk(), kZT.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("lBP"+organizationId, organizationId, "", "", "lBP", lBP.getAsk(), lBP.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("mDL"+organizationId, organizationId, "", "", "mDL", mDL.getAsk(), mDL.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("mXN"+organizationId, organizationId, "", "", "mXN", mXN.getAsk(), mXN.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("nOK"+organizationId, organizationId, "", "", "nOK", nOK.getAsk(), nOK.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("nZD"+organizationId, organizationId, "", "", "nZD", nZD.getAsk(), nZD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("pLN"+organizationId, organizationId, "", "", "pLN", pLN.getAsk(), pLN.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("rON"+organizationId, organizationId, "", "", "rON", rON.getAsk(), rON.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("sAR"+organizationId, organizationId, "", "", "sAR", sAR.getAsk(), sAR.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("sEK"+organizationId, organizationId, "", "", "sEK", sEK.getAsk(), sEK.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("sGD"+organizationId, organizationId, "", "", "sGD", sGD.getAsk(), sGD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("tHB"+organizationId, organizationId, "", "", "tHB", tHB.getAsk(), tHB.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("tRY"+organizationId, organizationId, "", "", "tRY", tRY.getAsk(), tRY.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("tWD"+organizationId, organizationId, "", "", "tWD", tWD.getAsk(), tWD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("vND"+organizationId, organizationId, "", "", "vND", vND.getAsk(), vND.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("dZD"+organizationId, organizationId, "", "", "dZD", dZD.getAsk(), dZD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("iQD"+organizationId, organizationId, "", "", "iQD", iQD.getAsk(), iQD.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("kGS"+organizationId, organizationId, "", "", "kGS", kGS.getAsk(), kGS.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("pKR"+organizationId, organizationId, "", "", "pKR", pKR.getAsk(), pKR.getBid(), date));
+        } catch (Exception e) {/*Not find*/}     
+        try {                                    
+            result.add(new CurrenciesEntity("tJS"+organizationId, organizationId, "", "", "tJS", tJS.getAsk(), tJS.getBid(), date));
+        } catch (Exception e) {/*Not find*/}
+        return result;
     }
 
-    public void setEUR(EUR eUR) {
-        this.eUR = eUR;
-    }
-
-    public RUB getRUB() {
-        return rUB;
-    }
-
-    public void setRUB(RUB rUB) {
-        this.rUB = rUB;
-    }
-
-    public USD getUSD() {
-        return uSD;
-    }
-
-    public void setUSD(USD uSD) {
-        this.uSD = uSD;
-    }
-
-    public AED getAED() {
-        return aED;
-    }
-
-    public void setAED(AED aED) {
-        this.aED = aED;
-    }
-
-    public AMD getAMD() {
-        return aMD;
-    }
-
-    public void setAMD(AMD aMD) {
-        this.aMD = aMD;
-    }
-
-    public AUD getAUD() {
-        return aUD;
-    }
-
-    public void setAUD(AUD aUD) {
-        this.aUD = aUD;
-    }
-
-    public AZN getAZN() {
-        return aZN;
-    }
-
-    public void setAZN(AZN aZN) {
-        this.aZN = aZN;
-    }
-
-    public BGN getBGN() {
-        return bGN;
-    }
-
-    public void setBGN(BGN bGN) {
-        this.bGN = bGN;
-    }
-
-    public BRL getBRL() {
-        return bRL;
-    }
-
-    public void setBRL(BRL bRL) {
-        this.bRL = bRL;
-    }
-
-    public BYN getBYN() {
-        return bYN;
-    }
-
-    public void setBYN(BYN bYN) {
-        this.bYN = bYN;
-    }
-
-    public CAD getCAD() {
-        return cAD;
-    }
-
-    public void setCAD(CAD cAD) {
-        this.cAD = cAD;
-    }
-
-    public CHF getCHF() {
-        return cHF;
-    }
-
-    public void setCHF(CHF cHF) {
-        this.cHF = cHF;
-    }
-
-    public CLP getCLP() {
-        return cLP;
-    }
-
-    public void setCLP(CLP cLP) {
-        this.cLP = cLP;
-    }
-
-    public CNY getCNY() {
-        return cNY;
-    }
-
-    public void setCNY(CNY cNY) {
-        this.cNY = cNY;
-    }
-
-    public CZK getCZK() {
-        return cZK;
-    }
-
-    public void setCZK(CZK cZK) {
-        this.cZK = cZK;
-    }
-
-    public DKK getDKK() {
-        return dKK;
-    }
-
-    public void setDKK(DKK dKK) {
-        this.dKK = dKK;
-    }
-
-    public EGP getEGP() {
-        return eGP;
-    }
-
-    public void setEGP(EGP eGP) {
-        this.eGP = eGP;
-    }
-
-    public GBP getGBP() {
-        return gBP;
-    }
-
-    public void setGBP(GBP gBP) {
-        this.gBP = gBP;
-    }
-
-    public GEL getGEL() {
-        return gEL;
-    }
-
-    public void setGEL(GEL gEL) {
-        this.gEL = gEL;
-    }
-
-    public HKD getHKD() {
-        return hKD;
-    }
-
-    public void setHKD(HKD hKD) {
-        this.hKD = hKD;
-    }
-
-    public HRK getHRK() {
-        return hRK;
-    }
-
-    public void setHRK(HRK hRK) {
-        this.hRK = hRK;
-    }
-
-    public HUF getHUF() {
-        return hUF;
-    }
-
-    public void setHUF(HUF hUF) {
-        this.hUF = hUF;
-    }
-
-    public ILS getILS() {
-        return iLS;
-    }
-
-    public void setILS(ILS iLS) {
-        this.iLS = iLS;
-    }
-
-    public INR getINR() {
-        return iNR;
-    }
-
-    public void setINR(INR iNR) {
-        this.iNR = iNR;
-    }
-
-    public JPY getJPY() {
-        return jPY;
-    }
-
-    public void setJPY(JPY jPY) {
-        this.jPY = jPY;
-    }
-
-    public KRW getKRW() {
-        return kRW;
-    }
-
-    public void setKRW(KRW kRW) {
-        this.kRW = kRW;
-    }
-
-    public KWD getKWD() {
-        return kWD;
-    }
-
-    public void setKWD(KWD kWD) {
-        this.kWD = kWD;
-    }
-
-    public KZT getKZT() {
-        return kZT;
-    }
-
-    public void setKZT(KZT kZT) {
-        this.kZT = kZT;
-    }
-
-    public LBP getLBP() {
-        return lBP;
-    }
-
-    public void setLBP(LBP lBP) {
-        this.lBP = lBP;
-    }
-
-    public MDL getMDL() {
-        return mDL;
-    }
-
-    public void setMDL(MDL mDL) {
-        this.mDL = mDL;
-    }
-
-    public MXN getMXN() {
-        return mXN;
-    }
-
-    public void setMXN(MXN mXN) {
-        this.mXN = mXN;
-    }
-
-    public NOK getNOK() {
-        return nOK;
-    }
-
-    public void setNOK(NOK nOK) {
-        this.nOK = nOK;
-    }
-
-    public NZD getNZD() {
-        return nZD;
-    }
-
-    public void setNZD(NZD nZD) {
-        this.nZD = nZD;
-    }
-
-    public PLN getPLN() {
-        return pLN;
-    }
-
-    public void setPLN(PLN pLN) {
-        this.pLN = pLN;
-    }
-
-    public RON getRON() {
-        return rON;
-    }
-
-    public void setRON(RON rON) {
-        this.rON = rON;
-    }
-
-    public SAR getSAR() {
-        return sAR;
-    }
-
-    public void setSAR(SAR sAR) {
-        this.sAR = sAR;
-    }
-
-    public SEK getSEK() {
-        return sEK;
-    }
-
-    public void setSEK(SEK sEK) {
-        this.sEK = sEK;
-    }
-
-    public SGD getSGD() {
-        return sGD;
-    }
-
-    public void setSGD(SGD sGD) {
-        this.sGD = sGD;
-    }
-
-    public THB getTHB() {
-        return tHB;
-    }
-
-    public void setTHB(THB tHB) {
-        this.tHB = tHB;
-    }
-
-    public TRY getTRY() {
-        return tRY;
-    }
-
-    public void setTRY(TRY tRY) {
-        this.tRY = tRY;
-    }
-
-    public TWD getTWD() {
-        return tWD;
-    }
-
-    public void setTWD(TWD tWD) {
-        this.tWD = tWD;
-    }
-
-    public VND getVND() {
-        return vND;
-    }
-
-    public void setVND(VND vND) {
-        this.vND = vND;
-    }
-
-    public DZD getDZD() {
-        return dZD;
-    }
-
-    public void setDZD(DZD dZD) {
-        this.dZD = dZD;
-    }
-
-    public IQD getIQD() {
-        return iQD;
-    }
-
-    public void setIQD(IQD iQD) {
-        this.iQD = iQD;
-    }
-
-    public KGS getKGS() {
-        return kGS;
-    }
-
-    public void setKGS(KGS kGS) {
-        this.kGS = kGS;
-    }
-
-    public PKR getPKR() {
-        return pKR;
-    }
-
-    public void setPKR(PKR pKR) {
-        this.pKR = pKR;
-    }
-
-    public TJS getTJS() {
-        return tJS;
-    }
-
-    public void setTJS(TJS tJS) {
-        this.tJS = tJS;
-    }
 
 }

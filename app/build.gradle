@@ -1,3 +1,4 @@
+apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.application'
 
 android {
@@ -16,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+greendao {
+    schemaVersion 1
+    targetGenDir 'src/main/java'
 }
 
 dependencies {

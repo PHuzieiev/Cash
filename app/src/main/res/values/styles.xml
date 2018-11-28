@@ -18,9 +18,41 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-
     <!-- Custom dialogs styles -->
     <style name="custom_dialog">
         <item name="android:fullDark">@android:color/transparent</item>
     </style>
+
+    <!--Style for fill button -->
+    <style name="AppTheme.Button.Red" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/color_accent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_small_14sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="DialogInfoTextViewMain">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_small_14sp</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_16dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_16dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_normal_24dp</item>
+        <item name="android:layout_marginRight">@dimen/spacing_normal_24dp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="DialogInfoTextViewTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_normal_18sp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_small_16dp</item>
+        <item name="android:layout_marginRight">@dimen/spacing_normal_24dp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/color_accent</item>
+    </style>
+
+
 </resources>

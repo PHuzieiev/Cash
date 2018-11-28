@@ -6,13 +6,15 @@ public class DataManager {
 
     private static DataManager INSTANCE = null;
     private PreferenceManager mPreferenceManager;
+    private DatabaseManager mDatabaseManager;
 
     /**
      * Constructor for DataManager
-     * Defines PreferenceManager project
+     * Defines PreferenceManager and DatabaseManager
      */
     private DataManager() {
         mPreferenceManager = new PreferenceManager();
+        mDatabaseManager = new DatabaseManager();
     }
 
     /**
@@ -36,4 +38,12 @@ public class DataManager {
         return mPreferenceManager;
     }
 
+    /**
+     * Getter for DatabaseManager object
+     *
+     * @return mDatabaseManager
+     */
+    public DatabaseManager getDatabaseManager() {
+        return mDatabaseManager;
+    }
 }

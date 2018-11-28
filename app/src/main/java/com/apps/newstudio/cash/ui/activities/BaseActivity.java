@@ -37,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             viewToast.setBackground(getResources().getDrawable(R.drawable.rectungle_for_toast));
         }
+
         toast.show();
     }
 

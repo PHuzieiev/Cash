@@ -1,5 +1,6 @@
 package com.apps.newstudio.cash.data.network.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -14,7 +15,7 @@ public class MainModel {
     private String date;
     @SerializedName("organizations")
     @Expose
-    private List<Organization> organizations = null;
+    private ArrayList<Organization> organizations = null;
     @SerializedName("currencies")
     @Expose
     private CurrenciesTitles currencies;
@@ -35,11 +36,11 @@ public class MainModel {
         this.date = date;
     }
 
-    public List<Organization> getOrganizations() {
+    public ArrayList<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
+    public void setOrganizations(ArrayList<Organization> organizations) {
         this.organizations = organizations;
     }
 

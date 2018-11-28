@@ -10,7 +10,7 @@ public class Organization {
     private String id;
     @SerializedName("orgType")
     @Expose
-    private Integer orgType;
+    private String orgType;
     @SerializedName("title")
     @Expose
     private String title;
@@ -32,11 +32,11 @@ public class Organization {
         this.id = id;
     }
 
-    public Integer getOrgType() {
+    public String getOrgType() {
         return orgType;
     }
 
-    public void setOrgType(Integer orgType) {
+    public void setOrgType(String orgType) {
         this.orgType = orgType;
     }
 
