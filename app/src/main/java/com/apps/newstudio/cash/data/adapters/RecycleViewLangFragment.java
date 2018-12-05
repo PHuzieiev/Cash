@@ -7,6 +7,13 @@ public class RecycleViewLangFragment {
     private String typeOther;
     private String button;
 
+    /**
+     * Creates RecycleViewLangFragment object which is used to put data in list of Organizations Fragment
+     * @param typeBank String value - type of organization
+     * @param update String value
+     * @param typeOther String value - type of organization
+     * @param button String value - title for button in item of list
+     */
     public RecycleViewLangFragment(String typeBank, String update, String typeOther, String button) {
         this.typeBank = typeBank;
         this.typeOther = typeOther;

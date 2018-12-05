@@ -21,6 +21,8 @@
 
 
     <dimen name="small_size_24dp">24dp</dimen>
+    <dimen name="middle_size_48dp">48dp</dimen>
+    <dimen name="middle_size_72dp">72dp</dimen>
     <dimen name="size_60dp">60dp</dimen>
     <dimen name="size_100dp">100dp</dimen>
     <dimen name="big_size_240dp">240dp</dimen>

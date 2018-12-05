@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/middle_size_72dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:id="@+id/item_cur_ll">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/spacing_small_16dp"
+        android:layout_marginRight="@dimen/spacing_small_16dp">
+
+        <TextView
+            style="@style/item_cur_short_tv"
+            android:id="@+id/item_cur_short_tv"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_smaller_8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/item_cur_title_tv"
+                android:id="@+id/item_cur_title_tv" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_smallest_2dp">
+
+                <TextView
+                    style="@style/item_cur_purchase_tv"
+                    android:id="@+id/item_cur_purchase_tv" />
+
+                <TextView
+                    style="@style/item_cur_sale_tv"
+                    android:id="@+id/item_cur_sale_tv"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/item_cur_v"
+        android:id="@+id/item_cur_v"/>
+
+</LinearLayout>

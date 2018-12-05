@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.OrganizationActivity">
+    tools:context=".ui.activities.OrganizationActivity"
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -20,44 +21,46 @@
             android:background="@color/color_primary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_for_activity_title">
-
-            <ImageView
-                android:id="@+id/main_iv"
-                style="@style/main_iv" />
-
-            <LinearLayout style="@style/item_title_ll">
-
-                <TextView
-                    android:id="@+id/type_tv"
-                    style="@style/item_date_tv" />
-
-
-                <EditText
-                    android:id="@+id/title_tv"
-                    style="@style/item_title_tv"
-                    android:inputType="textVisiblePassword" />
-
-                <TextView
-                    android:id="@+id/date_tv"
-                    style="@style/item_date_tv" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-
     </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_for_activity_title"
+        android:layout_below="@+id/app_bar">
+
+        <ImageView
+            android:id="@+id/main_iv"
+            style="@style/main_iv" />
+
+        <LinearLayout style="@style/item_title_ll">
+
+            <TextView
+                android:id="@+id/type_tv"
+                style="@style/item_date_tv" />
+
+
+            <EditText
+                android:id="@+id/title_tv"
+                style="@style/item_title_tv"
+                android:inputType="textVisiblePassword" />
+
+            <TextView
+                android:id="@+id/date_tv"
+                style="@style/item_date_tv" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/spacing_start_1dp"
-        android:layout_below="@+id/app_bar"/>
+        android:layout_below="@+id/frame_title"/>
 
 
 

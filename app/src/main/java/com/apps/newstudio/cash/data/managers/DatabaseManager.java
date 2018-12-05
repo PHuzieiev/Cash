@@ -384,24 +384,11 @@ public class DatabaseManager {
         });
     }
 
-    /*public void test() {
-        List<OrganizationsEntity> list = mDaoSession.queryBuilder(OrganizationsEntity.class)
-                .orderAsc(OrganizationsEntityDao.Properties.TitleUkr)
-                .limit(2)
-                .list();
 
-        Log.d(TAG, list.size() + "");
-
-        for (OrganizationsEntity org : list) {
-            List<CurrenciesEntity> cur=org.getCurrencies();
-            Log.d(TAG, org.getId()+" "+org.getTitleUkr()+" "+org.getOrgType()+" "+org.getLink()+" "+org.getPhone()+" "+org.getDate());
-            for(CurrenciesEntity c : cur){
-                Log.d(TAG, c.getTitleUkr()+" "+c.getTitleRus()+" "+c.getTitleEng().toUpperCase()+" "+c.getAsk()+" "+c.getBid());
-            }
-            Log.d(TAG,"-------------------");
-        }
-    }
-    */
+    /**
+     * Gets data from db for list of OrganizationsFragment object, uses filter and search parameters for correct result
+     * @return List of OrganizationsEntities object
+     */
 
     public List<OrganizationsEntity> getDataForFragmentOrganization() {
         List<OrganizationsEntity> list;
@@ -458,6 +445,10 @@ public class DatabaseManager {
         return list;
     }
 
+    /**
+     * Checks db
+     * @return true - db is empty, false - db is full of data
+     */
     public boolean isEmptyDatabase() {
         List<OrganizationsEntity> list = mDaoSession.queryBuilder(OrganizationsEntity.class)
                 .orderAsc(OrganizationsEntityDao.Properties.TitleUkr)
@@ -471,14 +462,24 @@ public class DatabaseManager {
     }
 
 
+    /**
+     * Interface which containes final function for final step in loading data from Internet to db
+     */
     public interface FinalActionSuccess {
         public void finalFunctionSuccess();
     }
 
+    /**
+     * Interface which containes final function if loading data from Internet to db  finished with error
+     */
     public interface FinalActionFailure {
         public void finalFunctionFailure();
     }
 
+    /**
+     * Gets data about all titles of currencies from db
+     * @return List of RecycleViewDataAdapterDialogList objects
+     */
     public List<RecycleViewDataAdapterDialogList> getDataForListDialogCurrencies() {
         List<RecycleViewDataAdapterDialogList> list = new ArrayList<>();
         list.add(new RecycleViewDataAdapterDialogList(true,
@@ -498,6 +499,11 @@ public class DatabaseManager {
         return list;
     }
 
+    /**
+     * Gets data of some organization, uses id parameter for search
+     * @param id - organization id in db
+     * @return OrganizationsEntity object
+     */
     public OrganizationsEntity getOrganizationData(String id){
         return mDaoSession.queryBuilder(OrganizationsEntity.class)
                 .where(new WhereCondition

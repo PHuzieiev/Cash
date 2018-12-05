@@ -41,22 +41,47 @@ public class PreferenceManager {
         return mSharedPreferences.getString(key, defaultValue);
     }
 
+    /**
+     * Loads String value which is used to define App Language
+     *
+     * @return String object
+     */
     public String getLanguage() {
         return loadString(ConstantsManager.LANGUAGE_KEY, ConstantsManager.LANGUAGE_ENG);
     }
 
+    /**
+     * Loads String value which is used to define filter parameter for list in Organization Fragment
+     *
+     * @return String object
+     */
     public String getOrganizationsFilterParameter() {
         return loadString(ConstantsManager.ORGANIZATIONS_FILTER_PARAMETER, ConstantsManager.EMPTY_STRING_VALUE);
     }
 
+    /**
+     * Saves String value which is used to define filter parameter for list in Organization Fragment
+     *
+     * @param parameter String object which defines filter parameter
+     */
     public void setOrganizationsFilterParameter(String parameter) {
         saveString(ConstantsManager.ORGANIZATIONS_FILTER_PARAMETER, parameter);
     }
 
+    /**
+     * Loads String value which is used to define search parameter for list in Organization Fragment
+     *
+     * @return String object
+     */
     public String getOrganizationsSearchParameter() {
         return loadString(ConstantsManager.ORGANIZATIONS_SEARCH_PARAMETER, ConstantsManager.EMPTY_STRING_VALUE);
     }
 
+    /**
+     * Saves String value which is used to define search parameter for list in Organization Fragment
+     *
+     * @param parameter String object which defines filter parameter
+     */
     public void setOrganizationsSearchParameter(String parameter) {
         saveString(ConstantsManager.ORGANIZATIONS_SEARCH_PARAMETER, parameter);
     }

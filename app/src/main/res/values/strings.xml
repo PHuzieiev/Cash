@@ -4,8 +4,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="main_activity_title">Main activity</string>
-
     //Values in English
     <string name="nav_header_title_eng">Money Converter (Ukraine)</string>
     <string name="nav_header_subtitle_eng">"Last update: "</string>
@@ -86,6 +84,9 @@
     <string name="usd_eng">US Dollar</string>
     <string name="vnd_eng">Vietnamese Dong</string>
 
+    <string name="currencies_sale_eng">"Sale: "</string>
+    <string name="currencies_purchase_eng">"Purchase: "</string>
+
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -119,6 +120,8 @@
     <string name="dialog_list_filter_first_item_rus">Показывать все</string>
     <string name="menu_phone_item_title_rus"> Позвонить</string>
 
+    <string name="currencies_sale_rus">"Продажа: "</string>
+    <string name="currencies_purchase_rus">"Покупка: "</string>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -150,6 +153,9 @@
     <string name="dialog_list_filter_title_ukr">Фільтр</string>
     <string name="dialog_list_filter_first_item_ukr">Показувати все</string>
     <string name="menu_phone_item_title_ukr">Зателефонувати</string>
+
+    <string name="currencies_sale_ukr">"Продаж: "</string>
+    <string name="currencies_purchase_ukr">"Купівля: "</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

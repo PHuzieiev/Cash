@@ -8,6 +8,13 @@ public class RecycleViewDataAdapterDialogList {
     private String mTitleRus;
     private String mTitleEng;
 
+    /**
+     * Creates RecycleViewDataAdapterDialogList object which is used to put data in item of list in DialogList object
+     * @param isChecked - true - you checked item, false - you did not check item
+     * @param titleUkr - title of item in Ukraine
+     * @param titleRus - title of item in Russian
+     * @param titleEng - title of item in English
+     */
     public RecycleViewDataAdapterDialogList(boolean isChecked, String titleUkr, String titleRus, String titleEng) {
         mIsChecked = isChecked;
         mTitleUkr = titleUkr;
