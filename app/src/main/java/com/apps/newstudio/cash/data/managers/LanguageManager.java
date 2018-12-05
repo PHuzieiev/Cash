@@ -10,8 +10,7 @@ public abstract class LanguageManager {
 
 
     public LanguageManager() {
-        switch (DataManager.getInstance().getPreferenceManager()
-                .loadString(ConstantsManager.LANGUAGE_KEY,ConstantsManager.LANGUAGE_ENG)){
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
             case ConstantsManager.LANGUAGE_ENG:
                 engLanguage();
                 break;

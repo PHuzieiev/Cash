@@ -16,7 +16,7 @@
         android:id="@+id/nav_header_image_iv"
         android:layout_width="@dimen/size_60dp"
         android:layout_height="@dimen/size_60dp"
-        android:src="@color/white"
+        android:src="@drawable/ico"
         android:contentDescription="@string/nav_header_desc"
         android:layout_marginTop="@dimen/spacing_smaller_8dp"/>
 
@@ -26,12 +26,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/spacing_smaller_8dp"
         android:text="@string/nav_header_title_eng"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:fontFamily="sans-serif" />
 
     <TextView
         android:id="@+id/nav_header_subtitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nav_header_subtitle_eng" />
+        android:text="@string/nav_header_subtitle_eng"
+        android:fontFamily="sans-serif"/>
 
 </LinearLayout>

@@ -13,7 +13,7 @@
         android:id="@+id/splash_iv"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@color/white"
+        android:src="@drawable/ico"
         android:layout_centerInParent="true"/>
 
 

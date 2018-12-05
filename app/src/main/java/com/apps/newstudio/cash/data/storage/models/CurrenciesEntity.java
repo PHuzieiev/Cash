@@ -15,6 +15,8 @@ public class CurrenciesEntity {
     @NotNull
     private String organizationId;
 
+    private String shortTitle;
+
     private String titleUkr;
 
     private String titleRus;
@@ -35,12 +37,13 @@ public class CurrenciesEntity {
     @Generated(hash = 221884038)
     private transient CurrenciesEntityDao myDao;
 
-    @Generated(hash = 1443000961)
+    @Generated(hash = 1873813850)
     public CurrenciesEntity(String id, @NotNull String organizationId,
-            String titleUkr, String titleRus, String titleEng, String ask,
-            String bid, String date) {
+            String shortTitle, String titleUkr, String titleRus, String titleEng,
+            String ask, String bid, String date) {
         this.id = id;
         this.organizationId = organizationId;
+        this.shortTitle = shortTitle;
         this.titleUkr = titleUkr;
         this.titleRus = titleRus;
         this.titleEng = titleEng;
@@ -67,6 +70,14 @@ public class CurrenciesEntity {
 
     public void setOrganizationId(String organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String getShortTitle() {
+        return this.shortTitle;
+    }
+
+    public void setShortTitle(String shortTitle) {
+        this.shortTitle = shortTitle;
     }
 
     public String getTitleUkr() {
@@ -159,4 +170,7 @@ public class CurrenciesEntity {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getCurrenciesEntityDao() : null;
     }
+
+
+
 }

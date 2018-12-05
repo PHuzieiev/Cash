@@ -155,145 +155,145 @@ public class Currencies {
         List<CurrenciesEntity> result = new ArrayList<>();
 
         try {
-            result.add(new CurrenciesEntity("eUR"+organizationId, organizationId, "", "", "eUR", eUR.getAsk(), eUR.getBid(), date));
+            result.add(new CurrenciesEntity("eUR"+organizationId, organizationId, "eUR", "", "", "",eUR.getAsk(), eUR.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("rUB"+organizationId, organizationId, "", "", "rUB", rUB.getAsk(), rUB.getBid(), date));
+            result.add(new CurrenciesEntity("rUB"+organizationId, organizationId, "rUB", "", "", "",rUB.getAsk(), rUB.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("uSD"+organizationId, organizationId, "", "", "uSD", uSD.getAsk(), uSD.getBid(), date));
+            result.add(new CurrenciesEntity("uSD"+organizationId, organizationId, "uSD", "", "", "",uSD.getAsk(), uSD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("aED"+organizationId, organizationId, "", "", "aED", aED.getAsk(), aED.getBid(), date));
+            result.add(new CurrenciesEntity("aED"+organizationId, organizationId, "aED", "", "", "",aED.getAsk(), aED.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("aMD"+organizationId, organizationId, "", "", "aMD", aMD.getAsk(), aMD.getBid(), date));
+            result.add(new CurrenciesEntity("aMD"+organizationId, organizationId, "aMD", "", "", "",aMD.getAsk(), aMD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("aUD"+organizationId, organizationId, "", "", "aUD", aUD.getAsk(), aUD.getBid(), date));
+            result.add(new CurrenciesEntity("aUD"+organizationId, organizationId, "aUD", "", "", "",aUD.getAsk(), aUD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("aZN"+organizationId, organizationId, "", "", "aZN", aZN.getAsk(), aZN.getBid(), date));
+            result.add(new CurrenciesEntity("aZN"+organizationId, organizationId, "aZN", "", "", "",aZN.getAsk(), aZN.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("bGN"+organizationId, organizationId, "", "", "bGN", bGN.getAsk(), bGN.getBid(), date));
+            result.add(new CurrenciesEntity("bGN"+organizationId, organizationId, "bGN", "", "", "",bGN.getAsk(), bGN.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("bRL"+organizationId, organizationId, "", "", "bRL", bRL.getAsk(), bRL.getBid(), date));
+            result.add(new CurrenciesEntity("bRL"+organizationId, organizationId, "bRL", "", "", "",bRL.getAsk(), bRL.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("bYN"+organizationId, organizationId, "", "", "bYN", bYN.getAsk(), bYN.getBid(), date));
+            result.add(new CurrenciesEntity("bYN"+organizationId, organizationId, "bYN", "", "", "",bYN.getAsk(), bYN.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("cAD"+organizationId, organizationId, "", "", "cAD", cAD.getAsk(), cAD.getBid(), date));
+            result.add(new CurrenciesEntity("cAD"+organizationId, organizationId, "cAD", "", "", "",cAD.getAsk(), cAD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("cHF"+organizationId, organizationId, "", "", "cHF", cHF.getAsk(), cHF.getBid(), date));
+            result.add(new CurrenciesEntity("cHF"+organizationId, organizationId, "cHF", "", "", "",cHF.getAsk(), cHF.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("cLP"+organizationId, organizationId, "", "", "cLP", cLP.getAsk(), cLP.getBid(), date));
+            result.add(new CurrenciesEntity("cLP"+organizationId, organizationId, "cLP", "", "", "",cLP.getAsk(), cLP.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("cNY"+organizationId, organizationId, "", "", "cNY", cNY.getAsk(), cNY.getBid(), date));
+            result.add(new CurrenciesEntity("cNY"+organizationId, organizationId, "cNY", "", "", "",cNY.getAsk(), cNY.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("cZK"+organizationId, organizationId, "", "", "cZK", cZK.getAsk(), cZK.getBid(), date));
+            result.add(new CurrenciesEntity("cZK"+organizationId, organizationId, "cZK", "", "", "",cZK.getAsk(), cZK.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("dKK"+organizationId, organizationId, "", "", "dKK", dKK.getAsk(), dKK.getBid(), date));
+            result.add(new CurrenciesEntity("dKK"+organizationId, organizationId, "dKK", "", "", "",dKK.getAsk(), dKK.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("eGP"+organizationId, organizationId, "", "", "eGP", eGP.getAsk(), eGP.getBid(), date));
+            result.add(new CurrenciesEntity("eGP"+organizationId, organizationId, "eGP", "", "", "",eGP.getAsk(), eGP.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("gBP"+organizationId, organizationId, "", "", "gBP", gBP.getAsk(), gBP.getBid(), date));
+            result.add(new CurrenciesEntity("gBP"+organizationId, organizationId, "gBP", "", "", "",gBP.getAsk(), gBP.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("gEL"+organizationId, organizationId, "", "", "gEL", gEL.getAsk(), gEL.getBid(), date));
+            result.add(new CurrenciesEntity("gEL"+organizationId, organizationId, "gEL", "", "", "",gEL.getAsk(), gEL.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("hKD"+organizationId, organizationId, "", "", "hKD", hKD.getAsk(), hKD.getBid(), date));
+            result.add(new CurrenciesEntity("hKD"+organizationId, organizationId, "hKD", "", "", "",hKD.getAsk(), hKD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("hRK"+organizationId, organizationId, "", "", "hRK", hRK.getAsk(), hRK.getBid(), date));
+            result.add(new CurrenciesEntity("hRK"+organizationId, organizationId, "hRK", "", "", "",hRK.getAsk(), hRK.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("hUF"+organizationId, organizationId, "", "", "hUF", hUF.getAsk(), hUF.getBid(), date));
+            result.add(new CurrenciesEntity("hUF"+organizationId, organizationId, "hUF", "", "", "",hUF.getAsk(), hUF.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("iLS"+organizationId, organizationId, "", "", "iLS", iLS.getAsk(), iLS.getBid(), date));
+            result.add(new CurrenciesEntity("iLS"+organizationId, organizationId, "iLS", "", "", "",iLS.getAsk(), iLS.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("iNR"+organizationId, organizationId, "", "", "iNR", iNR.getAsk(), iNR.getBid(), date));
+            result.add(new CurrenciesEntity("iNR"+organizationId, organizationId, "iNR", "", "", "",iNR.getAsk(), iNR.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("jPY"+organizationId, organizationId, "", "", "jPY", jPY.getAsk(), jPY.getBid(), date));
+            result.add(new CurrenciesEntity("jPY"+organizationId, organizationId, "jPY", "", "", "",jPY.getAsk(), jPY.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("kRW"+organizationId, organizationId, "", "", "kRW", kRW.getAsk(), kRW.getBid(), date));
+            result.add(new CurrenciesEntity("kRW"+organizationId, organizationId, "kRW", "", "", "",kRW.getAsk(), kRW.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("kWD"+organizationId, organizationId, "", "", "kWD", kWD.getAsk(), kWD.getBid(), date));
+            result.add(new CurrenciesEntity("kWD"+organizationId, organizationId, "kWD", "", "", "",kWD.getAsk(), kWD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("kZT"+organizationId, organizationId, "", "", "kZT", kZT.getAsk(), kZT.getBid(), date));
+            result.add(new CurrenciesEntity("kZT"+organizationId, organizationId, "kZT", "", "", "",kZT.getAsk(), kZT.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("lBP"+organizationId, organizationId, "", "", "lBP", lBP.getAsk(), lBP.getBid(), date));
+            result.add(new CurrenciesEntity("lBP"+organizationId, organizationId, "lBP", "", "", "",lBP.getAsk(), lBP.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("mDL"+organizationId, organizationId, "", "", "mDL", mDL.getAsk(), mDL.getBid(), date));
+            result.add(new CurrenciesEntity("mDL"+organizationId, organizationId, "mDL", "", "", "",mDL.getAsk(), mDL.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("mXN"+organizationId, organizationId, "", "", "mXN", mXN.getAsk(), mXN.getBid(), date));
+            result.add(new CurrenciesEntity("mXN"+organizationId, organizationId, "mXN", "", "", "",mXN.getAsk(), mXN.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("nOK"+organizationId, organizationId, "", "", "nOK", nOK.getAsk(), nOK.getBid(), date));
+            result.add(new CurrenciesEntity("nOK"+organizationId, organizationId, "nOK", "", "", "",nOK.getAsk(), nOK.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("nZD"+organizationId, organizationId, "", "", "nZD", nZD.getAsk(), nZD.getBid(), date));
+            result.add(new CurrenciesEntity("nZD"+organizationId, organizationId, "nZD", "", "", "",nZD.getAsk(), nZD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("pLN"+organizationId, organizationId, "", "", "pLN", pLN.getAsk(), pLN.getBid(), date));
+            result.add(new CurrenciesEntity("pLN"+organizationId, organizationId, "pLN", "", "", "",pLN.getAsk(), pLN.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("rON"+organizationId, organizationId, "", "", "rON", rON.getAsk(), rON.getBid(), date));
+            result.add(new CurrenciesEntity("rON"+organizationId, organizationId, "rON", "", "", "",rON.getAsk(), rON.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("sAR"+organizationId, organizationId, "", "", "sAR", sAR.getAsk(), sAR.getBid(), date));
+            result.add(new CurrenciesEntity("sAR"+organizationId, organizationId, "sAR", "", "", "",sAR.getAsk(), sAR.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("sEK"+organizationId, organizationId, "", "", "sEK", sEK.getAsk(), sEK.getBid(), date));
+            result.add(new CurrenciesEntity("sEK"+organizationId, organizationId, "sEK", "", "", "",sEK.getAsk(), sEK.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("sGD"+organizationId, organizationId, "", "", "sGD", sGD.getAsk(), sGD.getBid(), date));
+            result.add(new CurrenciesEntity("sGD"+organizationId, organizationId, "sGD", "", "", "",sGD.getAsk(), sGD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("tHB"+organizationId, organizationId, "", "", "tHB", tHB.getAsk(), tHB.getBid(), date));
+            result.add(new CurrenciesEntity("tHB"+organizationId, organizationId, "tHB", "", "", "",tHB.getAsk(), tHB.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("tRY"+organizationId, organizationId, "", "", "tRY", tRY.getAsk(), tRY.getBid(), date));
+            result.add(new CurrenciesEntity("tRY"+organizationId, organizationId, "tRY", "", "", "",tRY.getAsk(), tRY.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("tWD"+organizationId, organizationId, "", "", "tWD", tWD.getAsk(), tWD.getBid(), date));
+            result.add(new CurrenciesEntity("tWD"+organizationId, organizationId, "tWD", "", "", "",tWD.getAsk(), tWD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("vND"+organizationId, organizationId, "", "", "vND", vND.getAsk(), vND.getBid(), date));
+            result.add(new CurrenciesEntity("vND"+organizationId, organizationId, "vND", "", "", "",vND.getAsk(), vND.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("dZD"+organizationId, organizationId, "", "", "dZD", dZD.getAsk(), dZD.getBid(), date));
+            result.add(new CurrenciesEntity("dZD"+organizationId, organizationId, "dZD", "", "", "",dZD.getAsk(), dZD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("iQD"+organizationId, organizationId, "", "", "iQD", iQD.getAsk(), iQD.getBid(), date));
+            result.add(new CurrenciesEntity("iQD"+organizationId, organizationId, "iQD", "", "", "",iQD.getAsk(), iQD.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("kGS"+organizationId, organizationId, "", "", "kGS", kGS.getAsk(), kGS.getBid(), date));
+            result.add(new CurrenciesEntity("kGS"+organizationId, organizationId, "kGS", "", "", "",kGS.getAsk(), kGS.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("pKR"+organizationId, organizationId, "", "", "pKR", pKR.getAsk(), pKR.getBid(), date));
+            result.add(new CurrenciesEntity("pKR"+organizationId, organizationId, "pKR", "", "", "",pKR.getAsk(), pKR.getBid(), date));
         } catch (Exception e) {/*Not find*/}     
         try {                                    
-            result.add(new CurrenciesEntity("tJS"+organizationId, organizationId, "", "", "tJS", tJS.getAsk(), tJS.getBid(), date));
+            result.add(new CurrenciesEntity("tJS"+organizationId, organizationId, "tJS", "", "", "",tJS.getAsk(), tJS.getBid(), date));
         } catch (Exception e) {/*Not find*/}
         return result;
     }

@@ -195,4 +195,6 @@ public class OrganizationsEntity {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getOrganizationsEntityDao() : null;
     }
+
+   
 }

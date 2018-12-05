@@ -1,9 +1,12 @@
 package com.apps.newstudio.cash.data.network;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofiteClient {
+public class RetrofitClient {
 
     private static final String URL = "http://resources.finance.ua";
 
@@ -16,8 +19,15 @@ public class RetrofiteClient {
         return new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
     }
+
+    public static OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .writeTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3, TimeUnit.SECONDS)
+            .build();
 
     /**
      * Gets RetrofitServiceUkr

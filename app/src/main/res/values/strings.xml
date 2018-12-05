@@ -4,12 +4,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
 
-
     <string name="main_activity_title">Main activity</string>
 
     //Values in English
     <string name="nav_header_title_eng">Money Converter (Ukraine)</string>
-    <string name="nav_header_subtitle_eng">"Last data update: "</string>
+    <string name="nav_header_subtitle_eng">"Last update: "</string>
 
     <string name="drawer_item_organizations_eng">Organizations</string>
     <string name="drawer_item_currencies_eng">Currencies</string>
@@ -19,12 +18,10 @@
     <string name="drawer_item_update_eng">Update data</string>
     <string name="drawer_item_language_eng">Language</string>
     <string name="drawer_item_about_eng">About app</string>
-
-    <string name="menu_item_search_title_eng">Search in list</string>
-    <string name="menu_item_search_hint_eng">Enter word</string>
-
+    <string name="menu_item_search_title_eng">Search</string>
+    <string name="menu_item_search_hint_eng">Enter title</string>
     <string name="dialog_info_title_warning_eng">Warning</string>
-    <string name="dialog_info_message_eng">Your Internet connection is disable. Moreover, you do not have any
+    <string name="dialog_info_message_eng">Your Internet connection is disable. Moreover, you do not have
         saved data in database to work with app without Internet.
         Please, check your Internet connection.</string>
     <string name="dialog_info_button_one_eng">Repeat</string>
@@ -33,10 +30,66 @@
         is disable or app can not get answer from server. Your data is not updated.
         Please, check your Internet connection.</string>
 
+    <string name="org_list_item_type_bank_eng">Bank</string>
+    <string name="org_list_item_type_other_eng">Exchange office</string>
+    <string name="org_list_item_button_eng">More information</string>
+    <string name="dialog_list_filter_title_eng">Filter</string>
+    <string name="dialog_list_filter_first_item_eng">Show everything</string>
+    <string name="menu_phone_item_title_eng"> Call</string>
+
+    <string name="aed_eng">UAE Dirham</string>
+    <string name="amd_eng">Armenian drama</string>
+    <string name="aud_eng">Australian Dollar</string>
+    <string name="azn_eng">Azerbaijani manat</string>
+    <string name="bgn_eng">Bulgarian Lev</string>
+    <string name="brl_eng">Brazilian Real</string>
+    <string name="byn_eng">Belarusian rubles</string>
+    <string name="cad_eng">Canadian Dollar</string>
+    <string name="chf_eng">Swiss Franc</string>
+    <string name="clp_eng">Chilean Peso</string>
+    <string name="cny_eng">Yuan Renminbi (China)</string>
+    <string name="czk_eng">Czech Koruna</string>
+    <string name="dkk_eng">Danish Krone</string>
+    <string name="dzd_eng">Algerian Dinar</string>
+    <string name="egp_eng">Egyptian Pound</string>
+    <string name="eur_eng">EURO</string>
+    <string name="gbp_eng">British Pound</string>
+    <string name="gel_eng">Georgian Gulf</string>
+    <string name="hkd_eng">Hong Kong Dollars</string>
+    <string name="hrk_eng">Croatian Kuna</string>
+    <string name="huf_eng">Hungarian forint</string>
+    <string name="ils_eng">Israeli shekel</string>
+    <string name="inr_eng">Indian rupee</string>
+    <string name="iqd_eng">Iraqi dinars</string>
+    <string name="jpy_eng">Japanese Yen</string>
+    <string name="kgs_eng">Kyrgyz soms</string>
+    <string name="krw_eng">South Korean Won</string>
+    <string name="kwd_eng">Kuwaiti Dinar</string>
+    <string name="kzt_eng">Kazakh tenge</string>
+    <string name="lbp_eng">Lebanese Pound</string>
+    <string name="mdl_eng">Moldovan Leu</string>
+    <string name="mxn_eng">Mexican Peso</string>
+    <string name="nok_eng">Norwegian Krone</string>
+    <string name="nzd_eng">New Zealand Dollar</string>
+    <string name="pkr_eng">Pakistani rupee</string>
+    <string name="pln_eng">Polish zloty</string>
+    <string name="ron_eng">Romanian New Leu</string>
+    <string name="rub_eng">Russian rubles</string>
+    <string name="sar_eng">Saudi Riyal</string>
+    <string name="sek_eng">Swedish krona</string>
+    <string name="sgd_eng">Singapore Dollar</string>
+    <string name="thb_eng">Thai baht</string>
+    <string name="tjs_eng">Tajik somoni</string>
+    <string name="tmt_eng">Turkmen New Manat</string>
+    <string name="try_eng">Turkish New Lira</string>
+    <string name="twd_eng">Taiwan Dollar</string>
+    <string name="usd_eng">US Dollar</string>
+    <string name="vnd_eng">Vietnamese Dong</string>
+
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
-    <string name="nav_header_subtitle_rus">"Последнее обновление данных: "</string>
+    <string name="nav_header_subtitle_rus">"Последнее обновление: "</string>
 
     <string name="drawer_item_organizations_rus">Организации</string>
     <string name="drawer_item_currencies_rus">Курс валют</string>
@@ -46,8 +99,8 @@
     <string name="drawer_item_update_rus">Обновить данные</string>
     <string name="drawer_item_language_rus">Язык</string>
     <string name="drawer_item_about_rus">О приложении</string>
-    <string name="menu_item_search_title_rus">Поиск в списке</string>
-    <string name="menu_item_search_hint_rus">Введите слово</string>
+    <string name="menu_item_search_title_rus">Поиск</string>
+    <string name="menu_item_search_hint_rus">Введите название</string>
 
     <string name="dialog_info_title_warning_rus">Предупреждение</string>
     <string name="dialog_info_message_rus">Ваше интернет-соединение отключено. Кроме того, у вас нет сохраненных
@@ -59,9 +112,17 @@
         или приложение не может получить ответа от сервера. Ваши данные не обновлены.
         Пожалуйста, проверьте подключение к интернету.</string>
 
+    <string name="org_list_item_type_bank_rus">Банк</string>
+    <string name="org_list_item_type_other_rus">Обменный пункт</string>
+    <string name="org_list_item_button_rus">Больше информации</string>
+    <string name="dialog_list_filter_title_rus">Фильтр</string>
+    <string name="dialog_list_filter_first_item_rus">Показывать все</string>
+    <string name="menu_phone_item_title_rus"> Позвонить</string>
+
+
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
-    <string name="nav_header_subtitle_ukr">"Останнє оновлення даних: "</string>
+    <string name="nav_header_subtitle_ukr">"Останнє оновлення: "</string>
 
     <string name="drawer_item_organizations_ukr">Організації</string>
     <string name="drawer_item_currencies_ukr">Курс валют</string>
@@ -71,8 +132,8 @@
     <string name="drawer_item_update_ukr">Оновити дані</string>
     <string name="drawer_item_language_ukr">Мова</string>
     <string name="drawer_item_about_ukr">Про додаток</string>
-    <string name="menu_item_search_title_ukr">Пошук в списку</string>
-    <string name="menu_item_search_hint_ukr">Введіть слово</string>
+    <string name="menu_item_search_title_ukr">Пошук</string>
+    <string name="menu_item_search_hint_ukr">Введіть назву</string>
 
     <string name="dialog_info_title_warning_ukr">Попередження</string>
     <string name="dialog_info_message_ukr">Відсутнє підключення до мережі інтернет. Крім того, у вас немає збережених
@@ -83,9 +144,17 @@
         Будь-ласка, перевірте підключення до інтернету.</string>
     <string name="dialog_info_button_one_ukr">Повторити</string>
     <string name="dialog_info_button_two_ukr">Вихід</string>
+    <string name="org_list_item_type_bank_ukr">Банк</string>
+    <string name="org_list_item_type_other_ukr">Обмінний пункт</string>
+    <string name="org_list_item_button_ukr">Більше інформації</string>
+    <string name="dialog_list_filter_title_ukr">Фільтр</string>
+    <string name="dialog_list_filter_first_item_ukr">Показувати все</string>
+    <string name="menu_phone_item_title_ukr">Зателефонувати</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_organization">OrganizationActivity</string>
 
 </resources>

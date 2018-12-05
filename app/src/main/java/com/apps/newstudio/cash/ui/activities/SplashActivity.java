@@ -31,7 +31,7 @@ public class SplashActivity extends BaseActivity {
     public ProgressBar mProgressBar;
 
     private DataManager mDataManager;
-    static final String TAG = ConstantsManager.TAG + "SplashActivity";
+    static final String TEG = ConstantsManager.TAG + "SplashActivity";
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
     private DatabaseManager.FinalActionSuccess mFinalActionSuccess;
     private DatabaseManager.FinalActionFailure mFinalActionFailure;
@@ -40,6 +40,7 @@ public class SplashActivity extends BaseActivity {
     /**
      * Changes main background, initialises FinalActionSuccess, FinalActionFailure objects,
      * starts in new threat updating of data, starts DialogInfoWithTwoButtons object
+     *
      * @param savedInstanceState
      */
     @Override
@@ -48,7 +49,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        int data[]=new int[]{getResources().getColor(R.color.color_primary),
+        int data[] = new int[]{getResources().getColor(R.color.color_primary),
                 getResources().getColor(R.color.color_primary),
                 getResources().getColor(R.color.color_primary),
                 getResources().getColor(R.color.color_primary_dark),
@@ -58,7 +59,7 @@ public class SplashActivity extends BaseActivity {
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 data);
         int sdk = android.os.Build.VERSION.SDK_INT;
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             findViewById(R.id.splash_rl).setBackgroundDrawable(gd);
         } else {
             findViewById(R.id.splash_rl).setBackground(gd);
@@ -119,7 +120,7 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 updateData();
             }
-        }, 2000);
+        }, 1000);
     }
 
     /**

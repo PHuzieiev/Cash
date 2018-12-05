@@ -1,9 +1,9 @@
 package com.apps.newstudio.cash.ui.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,18 +11,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.ui.fragments.AboutFragment;
+import com.apps.newstudio.cash.ui.fragments.ConverterFragment;
+import com.apps.newstudio.cash.ui.fragments.CurrenciesFragment;
+import com.apps.newstudio.cash.ui.fragments.OrganizationsFragment;
+import com.apps.newstudio.cash.ui.fragments.ResultsFragment;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,10 +39,11 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.nav_view)
     public NavigationView navigationView;
 
-    static final String TAG = ConstantsManager.TAG + "Main activity";
+    static final String TEG = ConstantsManager.TAG + "Main activity";
     private DataManager mDataManager;
 
     private String mStringUpdateTitle;
+    private int checkedItemId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,17 @@ public class MainActivity extends BaseActivity
         setLang();
         updateDate();
 
-        checkItemOfNavigationView(R.id.item_converter);
+        if (savedInstanceState != null) {
+            checkItemOfNavigationView(savedInstanceState.getInt(ConstantsManager.SAVED_FRAGMENT_ID));
+        } else {
+            checkItemOfNavigationView(R.id.item_converter);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ConstantsManager.SAVED_FRAGMENT_ID, checkedItemId);
     }
 
     @Override
@@ -72,29 +86,48 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        if(checkedItemId!=item.getItemId()&&item.getItemId()==R.id.item_organizations){
+            DataManager.getInstance().getPreferenceManager().setOrganizationsFilterParameter("");
+            DataManager.getInstance().getPreferenceManager().setOrganizationsSearchParameter("");
+        }
         checkItemOfNavigationView(item.getItemId());
         return true;
     }
 
     public void checkItemOfNavigationView(int id) {
-        if (id != R.id.item_update && id != R.id.item_language) {
-            toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
-            navigationView.setCheckedItem(id);
-        }
-        if (id == R.id.item_organizations) {
+        if (id != checkedItemId) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        } else if (id == R.id.item_currencies) {
 
-        } else if (id == R.id.item_converter) {
+            switch (id) {
+                case R.id.item_organizations:
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new OrganizationsFragment());
+                    break;
+                case R.id.item_currencies:
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new CurrenciesFragment());
+                    break;
+                case R.id.item_converter:
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new ConverterFragment());
+                    break;
+                case R.id.item_results:
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new ResultsFragment());
+                    break;
+                case R.id.item_update:
+                    break;
+                case R.id.item_language:
+                    break;
+                case R.id.item_about:
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new AboutFragment());
+                    break;
 
-        } else if (id == R.id.item_results) {
-
-        } else if (id == R.id.item_update) {
-
-        } else if (id == R.id.item_language) {
-
-        } else if (id == R.id.item_about) {
-
+            }
+            if (id != R.id.item_update && id != R.id.item_language) {
+                toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
+                navigationView.setCheckedItem(id);
+                checkedItemId = id;
+                fragmentTransaction.commit();
+            }
         }
         drawer.closeDrawer(GravityCompat.START);
     }
@@ -159,9 +192,13 @@ public class MainActivity extends BaseActivity
 
     public void updateDate() {
         String updateDate = mStringUpdateTitle + mDataManager.getPreferenceManager()
-                .loadString(ConstantsManager.LAST_UPDATE_DATE, ConstantsManager.EMPTY_STRING_VALUE).substring(0,9);
+                .loadString(ConstantsManager.LAST_UPDATE_DATE, ConstantsManager.EMPTY_STRING_VALUE).substring(0, 10);
         ((TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_subtitle_tv))
                 .setText(updateDate);
+    }
+
+    public Context getContext() {
+        return MainActivity.this;
     }
 
 

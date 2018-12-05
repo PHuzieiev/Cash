@@ -27,12 +27,13 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
     public static class Properties {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property OrganizationId = new Property(1, String.class, "organizationId", false, "ORGANIZATION_ID");
-        public final static Property TitleUkr = new Property(2, String.class, "titleUkr", false, "TITLE_UKR");
-        public final static Property TitleRus = new Property(3, String.class, "titleRus", false, "TITLE_RUS");
-        public final static Property TitleEng = new Property(4, String.class, "titleEng", false, "TITLE_ENG");
-        public final static Property Ask = new Property(5, String.class, "ask", false, "ASK");
-        public final static Property Bid = new Property(6, String.class, "bid", false, "BID");
-        public final static Property Date = new Property(7, String.class, "date", false, "DATE");
+        public final static Property ShortTitle = new Property(2, String.class, "shortTitle", false, "SHORT_TITLE");
+        public final static Property TitleUkr = new Property(3, String.class, "titleUkr", false, "TITLE_UKR");
+        public final static Property TitleRus = new Property(4, String.class, "titleRus", false, "TITLE_RUS");
+        public final static Property TitleEng = new Property(5, String.class, "titleEng", false, "TITLE_ENG");
+        public final static Property Ask = new Property(6, String.class, "ask", false, "ASK");
+        public final static Property Bid = new Property(7, String.class, "bid", false, "BID");
+        public final static Property Date = new Property(8, String.class, "date", false, "DATE");
     }
 
     private DaoSession daoSession;
@@ -54,12 +55,13 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"CURRENCIES\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"ORGANIZATION_ID\" TEXT NOT NULL ," + // 1: organizationId
-                "\"TITLE_UKR\" TEXT," + // 2: titleUkr
-                "\"TITLE_RUS\" TEXT," + // 3: titleRus
-                "\"TITLE_ENG\" TEXT," + // 4: titleEng
-                "\"ASK\" TEXT," + // 5: ask
-                "\"BID\" TEXT," + // 6: bid
-                "\"DATE\" TEXT);"); // 7: date
+                "\"SHORT_TITLE\" TEXT," + // 2: shortTitle
+                "\"TITLE_UKR\" TEXT," + // 3: titleUkr
+                "\"TITLE_RUS\" TEXT," + // 4: titleRus
+                "\"TITLE_ENG\" TEXT," + // 5: titleEng
+                "\"ASK\" TEXT," + // 6: ask
+                "\"BID\" TEXT," + // 7: bid
+                "\"DATE\" TEXT);"); // 8: date
     }
 
     /** Drops the underlying database table. */
@@ -78,34 +80,39 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
         }
         stmt.bindString(2, entity.getOrganizationId());
  
+        String shortTitle = entity.getShortTitle();
+        if (shortTitle != null) {
+            stmt.bindString(3, shortTitle);
+        }
+ 
         String titleUkr = entity.getTitleUkr();
         if (titleUkr != null) {
-            stmt.bindString(3, titleUkr);
+            stmt.bindString(4, titleUkr);
         }
  
         String titleRus = entity.getTitleRus();
         if (titleRus != null) {
-            stmt.bindString(4, titleRus);
+            stmt.bindString(5, titleRus);
         }
  
         String titleEng = entity.getTitleEng();
         if (titleEng != null) {
-            stmt.bindString(5, titleEng);
+            stmt.bindString(6, titleEng);
         }
  
         String ask = entity.getAsk();
         if (ask != null) {
-            stmt.bindString(6, ask);
+            stmt.bindString(7, ask);
         }
  
         String bid = entity.getBid();
         if (bid != null) {
-            stmt.bindString(7, bid);
+            stmt.bindString(8, bid);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(8, date);
+            stmt.bindString(9, date);
         }
     }
 
@@ -119,34 +126,39 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
         }
         stmt.bindString(2, entity.getOrganizationId());
  
+        String shortTitle = entity.getShortTitle();
+        if (shortTitle != null) {
+            stmt.bindString(3, shortTitle);
+        }
+ 
         String titleUkr = entity.getTitleUkr();
         if (titleUkr != null) {
-            stmt.bindString(3, titleUkr);
+            stmt.bindString(4, titleUkr);
         }
  
         String titleRus = entity.getTitleRus();
         if (titleRus != null) {
-            stmt.bindString(4, titleRus);
+            stmt.bindString(5, titleRus);
         }
  
         String titleEng = entity.getTitleEng();
         if (titleEng != null) {
-            stmt.bindString(5, titleEng);
+            stmt.bindString(6, titleEng);
         }
  
         String ask = entity.getAsk();
         if (ask != null) {
-            stmt.bindString(6, ask);
+            stmt.bindString(7, ask);
         }
  
         String bid = entity.getBid();
         if (bid != null) {
-            stmt.bindString(7, bid);
+            stmt.bindString(8, bid);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(8, date);
+            stmt.bindString(9, date);
         }
     }
 
@@ -166,12 +178,13 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
         CurrenciesEntity entity = new CurrenciesEntity( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
             cursor.getString(offset + 1), // organizationId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // titleUkr
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // titleRus
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // titleEng
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ask
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // bid
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // date
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // shortTitle
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // titleUkr
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // titleRus
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // titleEng
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // ask
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // bid
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // date
         );
         return entity;
     }
@@ -180,12 +193,13 @@ public class CurrenciesEntityDao extends AbstractDao<CurrenciesEntity, String> {
     public void readEntity(Cursor cursor, CurrenciesEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setOrganizationId(cursor.getString(offset + 1));
-        entity.setTitleUkr(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTitleRus(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setTitleEng(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setAsk(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setBid(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setDate(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setShortTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setTitleUkr(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTitleRus(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setTitleEng(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setAsk(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setBid(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setDate(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     @Override

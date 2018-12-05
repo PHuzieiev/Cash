@@ -7,8 +7,10 @@
     <color name="color_accent_tr">#7ddf8231</color>
 
 
-    <color name="grey_one">#7d3e3c3c</color>
+    <color name="grey_one">#af3e3c3c</color>
+    <color name="grey_two">#c83e3c3c</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_175">#afffffff</color>
     <color name="black">#000000</color>
     <color name="tr">#00ffffff</color>
 </resources>
