@@ -150,7 +150,7 @@ public class DatabaseManager {
                             if (currenciesTitles.containsKey(mCurrenciesEntities.get(i).getShortTitle())) {
                                 String title = currenciesTitles.get(mCurrenciesEntities.get(i).getShortTitle());
                                 mCurrenciesEntities.get(i).setTitleRus(title);
-                                switch (mCurrenciesEntities.get(i).getShortTitle()){
+                                switch (mCurrenciesEntities.get(i).getShortTitle()) {
                                     case "aED":
                                         mCurrenciesEntities.get(i)
                                                 .setTitleEng(CashApplication.getContext().getString(R.string.aed_eng));
@@ -387,6 +387,7 @@ public class DatabaseManager {
 
     /**
      * Gets data from db for list of OrganizationsFragment object, uses filter and search parameters for correct result
+     *
      * @return List of OrganizationsEntities object
      */
 
@@ -442,11 +443,15 @@ public class DatabaseManager {
             }
             list = list_tmp;
         }
+        for(int i=0;i<list.size();i++){
+            list.get(i).setCurrencies(getCurrenciresByOrgId(list.get(i).getId()));
+        }
         return list;
     }
 
     /**
      * Checks db
+     *
      * @return true - db is empty, false - db is full of data
      */
     public boolean isEmptyDatabase() {
@@ -478,6 +483,7 @@ public class DatabaseManager {
 
     /**
      * Gets data about all titles of currencies from db
+     *
      * @return List of RecycleViewDataAdapterDialogList objects
      */
     public List<RecycleViewDataAdapterDialogList> getDataForListDialogCurrencies() {
@@ -487,7 +493,20 @@ public class DatabaseManager {
                 CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_rus),
                 CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_eng)));
         HashMap<String, String> map = new HashMap<>();
+        Property property = null;
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                property = CurrenciesEntityDao.Properties.TitleEng;
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                property = CurrenciesEntityDao.Properties.TitleRus;
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                property = CurrenciesEntityDao.Properties.TitleUkr;
+                break;
+        }
         List<CurrenciesEntity> listCur = mDaoSession.queryBuilder(CurrenciesEntity.class)
+                .orderAsc(property)
                 .list();
         for (CurrenciesEntity c : listCur) {
             if (!map.containsKey(c.getTitleEng())) {
@@ -501,13 +520,41 @@ public class DatabaseManager {
 
     /**
      * Gets data of some organization, uses id parameter for search
+     *
      * @param id - organization id in db
      * @return OrganizationsEntity object
      */
-    public OrganizationsEntity getOrganizationData(String id){
+    public OrganizationsEntity getOrganizationData(String id) {
         return mDaoSession.queryBuilder(OrganizationsEntity.class)
                 .where(new WhereCondition
-                        .StringCondition("ID = \""+id+"\""))
+                        .StringCondition("ID = \"" + id + "\""))
                 .unique();
+    }
+
+    /**
+     * Gets data of some currencies, uses organization id for search
+     *
+     * @param orgId - organization id in db
+     * @return CurrenciesEntity List object
+     */
+    public List<CurrenciesEntity> getCurrenciresByOrgId(String orgId) {
+        Property property = null;
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                property = CurrenciesEntityDao.Properties.TitleEng;
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                property = CurrenciesEntityDao.Properties.TitleRus;
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                property = CurrenciesEntityDao.Properties.TitleUkr;
+                break;
+        }
+
+        return mDaoSession.queryBuilder(CurrenciesEntity.class)
+                .where(new WhereCondition
+                        .StringCondition("ORGANIZATION_ID = \"" + orgId + "\""))
+                .orderAsc(property)
+                .list();
     }
 }

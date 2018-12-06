@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -98,7 +99,6 @@ public class MainActivity extends BaseActivity
         if (id != checkedItemId) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
 
             switch (id) {
                 case R.id.item_organizations:
@@ -200,6 +200,5 @@ public class MainActivity extends BaseActivity
     public Context getContext() {
         return MainActivity.this;
     }
-
 
 }

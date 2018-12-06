@@ -12,6 +12,7 @@
     <dimen name="spacing_smaller_8dp">8dp</dimen>
     <dimen name="spacing_small_16dp">16dp</dimen>
     <dimen name="spacing_normal_24dp">24dp</dimen>
+    <dimen name="spacing_normal_20dp">20dp</dimen>
     <dimen name="spacing_medium_32dp">32dp</dimen>
     <dimen name="spacing_medium_36dp">36dp</dimen>
     <dimen name="spacing_medium_40dp">40dp</dimen>

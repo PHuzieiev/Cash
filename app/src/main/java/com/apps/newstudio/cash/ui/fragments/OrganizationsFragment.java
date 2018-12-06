@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -87,25 +88,25 @@ public class OrganizationsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        mMenuItemSearch = menu.findItem(R.id.search_in_list);
-        mSearchView = (SearchView) mMenuItemSearch.getActionView();
-
+        String queryHint = "";
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
             case ConstantsManager.LANGUAGE_ENG:
-                mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_eng));
-                mMenuItemSearch.setTitle(getString(R.string.menu_item_search_title_eng));
+                inflater.inflate(R.menu.menu_fragment_eng, menu);
+                queryHint=getString(R.string.menu_item_search_hint_eng);
                 break;
             case ConstantsManager.LANGUAGE_RUS:
-                mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_rus));
-                mMenuItemSearch.setTitle(getString(R.string.menu_item_search_title_rus));
+                inflater.inflate(R.menu.menu_fragment_rus, menu);
+                queryHint=getString(R.string.menu_item_search_hint_rus);
                 break;
             case ConstantsManager.LANGUAGE_UKR:
-                mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_ukr));
-                mMenuItemSearch.setTitle(getString(R.string.menu_item_search_title_ukr));
+                inflater.inflate(R.menu.menu_fragment_ukr, menu);
+                queryHint=getString(R.string.menu_item_search_hint_ukr);
                 break;
         }
 
+        mMenuItemSearch = menu.findItem(R.id.search_in_list);
+        mSearchView = (SearchView) mMenuItemSearch.getActionView();
+        mSearchView.setQueryHint(queryHint);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -136,6 +137,8 @@ public class OrganizationsFragment extends Fragment {
 
     }
 
+
+
     public void prepareDataForList() {
         mMainDataForList = mDatabaseManager.getDataForFragmentOrganization();
     }
@@ -164,6 +167,20 @@ public class OrganizationsFragment extends Fragment {
             public void action(int position) {
                 Intent intent = new Intent(((MainActivity) getActivity()).getContext(), OrganizationActivity.class);
                 intent.putExtra(ConstantsManager.ORGANIZATION_ID, mMainDataForList.get(position).getId());
+                switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
+                    case ConstantsManager.LANGUAGE_ENG:
+                        intent.putExtra(ConstantsManager.ORGANIZATION_TITLE, mMainDataForList.get(position).getTitleEng());
+                        break;
+                    case ConstantsManager.LANGUAGE_RUS:
+                        intent.putExtra(ConstantsManager.ORGANIZATION_TITLE, mMainDataForList.get(position).getTitleRus());
+                        break;
+                    case ConstantsManager.LANGUAGE_UKR:
+                        intent.putExtra(ConstantsManager.ORGANIZATION_TITLE, mMainDataForList.get(position).getTitleUkr());
+                        break;
+                }
+                intent.putExtra(ConstantsManager.ORGANIZATION_DATE, mMainDataForList.get(position).getDate());
+                intent.putExtra(ConstantsManager.ORGANIZATION_PHONE, mMainDataForList.get(position).getPhone());
+                intent.putExtra(ConstantsManager.ORGANIZATION_TYPE, mMainDataForList.get(position).getOrgType());
                 startActivityForResult(intent,ConstantsManager.ORGANIZATION_FRAGMENT_REQUEST_CODE);
             }
         });

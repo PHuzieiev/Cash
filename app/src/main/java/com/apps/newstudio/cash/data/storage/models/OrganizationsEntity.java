@@ -147,7 +147,17 @@ public class OrganizationsEntity {
         return currencies;
     }
 
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    public void setCurrencies(List<CurrenciesEntity> currencies) {
+        this.currencies = currencies;
+    }
+
+    public List<CurrenciesEntity> getCurrenciesTwo() {
+        return currencies;
+    }
+
+
+
+        /** Resets a to-many relationship, making the next get call to query for a fresh result. */
     @Generated(hash = 1567151309)
     public synchronized void resetCurrencies() {
         currencies = null;

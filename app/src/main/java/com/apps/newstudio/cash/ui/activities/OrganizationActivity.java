@@ -1,16 +1,15 @@
 package com.apps.newstudio.cash.ui.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
+import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
-import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
+import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
+import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,10 +47,14 @@ public class OrganizationActivity extends BaseActivity {
     @BindView(R.id.date_tv)
     public TextView dateTextView;
 
+    @BindView(R.id.list)
+    public RecyclerView mRecyclerView;
+
     static final String TEG = ConstantsManager.TAG + "Org Activity";
-    private String mOrganizationTitle;
+    private String mOrganizationTitle, mOrgType, mOrgPhone, mOrgDate;
     private String mTypeBank, mTypeOther;
-    private OrganizationsEntity mData = null;
+    private String mOrganizationId = ConstantsManager.EMPTY_STRING_VALUE;
+    private List<CurrenciesEntity> mData;
 
 
     @Override
@@ -56,12 +63,9 @@ public class OrganizationActivity extends BaseActivity {
         setContentView(R.layout.activity_organization);
         ButterKnife.bind(this);
         setupToolbar();
-        mData = DataManager.getInstance().getDatabaseManager()
-                .getOrganizationData(getIntent().getStringExtra(ConstantsManager.ORGANIZATION_ID));
         setLang();
         setData();
-
-
+        createList();
     }
 
     private void setupToolbar() {
@@ -90,7 +94,7 @@ public class OrganizationActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_phone, menu);
         MenuItem menuItemCall = menu.findItem(R.id.call);
-        switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
                 menuItemCall.setTitle(getString(R.string.menu_phone_item_title_eng));
                 break;
@@ -107,8 +111,8 @@ public class OrganizationActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.call) {
-            if (mData != null) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.getPhone()));
+            if (mOrgPhone == null) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mOrgPhone));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return false;
@@ -123,35 +127,37 @@ public class OrganizationActivity extends BaseActivity {
         new LanguageManager() {
             @Override
             public void engLanguage() {
-                dateTextView.setText(getString(R.string.nav_header_subtitle_eng) + mData.getDate().substring(0, 10));
+                mOrgDate = getString(R.string.nav_header_subtitle_eng);
                 getString(R.string.nav_header_subtitle_eng);
                 mTypeBank = getString(R.string.org_list_item_type_bank_eng);
                 mTypeOther = getString(R.string.org_list_item_type_other_eng);
-                mOrganizationTitle = mData.getTitleEng();
             }
 
             @Override
             public void ukrLanguage() {
-                dateTextView.setText(getString(R.string.nav_header_subtitle_ukr) + mData.getDate().substring(0, 10));
+                mOrgDate = getString(R.string.nav_header_subtitle_ukr);
                 getString(R.string.nav_header_subtitle_ukr);
                 mTypeBank = getString(R.string.org_list_item_type_bank_ukr);
                 mTypeOther = getString(R.string.org_list_item_type_other_ukr);
-                mOrganizationTitle = mData.getTitleUkr();
             }
 
             @Override
             public void rusLanguage() {
-                dateTextView.setText(getString(R.string.nav_header_subtitle_rus) + mData.getDate().substring(0, 10));
+                mOrgDate = getString(R.string.nav_header_subtitle_rus);
                 getString(R.string.nav_header_subtitle_rus);
                 mTypeBank = getString(R.string.org_list_item_type_bank_rus);
                 mTypeOther = getString(R.string.org_list_item_type_other_rus);
-                mOrganizationTitle = mData.getTitleRus();
             }
         };
     }
 
     public void setData() {
-        switch (mData.getOrgType()) {
+        mOrganizationId = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_ID);
+        mOrganizationTitle = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_TITLE);
+        mOrgPhone = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_PHONE);
+        mOrgType = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_TYPE);
+        mOrgDate = mOrgDate + getIntent().getStringExtra(ConstantsManager.ORGANIZATION_DATE).substring(0,10);
+        switch (mOrgType) {
             case "1":
                 typeTextView.setText(mTypeBank);
                 image.setImageResource(R.drawable.bank_org);
@@ -173,5 +179,24 @@ public class OrganizationActivity extends BaseActivity {
             mOrganizationTitle = mOrganizationTitle.substring(0, end);
         }
         titleEditText.setText(mOrganizationTitle);
+        dateTextView.setText(mOrgDate);
+    }
+
+    public void prepareDataForList() {
+        mData = DataManager.getInstance().getDatabaseManager().getCurrenciresByOrgId(mOrganizationId);
+    }
+
+    public void createList() {
+        prepareDataForList();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        RecycleViewAdapterOrganizationOrCurrency adapter=new RecycleViewAdapterOrganizationOrCurrency(mData,
+                new RecycleViewAdapterOrganizationOrCurrency.ActionForIcon() {
+            @Override
+            public void action(int position) {
+
+            }
+        }, RecycleViewAdapterOrganizationOrCurrency.TYPE_ONE);
+        mRecyclerView.setAdapter(adapter);
     }
 }

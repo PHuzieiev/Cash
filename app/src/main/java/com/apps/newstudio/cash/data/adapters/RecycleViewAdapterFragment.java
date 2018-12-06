@@ -72,26 +72,14 @@ public class RecycleViewAdapterFragment extends RecyclerView.Adapter<RecycleView
 
         String currency;
         String about = "";
-        String title;
+        String title = "";
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
                 title = organizations.get(position).getTitleEng();
-                if(title.contains("(")){
-                    int end=title.length()-1;
-                    m:for(int i=0;i<title.length();i++){
-                        if(title.charAt(i)=='('){
-                            end=i-1;
-                            break m;
-                        }
-                    }
-                    title=title.substring(0, end);
-                }
-                holder.title.setText(title);
-
-                for (int i = 0; i < organizations.get(position).getCurrencies().size(); i++) {
-                    currency = organizations.get(position).getCurrencies().get(i).getTitleEng().toUpperCase();
+                for (int i = 0; i < organizations.get(position).getCurrenciesTwo().size(); i++) {
+                    currency = organizations.get(position).getCurrenciesTwo().get(i).getTitleEng().toUpperCase();
                     about = about + currency;
-                    if (i == organizations.get(position).getCurrencies().size() - 1) {
+                    if (i == organizations.get(position).getCurrenciesTwo().size() - 1) {
                         about = about + ".";
                     } else {
                         about = about + ", ";
@@ -99,11 +87,11 @@ public class RecycleViewAdapterFragment extends RecyclerView.Adapter<RecycleView
                 }
                 break;
             case ConstantsManager.LANGUAGE_RUS:
-                holder.title.setText(organizations.get(position).getTitleRus());
-                for (int i = 0; i < organizations.get(position).getCurrencies().size(); i++) {
-                    currency = organizations.get(position).getCurrencies().get(i).getTitleRus().toUpperCase();
+                title = organizations.get(position).getTitleRus();
+                for (int i = 0; i < organizations.get(position).getCurrenciesTwo().size(); i++) {
+                    currency = organizations.get(position).getCurrenciesTwo().get(i).getTitleRus().toUpperCase();
                     about = about + currency;
-                    if (i == organizations.get(position).getCurrencies().size() - 1) {
+                    if (i == organizations.get(position).getCurrenciesTwo().size() - 1) {
                         about = about + ".";
                     } else {
                         about = about + ", ";
@@ -111,17 +99,29 @@ public class RecycleViewAdapterFragment extends RecyclerView.Adapter<RecycleView
                 }
                 break;
             case ConstantsManager.LANGUAGE_UKR:
-                holder.title.setText(organizations.get(position).getTitleUkr());
-                for (int i = 0; i < organizations.get(position).getCurrencies().size(); i++) {
-                    currency = organizations.get(position).getCurrencies().get(i).getTitleUkr().toUpperCase();
+                title = organizations.get(position).getTitleUkr();
+                for (int i = 0; i < organizations.get(position).getCurrenciesTwo().size(); i++) {
+                    currency = organizations.get(position).getCurrenciesTwo().get(i).getTitleUkr().toUpperCase();
                     about = about + currency;
-                    if (i != organizations.get(position).getCurrencies().size() - 1) {
+                    if (i != organizations.get(position).getCurrenciesTwo().size() - 1) {
                         about = about + ", ";
                     }
                 }
                 break;
 
         }
+
+        if(title.contains("(")){
+            int end=title.length()-1;
+            m:for(int i=0;i<title.length();i++){
+                if(title.charAt(i)=='('){
+                    end=i-1;
+                    break m;
+                }
+            }
+            title=title.substring(0, end);
+        }
+        holder.title.setText(title);
         holder.about.setText(about);
         holder.buttonShow.setText(lang.getButton());
         if (type == TYPE_ONE) {

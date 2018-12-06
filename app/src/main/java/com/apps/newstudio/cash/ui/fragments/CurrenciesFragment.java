@@ -1,7 +1,5 @@
 package com.apps.newstudio.cash.ui.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.SearchView;
@@ -39,7 +37,7 @@ public class CurrenciesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main,menu);
+        inflater.inflate(R.menu.menu_fragment_eng,menu);
         MenuItem menuItemSearch = menu.findItem(R.id.search_in_list);
         mSearchView = (SearchView) menuItemSearch.getActionView();
         new LanguageManager() {
