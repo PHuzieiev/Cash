@@ -1,5 +1,7 @@
 package com.apps.newstudio.cash.data.managers;
 
+import android.util.Log;
+
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecycleViewDataAdapterDialogList;
 import com.apps.newstudio.cash.data.network.RetrofitServiceRus;
@@ -444,7 +446,7 @@ public class DatabaseManager {
             list = list_tmp;
         }
         for(int i=0;i<list.size();i++){
-            list.get(i).setCurrencies(getCurrenciresByOrgId(list.get(i).getId()));
+            list.get(i).setCurrencies(getCurrenciesByOrgId(list.get(i).getId()));
         }
         return list;
     }
@@ -537,7 +539,7 @@ public class DatabaseManager {
      * @param orgId - organization id in db
      * @return CurrenciesEntity List object
      */
-    public List<CurrenciesEntity> getCurrenciresByOrgId(String orgId) {
+    public List<CurrenciesEntity> getCurrenciesByOrgId(String orgId) {
         Property property = null;
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
@@ -556,5 +558,42 @@ public class DatabaseManager {
                         .StringCondition("ORGANIZATION_ID = \"" + orgId + "\""))
                 .orderAsc(property)
                 .list();
+    }
+
+    /**
+     * Gets data of some Organizations from db, uses short form of currency title
+     * @param short_title - short form of currency title
+     * @return OrganizationsEntity List object
+     */
+    public List<OrganizationsEntity> getOrganizationsByCurrency(String short_title){
+        Property property = null;
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                property = OrganizationsEntityDao.Properties.TitleEng;
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                property = OrganizationsEntityDao.Properties.TitleRus;
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                property = OrganizationsEntityDao.Properties.TitleUkr;
+                break;
+        }
+        List<OrganizationsEntity> result=mDaoSession.queryBuilder(OrganizationsEntity.class)
+                .where(new WhereCondition
+                        .StringCondition("ID IN (SELECT ORGANIZATION_ID FROM CURRENCIES WHERE SHORT_TITLE=\"" + short_title + "\")"))
+                .orderAsc(property)
+                .list();
+
+        for(int i=0;i<result.size();i++){
+            List<CurrenciesEntity> list=new ArrayList<>();
+            m:for(int j=0;j<result.get(i).getCurrencies().size();j++){
+                if(result.get(i).getCurrencies().get(j).getShortTitle().equals(short_title)){
+                    list.add(result.get(i).getCurrencies().get(j));
+                    break m;
+                }
+            }
+            result.get(i).setCurrencies(list);
+        }
+        return result;
     }
 }

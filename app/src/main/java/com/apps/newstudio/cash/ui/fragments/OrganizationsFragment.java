@@ -132,9 +132,6 @@ public class OrganizationsFragment extends Fragment {
             mSearchView.setQuery(DataManager.getInstance().getPreferenceManager().getOrganizationsSearchParameter(),false);
             mSearchView.setIconified(false);
         }
-
-        super.onCreateOptionsMenu(menu, inflater);
-
     }
 
 

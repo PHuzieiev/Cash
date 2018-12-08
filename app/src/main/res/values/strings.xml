@@ -86,6 +86,8 @@
 
     <string name="currencies_sale_eng">"Sale: "</string>
     <string name="currencies_purchase_eng">"Purchase: "</string>
+    <string name="menu_order_item_title_eng">Order by</string>
+    <string name="currency_activity_count_eng">"Count of organizations: "</string>
 
 
     //Values in Russian
@@ -122,6 +124,9 @@
 
     <string name="currencies_sale_rus">"Продажа: "</string>
     <string name="currencies_purchase_rus">"Покупка: "</string>
+    <string name="menu_order_item_title_rus">Сортировка</string>
+    <string name="currency_activity_count_rus">"Количестно организаций: </string>
+
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -156,6 +161,9 @@
 
     <string name="currencies_sale_ukr">"Продаж: "</string>
     <string name="currencies_purchase_ukr">"Купівля: "</string>
+    <string name="menu_order_item_title_ukr">Сортування</string>
+    <string name="currency_activity_count_ukr">"Кількість організацій: </string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

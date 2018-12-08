@@ -4,6 +4,10 @@
     <dimen name="text_size_small_14sp">14sp</dimen>
     <dimen name="text_size_normal_18sp">18sp</dimen>
     <dimen name="text_size_normal_24sp">24sp</dimen>
+    <dimen name="text_size_big_36sp">36sp</dimen>
+    <dimen name="text_size_big_42sp">42sp</dimen>
+    <dimen name="text_size_big_46sp">46sp</dimen>
+    <dimen name="text_size_big_48sp">48sp</dimen>
 
 
     <dimen name="spacing_start_1dp">1dp</dimen>

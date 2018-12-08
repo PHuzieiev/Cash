@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
+import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
@@ -27,15 +29,28 @@ public class RecycleViewAdapterOrganizationOrCurrency
         extends RecyclerView.Adapter<RecycleViewAdapterOrganizationOrCurrency.ViewHolder> {
 
     private List<CurrenciesEntity> mData;
+    private List<OrganizationsEntity> mDataTwo;
+
     private ActionForIcon mActionForIcon;
+    private ActionForIconTwo mActionForIconTwo;
+
     public final static int TYPE_ONE = 1;
     public final static int TYPE_TWO = 2;
     private int mTypeOfList;
 
-    public RecycleViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon, int typeOfList) {
+    public RecycleViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon) {
         mData = data;
         mActionForIcon = actionForIcon;
-        mTypeOfList = typeOfList;
+        mActionForIconTwo = null;
+        mTypeOfList = TYPE_ONE;
+    }
+
+    public RecycleViewAdapterOrganizationOrCurrency(List<OrganizationsEntity> data, ActionForIcon actionForIcon,
+                                                    ActionForIconTwo actionForIconTwo) {
+        mDataTwo = data;
+        mActionForIcon = actionForIcon;
+        mActionForIconTwo = actionForIconTwo;
+        mTypeOfList = TYPE_TWO;
     }
 
     @NonNull
@@ -47,11 +62,12 @@ public class RecycleViewAdapterOrganizationOrCurrency
                 layoutId = R.layout.item_currencies_list;
                 break;
             case 2:
+                layoutId = R.layout.item_organizations_list;
                 break;
         }
 
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        return new RecycleViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon);
+        return new RecycleViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon, mActionForIconTwo);
     }
 
     @Override
@@ -61,6 +77,7 @@ public class RecycleViewAdapterOrganizationOrCurrency
                 bindTypeOne(holder, mData.get(position), position);
                 break;
             case RecycleViewAdapterOrganizationOrCurrency.TYPE_TWO:
+                bindTypeTwo(holder, mDataTwo.get(position), position);
                 break;
         }
     }
@@ -114,57 +131,124 @@ public class RecycleViewAdapterOrganizationOrCurrency
         return spannableStringBuilder;
     }
 
+    public void bindTypeTwo(RecycleViewAdapterOrganizationOrCurrency.ViewHolder holder, OrganizationsEntity data, int position) {
+        String saleTitle = "";
+        String purchaseTitle = "";
+        String title = "";
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_eng);
+                purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_eng);
+                title = data.getTitleEng();
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_rus);
+                purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_rus);
+                title = data.getTitleRus();
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_ukr);
+                purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_ukr);
+                title = data.getTitleUkr();
+                break;
+        }
+        holder.title.setText(title);
+        holder.sale.setText(getInfoString(saleTitle, data.getCurrenciesTwo().get(0).getAsk()));
+        holder.purchase.setText(getInfoString(purchaseTitle, data.getCurrenciesTwo().get(0).getBid()));
+        holder.date.setText(data.getCurrenciesTwo().get(0).getDate().substring(0,10));
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) holder.itemLayout.getLayoutParams();
+        if (position == getItemCount() - 1) {
+            layoutParams.bottomMargin = CashApplication.getContext().getResources()
+                    .getDimensionPixelSize(R.dimen.spacing_big_88dp);
+            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.tr));
+        } else {
+            layoutParams.bottomMargin = 0;
+            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.grey_one));
+        }
+        holder.itemLayout.setLayoutParams(layoutParams);
+    }
+
+
     @Override
     public int getItemCount() {
-        return mData.size();
+        int result=0;
+        switch (mTypeOfList) {
+            case RecycleViewAdapterOrganizationOrCurrency.TYPE_ONE:
+                result =  mData.size();
+                break;
+            case RecycleViewAdapterOrganizationOrCurrency.TYPE_TWO:
+                result =  mDataTwo.size();
+                break;
+        }
+        return result;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.item_cur_ll)
+        @BindView(R.id.item_ll)
         public LinearLayout itemLayout;
-
-        @BindView(R.id.item_cur_short_tv)
-        public TextView shortTitle;
-
-        @BindView(R.id.item_cur_title_tv)
+        
+        @BindView(R.id.item_title_tv)
         public TextView title;
 
-        @BindView(R.id.item_cur_purchase_tv)
+        @BindView(R.id.item_purchase_tv)
         public TextView purchase;
 
-        @BindView(R.id.item_cur_sale_tv)
+        @BindView(R.id.item_sale_tv)
         public TextView sale;
 
-        @BindView(R.id.item_cur_show_details)
+        @BindView(R.id.item_show_details)
         public ImageView details;
 
-        @BindView(R.id.item_cur_v)
+        @BindView(R.id.item_v)
         public View line;
 
-        @BindView(R.id.item_cur_date_tv)
+        @BindView(R.id.item_date_tv)
         public  TextView date;
 
-        private ActionForIcon mActionForIcon;
+        public ImageView call;
 
-        public ViewHolder(View itemView, RecycleViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon) {
+        public  TextView shortTitle;
+
+        private ActionForIcon mActionForIcon;
+        private ActionForIconTwo mActionForIconTwo;
+        
+
+
+        public ViewHolder(View itemView, RecycleViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon, 
+                          ActionForIconTwo actionForIconTwo) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mActionForIcon = actionForIcon;
+            mActionForIconTwo = actionForIconTwo;
             details.setOnClickListener(this);
+            if(actionForIconTwo==null){
+                shortTitle = itemView.findViewById(R.id.item_short_tv);
+            }else{
+                call = itemView.findViewById(R.id.item_call_iv);
+                call.setOnClickListener(this);
+                
+            }
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.item_cur_show_details:
+                case R.id.item_show_details:
                     mActionForIcon.action(getAdapterPosition());
+                    break;
+                case R.id.item_call_iv:
+                    mActionForIconTwo.action(getAdapterPosition());
                     break;
             }
         }
     }
 
     public interface ActionForIcon {
+        void action(int position);
+    }
+
+    public interface ActionForIconTwo {
         void action(int position);
     }
 }

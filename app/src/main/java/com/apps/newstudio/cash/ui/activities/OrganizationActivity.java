@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,11 +112,11 @@ public class OrganizationActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.call) {
-            if (mOrgPhone == null) {
+            if (mOrgPhone != null) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mOrgPhone));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
+                if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return true;
                 }
                 startActivity(intent);
             }
@@ -183,7 +184,7 @@ public class OrganizationActivity extends BaseActivity {
     }
 
     public void prepareDataForList() {
-        mData = DataManager.getInstance().getDatabaseManager().getCurrenciresByOrgId(mOrganizationId);
+        mData = DataManager.getInstance().getDatabaseManager().getCurrenciesByOrgId(mOrganizationId);
     }
 
     public void createList() {
@@ -194,9 +195,22 @@ public class OrganizationActivity extends BaseActivity {
                 new RecycleViewAdapterOrganizationOrCurrency.ActionForIcon() {
             @Override
             public void action(int position) {
-
+                Intent intent = new Intent(OrganizationActivity.this,CurrencyActivity.class);
+                intent.putExtra(ConstantsManager.CURRENCY_SHORT_FORM, mData.get(position).getShortTitle());
+                switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+                    case ConstantsManager.LANGUAGE_ENG:
+                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleEng());
+                        break;
+                    case ConstantsManager.LANGUAGE_RUS:
+                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleRus());
+                        break;
+                    case ConstantsManager.LANGUAGE_UKR:
+                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleUkr());
+                        break;
+                }
+                startActivityForResult(intent,ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
             }
-        }, RecycleViewAdapterOrganizationOrCurrency.TYPE_ONE);
+        });
         mRecyclerView.setAdapter(adapter);
     }
 }
