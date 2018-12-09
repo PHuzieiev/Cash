@@ -1,6 +1,6 @@
 package com.apps.newstudio.cash.data.adapters;
 
-public class RecycleViewLangFragment {
+public class RecyclerViewLangFragment {
 
     private String typeBank;
     private String update;
@@ -8,13 +8,13 @@ public class RecycleViewLangFragment {
     private String button;
 
     /**
-     * Creates RecycleViewLangFragment object which is used to put data in list of Organizations Fragment
+     * Creates RecyclerViewLangFragment object which is used to put data in list of Organizations Fragment
      * @param typeBank String value - type of organization
      * @param update String value
      * @param typeOther String value - type of organization
      * @param button String value - title for button in item of list
      */
-    public RecycleViewLangFragment(String typeBank, String update, String typeOther, String button) {
+    public RecyclerViewLangFragment(String typeBank, String update, String typeOther, String button) {
         this.typeBank = typeBank;
         this.typeOther = typeOther;
         this.button = button;

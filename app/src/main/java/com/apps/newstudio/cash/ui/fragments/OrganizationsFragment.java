@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterDialogList;
-import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterFragment;
-import com.apps.newstudio.cash.data.adapters.RecycleViewDataAdapterDialogList;
-import com.apps.newstudio.cash.data.adapters.RecycleViewLangFragment;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterFragment;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewLangFragment;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
@@ -45,10 +44,10 @@ public class OrganizationsFragment extends Fragment {
     static final String TEG = ConstantsManager.TAG + "Org Fragment";
     private String mTitleOfDialogFilter;
 
-    private RecycleViewLangFragment mRecycleViewLang;
+    private RecyclerViewLangFragment mRecycleViewLang;
     private List<OrganizationsEntity> mMainDataForList;
-    private List<RecycleViewDataAdapterDialogList> mDataForDialogList;
-    private RecycleViewAdapterFragment mRecycleViewAdapter;
+    private List<RecyclerViewDataDialogList> mDataForDialogList;
+    private RecyclerViewAdapterFragment mRecycleViewAdapter;
 
     private SearchView mSearchView = null;
     private Unbinder mUnbinder;
@@ -145,9 +144,9 @@ public class OrganizationsFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecycleViewAdapter = new RecycleViewAdapterFragment(mMainDataForList,
-                mRecycleViewLang, RecycleViewAdapterFragment.TYPE_ONE,
-                new RecycleViewAdapterFragment.ActionForIcon() {
+        mRecycleViewAdapter = new RecyclerViewAdapterFragment(mMainDataForList,
+                mRecycleViewLang,
+                new RecyclerViewAdapterFragment.ActionForIcon() {
                     @Override
                     public void action(int position) {
                         try {
@@ -159,7 +158,7 @@ public class OrganizationsFragment extends Fragment {
                         }
                     }
                 },
-                new RecycleViewAdapterFragment.ActionForItem() {
+                new RecyclerViewAdapterFragment.ActionForItem() {
             @Override
             public void action(int position) {
                 Intent intent = new Intent(((MainActivity) getActivity()).getContext(), OrganizationActivity.class);
@@ -195,7 +194,7 @@ public class OrganizationsFragment extends Fragment {
         new LanguageManager() {
             @Override
             public void engLanguage() {
-                mRecycleViewLang = new RecycleViewLangFragment(getString(R.string.org_list_item_type_bank_eng),
+                mRecycleViewLang = new RecyclerViewLangFragment(getString(R.string.org_list_item_type_bank_eng),
                         getString(R.string.nav_header_subtitle_eng),
                         getString(R.string.org_list_item_type_other_eng),
                         getString(R.string.org_list_item_button_eng));
@@ -209,7 +208,7 @@ public class OrganizationsFragment extends Fragment {
 
             @Override
             public void ukrLanguage() {
-                mRecycleViewLang = new RecycleViewLangFragment(getString(R.string.org_list_item_type_bank_ukr),
+                mRecycleViewLang = new RecyclerViewLangFragment(getString(R.string.org_list_item_type_bank_ukr),
                         getString(R.string.nav_header_subtitle_ukr),
                         getString(R.string.org_list_item_type_other_ukr),
                         getString(R.string.org_list_item_button_ukr));
@@ -223,7 +222,7 @@ public class OrganizationsFragment extends Fragment {
 
             @Override
             public void rusLanguage() {
-                mRecycleViewLang = new RecycleViewLangFragment(getString(R.string.org_list_item_type_bank_rus),
+                mRecycleViewLang = new RecyclerViewLangFragment(getString(R.string.org_list_item_type_bank_rus),
                         getString(R.string.nav_header_subtitle_rus),
                         getString(R.string.org_list_item_type_other_rus),
                         getString(R.string.org_list_item_button_rus));
@@ -241,7 +240,7 @@ public class OrganizationsFragment extends Fragment {
     public void getFilter() {
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),
                 mTitleOfDialogFilter, mDataForDialogList,
-                new RecycleViewAdapterDialogList.OnItemClickListener() {
+                new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
                         if (position != 0) {
@@ -309,7 +308,7 @@ public class OrganizationsFragment extends Fragment {
         if (mDataForDialogList.get(0).isChecked()) {
             return "";
         } else {
-            for (RecycleViewDataAdapterDialogList data : mDataForDialogList) {
+            for (RecyclerViewDataDialogList data : mDataForDialogList) {
                 if (data.isChecked()) {
                     result = result + "\"" + data.getTitleEng() + "\", ";
                 }

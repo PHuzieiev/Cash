@@ -33,8 +33,7 @@
 
                 <EditText
                     android:id="@+id/item_title_tv"
-                    style="@style/item_title_tv"
-                    android:inputType="textVisiblePassword"/>
+                    style="@style/item_title_tv"/>
 
                 <TextView
                     android:id="@+id/item_date_tv"

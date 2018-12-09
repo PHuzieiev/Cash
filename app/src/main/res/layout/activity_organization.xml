@@ -34,7 +34,7 @@
             android:id="@+id/main_iv"
             style="@style/main_iv" />
 
-        <LinearLayout style="@style/item_title_ll">
+        <LinearLayout style="@style/title_ll">
 
             <TextView
                 android:id="@+id/type_tv"
@@ -43,8 +43,7 @@
 
             <EditText
                 android:id="@+id/title_tv"
-                style="@style/item_title_tv"
-                android:inputType="textVisiblePassword" />
+                style="@style/item_title_tv"/>
 
             <TextView
                 android:id="@+id/date_tv"

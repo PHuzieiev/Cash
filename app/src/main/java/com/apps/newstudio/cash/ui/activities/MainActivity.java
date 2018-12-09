@@ -91,6 +91,11 @@ public class MainActivity extends BaseActivity
             DataManager.getInstance().getPreferenceManager().setOrganizationsFilterParameter("");
             DataManager.getInstance().getPreferenceManager().setOrganizationsSearchParameter("");
         }
+
+        if(checkedItemId!=item.getItemId()&&item.getItemId()==R.id.item_currencies){
+            DataManager.getInstance().getPreferenceManager().setCurrenciesFilterParameter("");
+            DataManager.getInstance().getPreferenceManager().setCurrenciesSearchParameter("");
+        }
         checkItemOfNavigationView(item.getItemId());
         return true;
     }

@@ -88,7 +88,11 @@
     <string name="currencies_purchase_eng">"Purchase: "</string>
     <string name="menu_order_item_title_eng">Order by</string>
     <string name="currency_activity_count_eng">"Count of organizations: "</string>
-
+    <string-array name="currencies_order_by_options_eng">
+        <item>Title</item>
+        <item>Purchase</item>
+        <item>Sale</item>
+    </string-array>
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -126,7 +130,11 @@
     <string name="currencies_purchase_rus">"Покупка: "</string>
     <string name="menu_order_item_title_rus">Сортировка</string>
     <string name="currency_activity_count_rus">"Количестно организаций: </string>
-
+    <string-array name="currencies_order_by_options_rus">
+        <item>По названию</item>
+        <item>Покупка</item>
+        <item>Продажа</item>
+    </string-array>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -164,7 +172,11 @@
     <string name="menu_order_item_title_ukr">Сортування</string>
     <string name="currency_activity_count_ukr">"Кількість організацій: </string>
 
-
+    <string-array name="currencies_order_by_options_ukr">
+        <item>По назві</item>
+        <item>Купівля</item>
+        <item>Продаж</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

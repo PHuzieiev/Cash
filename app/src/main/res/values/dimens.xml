@@ -22,6 +22,7 @@
     <dimen name="spacing_medium_40dp">40dp</dimen>
     <dimen name="spacing_big_64dp">64dp</dimen>
     <dimen name="spacing_big_72dp">72dp</dimen>
+    <dimen name="spacing_big_86dp">86dp</dimen>
     <dimen name="spacing_big_88dp">88dp</dimen>
 
 

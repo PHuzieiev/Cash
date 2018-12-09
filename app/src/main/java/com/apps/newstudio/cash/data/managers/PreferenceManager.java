@@ -85,4 +85,58 @@ public class PreferenceManager {
     public void setOrganizationsSearchParameter(String parameter) {
         saveString(ConstantsManager.ORGANIZATIONS_SEARCH_PARAMETER, parameter);
     }
+
+    /**
+     * Saves String value which is used to define sort parameter for list in Currency Activity
+     *
+     * @param parameter String object which defines sort parameter
+     */
+    public void setCurrenciesSortParameter(String parameter){
+        saveString(ConstantsManager.CURRENCY_SORT_PARAMETER, parameter);
+    }
+
+    /**
+     * Loads String value which is used to define sort parameter for list in Currency Activity
+     *
+     * @return String object
+     */
+    public String getCurrenciesSortParameter(){
+        return loadString(ConstantsManager.CURRENCY_SORT_PARAMETER, ConstantsManager.CURRENCY_SORT_PARAMETER_TITLE);
+    }
+
+    /**
+     * Loads String value which is used to define filter parameter for list in Currencies Fragment
+     *
+     * @return String object
+     */
+    public String getCurrenciesFilterParameter() {
+        return loadString(ConstantsManager.CURRENCIES_FILTER_PARAMETER, ConstantsManager.EMPTY_STRING_VALUE);
+    }
+
+    /**
+     * Saves String value which is used to define filter parameter for list in Currencies Fragment
+     *
+     * @param parameter String object which defines filter parameter
+     */
+    public void setCurrenciesFilterParameter(String parameter) {
+        saveString(ConstantsManager.CURRENCIES_FILTER_PARAMETER, parameter);
+    }
+
+    /**
+     * Loads String value which is used to define search parameter for list in Currencies Fragment
+     *
+     * @return String object
+     */
+    public String getCurrenciesSearchParameter() {
+        return loadString(ConstantsManager.CURRENCIES_SEARCH_PARAMETER, ConstantsManager.EMPTY_STRING_VALUE);
+    }
+
+    /**
+     * Saves String value which is used to define search parameter for list in Currencies Fragment
+     *
+     * @param parameter String object which defines filter parameter
+     */
+    public void setCurrenciesSearchParameter(String parameter) {
+        saveString(ConstantsManager.CURRENCIES_SEARCH_PARAMETER, parameter);
+    }
 }

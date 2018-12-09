@@ -1,6 +1,7 @@
 package com.apps.newstudio.cash.ui.activities;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,13 +20,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterOrganizationOrCurrency;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterOrganizationOrCurrency;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
-import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
+import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,8 +54,13 @@ public class CurrencyActivity extends AppCompatActivity {
     public RecyclerView mRecyclerView;
 
     static final String TEG = ConstantsManager.TAG + "Cur Activity";
-    private String mShortTitle;
-    private List<OrganizationsEntity> mData;
+    private String mShortTitle, mSecondTitle;
+    private String mTitleOfDialogFilter;
+    private String[] mItemsDialogSort;
+    private List<RecyclerViewDataOrganizationOrCurrency> mData;
+    private List<RecyclerViewDataDialogList> mDataForDialogList;
+    private DialogList mDialogSort;
+    private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +70,7 @@ public class CurrencyActivity extends AppCompatActivity {
         mShortTitle = getIntent().getStringExtra(ConstantsManager.CURRENCY_SHORT_FORM);
         setupToolbar();
         setLang();
+        getDataForDialogSort();
         setData();
         createList();
     }
@@ -108,7 +119,7 @@ public class CurrencyActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.order) {
-
+            createDialogSort();
         }
         return true;
     }
@@ -117,45 +128,93 @@ public class CurrencyActivity extends AppCompatActivity {
         new LanguageManager() {
             @Override
             public void engLanguage() {
-                countTextView.setText(getString(R.string.currency_activity_count_eng));
+                mSecondTitle = getString(R.string.currency_activity_count_eng);
+                mTitleOfDialogFilter = getString(R.string.menu_order_item_title_eng);
+                mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_eng);
             }
 
             @Override
             public void ukrLanguage() {
-                countTextView.setText(getString(R.string.currency_activity_count_ukr));
+                mSecondTitle = getString(R.string.currency_activity_count_ukr);
+                mTitleOfDialogFilter = getString(R.string.menu_order_item_title_ukr);
+                mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_ukr);
             }
 
             @Override
             public void rusLanguage() {
-                countTextView.setText(getString(R.string.currency_activity_count_rus));
+                mSecondTitle = getString(R.string.currency_activity_count_rus);
+                mTitleOfDialogFilter = getString(R.string.menu_order_item_title_rus);
+                mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_rus);
             }
         };
     }
 
     public void setData() {
         shortForm.setText(mShortTitle.toUpperCase());
-        titleEditText.setText(getIntent().getStringExtra(ConstantsManager.CURRENCY_TITLE));
+        titleEditText.setText(getIntent().getStringExtra(ConstantsManager.CURRENCY_TITLE).toUpperCase());
     }
 
     public void prepareDataForList() {
         mData = DataManager.getInstance().getDatabaseManager().getOrganizationsByCurrency(mShortTitle);
-        countTextView.setText(countTextView.getText().toString() + mData.size());
+        countTextView.setText(mSecondTitle + mData.size());
+        sortMainList();
+    }
+
+    public void sortMainList(){
+        switch (DataManager.getInstance().getPreferenceManager().getCurrenciesSortParameter()) {
+            case ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE:
+                mData = sortCurrenciesByPurchase(mData);
+                break;
+            case ConstantsManager.CURRENCY_SORT_PARAMETER_SALE:
+                mData = sortCurrenciesBySale(mData);
+                break;
+        }
+    }
+
+    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesBySale(List<RecyclerViewDataOrganizationOrCurrency> data){
+        for(int i=data.size()-1;i>0;i--){
+            for (int j=0;j<i;j++){
+                if(Double.parseDouble(data.get(j).getCurrency().getAsk())>
+                        Double.parseDouble(data.get(j+1).getCurrency().getAsk())){
+                    RecyclerViewDataOrganizationOrCurrency tmp = data.get(j);
+                    data.set(j,data.get(j+1));
+                    data.set(j+1,tmp);
+                }
+            }
+        }
+        return data;
+    }
+
+
+    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesByPurchase(List<RecyclerViewDataOrganizationOrCurrency> data){
+        for(int i=data.size()-1;i>0;i--){
+            for (int j=0;j<i;j++){
+                if(Double.parseDouble(data.get(j).getCurrency().getBid())<
+                        Double.parseDouble(data.get(j+1).getCurrency().getBid())){
+                    RecyclerViewDataOrganizationOrCurrency tmp = data.get(j);
+                    data.set(j,data.get(j+1));
+                    data.set(j+1,tmp);
+                }
+            }
+        }
+        return data;
     }
 
     public void createList() {
         prepareDataForList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        RecycleViewAdapterOrganizationOrCurrency adapter = new RecycleViewAdapterOrganizationOrCurrency(mData,
-                new RecycleViewAdapterOrganizationOrCurrency.ActionForIcon() {
+        mAdapter = new RecyclerViewAdapterOrganizationOrCurrency(mData,
+                new RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon() {
                     @Override
                     public void action(int position) {
 
                     }
-                }, new RecycleViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
+                }, new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
             @Override
             public void action(int position) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position).getPhone()));
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position)
+                        .getOrganization().getPhone()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -163,6 +222,77 @@ public class CurrencyActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void updateList() {
+        mData.clear();
+        prepareDataForList();
+        mAdapter.setDataTwo(mData);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void getDataForDialogSort() {
+        mDataForDialogList = new ArrayList<>();
+        for (int i = 0; i < mItemsDialogSort.length; i++) {
+            mDataForDialogList.add(new RecyclerViewDataDialogList(false, mItemsDialogSort[i],
+                    mItemsDialogSort[i], mItemsDialogSort[i]));
+        }
+        mDataForDialogList = setParameterForDialogSort(mDataForDialogList);
+    }
+
+    public List<RecyclerViewDataDialogList> setParameterForDialogSort(List<RecyclerViewDataDialogList> data) {
+        for (int i = 0; i < data.size(); i++) {
+            data.get(i).setChecked(false);
+        }
+        switch (DataManager.getInstance().getPreferenceManager().getCurrenciesSortParameter()) {
+            case ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE:
+                data.get(1).setChecked(true);
+            break;
+            case ConstantsManager.CURRENCY_SORT_PARAMETER_SALE:
+                data.get(2).setChecked(true);
+            break;
+            default:
+                data.get(0).setChecked(true);
+            break;
+        }
+        return data;
+    }
+
+    public void createDialogSort() {
+        mDialogSort = new DialogList(CurrencyActivity.this,
+                mTitleOfDialogFilter, mDataForDialogList,
+                new RecyclerViewAdapterDialogList.OnItemClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        switch (position){
+                            case 0:
+                                DataManager.getInstance().getPreferenceManager()
+                                        .setCurrenciesSortParameter(ConstantsManager.CURRENCY_SORT_PARAMETER_TITLE);
+                                break;
+                            case 1:
+                                DataManager.getInstance().getPreferenceManager()
+                                        .setCurrenciesSortParameter(ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE);
+                                break;
+                            case 2:
+                                DataManager.getInstance().getPreferenceManager()
+                                        .setCurrenciesSortParameter(ConstantsManager.CURRENCY_SORT_PARAMETER_SALE);
+                                break;
+                        }
+                        mDataForDialogList = setParameterForDialogSort(mDataForDialogList);
+                        mDialogSort.updateList(mDataForDialogList);
+                        mDialogSort.getDialog().dismiss();
+                    }
+                });
+        mDialogSort.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                updateList();
+            }
+        });
+
+        ((ImageView)mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)).setImageResource(R.drawable.ic_tr);
+        mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)
+                .setBackgroundColor(getResources().getColor(R.color.tr));
     }
 }

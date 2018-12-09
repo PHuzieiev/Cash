@@ -11,8 +11,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterDialogList;
-import com.apps.newstudio.cash.data.adapters.RecycleViewDataAdapterDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 
 import java.util.List;
@@ -21,14 +21,21 @@ public class DialogList {
 
     private Context mContext;
     private String mTitle;
-    private List<RecycleViewDataAdapterDialogList> mData;
+    private List<RecyclerViewDataDialogList> mData;
     private Dialog mDialog;
     private RecyclerView mRecyclerView;
-    private RecycleViewAdapterDialogList mAdapterDialogList;
-    private RecycleViewAdapterDialogList.OnItemClickListener onItemClickListener;
+    private RecyclerViewAdapterDialogList mAdapterDialogList;
+    private RecyclerViewAdapterDialogList.OnItemClickListener onItemClickListener;
 
-    public DialogList(Context context, String title, List<RecycleViewDataAdapterDialogList> data,
-                      RecycleViewAdapterDialogList.OnItemClickListener onItemClickListener) {
+    /**
+     * Constructor of DialogList object
+     * @param context - Context object
+     * @param title - String object for Dialog title
+     * @param data - RecyclerViewDataDialogList List object for RecycleView of Dialog
+     * @param onItemClickListener - OnItemClickListener object for RecycleView Item Click Event
+     */
+    public DialogList(Context context, String title, List<RecyclerViewDataDialogList> data,
+                      RecyclerViewAdapterDialogList.OnItemClickListener onItemClickListener) {
         mContext = context;
         mTitle = title;
         mData = data;
@@ -36,6 +43,9 @@ public class DialogList {
         createDialog();
     }
 
+    /**
+     * Creates Dialog with RecycleView object and shows it
+     */
     public void createDialog(){
         mDialog = new Dialog(mContext);
         mDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -46,23 +56,35 @@ public class DialogList {
         mRecyclerView = mDialog.getWindow().findViewById(R.id.dialog_list_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapterDialogList = new RecycleViewAdapterDialogList(mData, onItemClickListener);
+        mAdapterDialogList = new RecyclerViewAdapterDialogList(mData, onItemClickListener);
         mAdapterDialogList.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapterDialogList);
 
         mDialog.show();
     }
 
-    public void updateList(List<RecycleViewDataAdapterDialogList> data){
+    /**
+     * Updates RecycleView data
+     * @param data - RecyclerViewDataDialogList List object
+     */
+    public void updateList(List<RecyclerViewDataDialogList> data){
         mData=data;
         mAdapterDialogList.setData(mData);
         mAdapterDialogList.notifyDataSetChanged();
     }
 
+    /**
+     * Getter for Dialog object
+     * @return Dialog object mDialog
+     */
     public Dialog getDialog() {
         return mDialog;
     }
 
+    /**
+     * Getter for RecyclerView object
+     * @return RecyclerView object mRecyclerView
+     */
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }

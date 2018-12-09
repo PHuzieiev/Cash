@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
-import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
@@ -25,11 +23,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecycleViewAdapterOrganizationOrCurrency
-        extends RecyclerView.Adapter<RecycleViewAdapterOrganizationOrCurrency.ViewHolder> {
+public class RecyclerViewAdapterOrganizationOrCurrency
+        extends RecyclerView.Adapter<RecyclerViewAdapterOrganizationOrCurrency.ViewHolder> {
 
     private List<CurrenciesEntity> mData;
-    private List<OrganizationsEntity> mDataTwo;
+    private List<RecyclerViewDataOrganizationOrCurrency> mDataTwo;
 
     private ActionForIcon mActionForIcon;
     private ActionForIconTwo mActionForIconTwo;
@@ -38,24 +36,28 @@ public class RecycleViewAdapterOrganizationOrCurrency
     public final static int TYPE_TWO = 2;
     private int mTypeOfList;
 
-    public RecycleViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon) {
+    public RecyclerViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon) {
         mData = data;
         mActionForIcon = actionForIcon;
         mActionForIconTwo = null;
         mTypeOfList = TYPE_ONE;
     }
 
-    public RecycleViewAdapterOrganizationOrCurrency(List<OrganizationsEntity> data, ActionForIcon actionForIcon,
-                                                    ActionForIconTwo actionForIconTwo) {
+    public RecyclerViewAdapterOrganizationOrCurrency(List<RecyclerViewDataOrganizationOrCurrency> data, ActionForIcon actionForIcon,
+                                                     ActionForIconTwo actionForIconTwo) {
         mDataTwo = data;
         mActionForIcon = actionForIcon;
         mActionForIconTwo = actionForIconTwo;
         mTypeOfList = TYPE_TWO;
     }
 
+    public void setDataTwo(List<RecyclerViewDataOrganizationOrCurrency> dataTwo) {
+        mDataTwo = dataTwo;
+    }
+
     @NonNull
     @Override
-    public RecycleViewAdapterOrganizationOrCurrency.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapterOrganizationOrCurrency.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layoutId = 0;
         switch (mTypeOfList) {
             case 1:
@@ -67,22 +69,22 @@ public class RecycleViewAdapterOrganizationOrCurrency
         }
 
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        return new RecycleViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon, mActionForIconTwo);
+        return new RecyclerViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon, mActionForIconTwo);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecycleViewAdapterOrganizationOrCurrency.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, int position) {
         switch (mTypeOfList) {
-            case RecycleViewAdapterOrganizationOrCurrency.TYPE_ONE:
+            case RecyclerViewAdapterOrganizationOrCurrency.TYPE_ONE:
                 bindTypeOne(holder, mData.get(position), position);
                 break;
-            case RecycleViewAdapterOrganizationOrCurrency.TYPE_TWO:
+            case RecyclerViewAdapterOrganizationOrCurrency.TYPE_TWO:
                 bindTypeTwo(holder, mDataTwo.get(position), position);
                 break;
         }
     }
 
-    public void bindTypeOne(RecycleViewAdapterOrganizationOrCurrency.ViewHolder holder, CurrenciesEntity data, int position) {
+    public void bindTypeOne(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, CurrenciesEntity data, int position) {
         holder.shortTitle.setText(data.getShortTitle().toUpperCase());
         String saleTitle = "";
         String purchaseTitle = "";
@@ -107,7 +109,7 @@ public class RecycleViewAdapterOrganizationOrCurrency
         holder.title.setText(title);
         holder.sale.setText(getInfoString(saleTitle, data.getAsk()));
         holder.purchase.setText(getInfoString(purchaseTitle, data.getBid()));
-        holder.date.setText(data.getDate().substring(0,10));
+        holder.date.setText(data.getDate().substring(0, 10));
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) holder.itemLayout.getLayoutParams();
         if (position == getItemCount() - 1) {
             layoutParams.bottomMargin = CashApplication.getContext().getResources()
@@ -122,7 +124,7 @@ public class RecycleViewAdapterOrganizationOrCurrency
 
     public SpannableStringBuilder getInfoString(String title, String parameter) {
         int i = title.length();
-        String result = title + "\n"+parameter;
+        String result = title + "\n" + parameter;
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(result);
         spannableStringBuilder.setSpan(
@@ -131,7 +133,8 @@ public class RecycleViewAdapterOrganizationOrCurrency
         return spannableStringBuilder;
     }
 
-    public void bindTypeTwo(RecycleViewAdapterOrganizationOrCurrency.ViewHolder holder, OrganizationsEntity data, int position) {
+    public void bindTypeTwo(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder,
+                            RecyclerViewDataOrganizationOrCurrency data, int position) {
         String saleTitle = "";
         String purchaseTitle = "";
         String title = "";
@@ -139,23 +142,24 @@ public class RecycleViewAdapterOrganizationOrCurrency
             case ConstantsManager.LANGUAGE_ENG:
                 saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_eng);
                 purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_eng);
-                title = data.getTitleEng();
+                title = data.getOrganization().getTitleEng();
                 break;
             case ConstantsManager.LANGUAGE_RUS:
                 saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_rus);
                 purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_rus);
-                title = data.getTitleRus();
+                title = data.getOrganization().getTitleRus();
                 break;
             case ConstantsManager.LANGUAGE_UKR:
                 saleTitle = CashApplication.getContext().getString(R.string.currencies_sale_ukr);
                 purchaseTitle = CashApplication.getContext().getString(R.string.currencies_purchase_ukr);
-                title = data.getTitleUkr();
+                title = data.getOrganization().getTitleUkr();
                 break;
         }
         holder.title.setText(title);
-        holder.sale.setText(getInfoString(saleTitle, data.getCurrenciesTwo().get(0).getAsk()));
-        holder.purchase.setText(getInfoString(purchaseTitle, data.getCurrenciesTwo().get(0).getBid()));
-        holder.date.setText(data.getCurrenciesTwo().get(0).getDate().substring(0,10));
+        holder.sale.setText(getInfoString(saleTitle, data.getCurrency().getAsk()));
+        holder.purchase.setText(getInfoString(purchaseTitle, data.getCurrency().getBid()));
+        holder.date.setText(data.getCurrency().getDate().substring(0, 10));
+
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) holder.itemLayout.getLayoutParams();
         if (position == getItemCount() - 1) {
             layoutParams.bottomMargin = CashApplication.getContext().getResources()
@@ -171,13 +175,13 @@ public class RecycleViewAdapterOrganizationOrCurrency
 
     @Override
     public int getItemCount() {
-        int result=0;
+        int result = 0;
         switch (mTypeOfList) {
-            case RecycleViewAdapterOrganizationOrCurrency.TYPE_ONE:
-                result =  mData.size();
+            case RecyclerViewAdapterOrganizationOrCurrency.TYPE_ONE:
+                result = mData.size();
                 break;
-            case RecycleViewAdapterOrganizationOrCurrency.TYPE_TWO:
-                result =  mDataTwo.size();
+            case RecyclerViewAdapterOrganizationOrCurrency.TYPE_TWO:
+                result = mDataTwo.size();
                 break;
         }
         return result;
@@ -187,7 +191,7 @@ public class RecycleViewAdapterOrganizationOrCurrency
 
         @BindView(R.id.item_ll)
         public LinearLayout itemLayout;
-        
+
         @BindView(R.id.item_title_tv)
         public TextView title;
 
@@ -204,30 +208,29 @@ public class RecycleViewAdapterOrganizationOrCurrency
         public View line;
 
         @BindView(R.id.item_date_tv)
-        public  TextView date;
+        public TextView date;
 
         public ImageView call;
 
-        public  TextView shortTitle;
+        public TextView shortTitle;
 
         private ActionForIcon mActionForIcon;
         private ActionForIconTwo mActionForIconTwo;
-        
 
 
-        public ViewHolder(View itemView, RecycleViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon, 
+        public ViewHolder(View itemView, RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon,
                           ActionForIconTwo actionForIconTwo) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mActionForIcon = actionForIcon;
             mActionForIconTwo = actionForIconTwo;
             details.setOnClickListener(this);
-            if(actionForIconTwo==null){
+            if (actionForIconTwo == null) {
                 shortTitle = itemView.findViewById(R.id.item_short_tv);
-            }else{
+            } else {
                 call = itemView.findViewById(R.id.item_call_iv);
                 call.setOnClickListener(this);
-                
+
             }
         }
 

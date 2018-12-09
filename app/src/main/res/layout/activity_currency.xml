@@ -32,16 +32,18 @@
 
         <TextView
             android:id="@+id/short_tv"
-            style="@style/item_short_tv"
-            android:text="USD"/>
+            style="@style/short_tv"/>
 
-        <LinearLayout style="@style/item_title_ll">
+        <LinearLayout style="@style/title_ll">
+
+            <TextView
+                android:id="@+id/type_tv"
+                style="@style/item_date_tv" />
 
 
             <EditText
                 android:id="@+id/title_tv"
-                style="@style/item_title_tv"
-                android:inputType="textVisiblePassword" />
+                style="@style/item_title_tv"/>
 
             <TextView
                 android:id="@+id/count_tv"

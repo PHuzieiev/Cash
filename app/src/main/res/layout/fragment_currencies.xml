@@ -5,11 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.CurrenciesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Currencies" />
+        android:paddingLeft="@dimen/spacing_smaller_8dp"
+        android:paddingTop="@dimen/spacing_start_1dp"
+        android:paddingRight="@dimen/spacing_smaller_8dp"/>
+
 
     <android.support.design.widget.FloatingActionButton
         style="@style/Fab"

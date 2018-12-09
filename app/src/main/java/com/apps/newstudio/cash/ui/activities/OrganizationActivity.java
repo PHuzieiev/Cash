@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecycleViewAdapterOrganizationOrCurrency;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
@@ -191,10 +190,11 @@ public class OrganizationActivity extends BaseActivity {
         prepareDataForList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        RecycleViewAdapterOrganizationOrCurrency adapter=new RecycleViewAdapterOrganizationOrCurrency(mData,
-                new RecycleViewAdapterOrganizationOrCurrency.ActionForIcon() {
+        RecyclerViewAdapterOrganizationOrCurrency adapter=new RecyclerViewAdapterOrganizationOrCurrency(mData,
+                new RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon() {
             @Override
             public void action(int position) {
+
                 Intent intent = new Intent(OrganizationActivity.this,CurrencyActivity.class);
                 intent.putExtra(ConstantsManager.CURRENCY_SHORT_FORM, mData.get(position).getShortTitle());
                 switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {

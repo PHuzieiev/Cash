@@ -1,9 +1,9 @@
 package com.apps.newstudio.cash.data.managers;
 
-import android.util.Log;
-
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecycleViewDataAdapterDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataFragment;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.network.RetrofitServiceRus;
 import com.apps.newstudio.cash.data.network.RetrofitServiceUkr;
 import com.apps.newstudio.cash.data.network.RetrofitClient;
@@ -398,6 +398,7 @@ public class DatabaseManager {
         String searchParameter = DataManager.getInstance().getPreferenceManager().getOrganizationsSearchParameter().toUpperCase();
         String filterParameter = DataManager.getInstance().getPreferenceManager().getOrganizationsFilterParameter();
         Property property = OrganizationsEntityDao.Properties.TitleEng;
+
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
                 property = OrganizationsEntityDao.Properties.TitleEng;
@@ -445,10 +446,99 @@ public class DatabaseManager {
             }
             list = list_tmp;
         }
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             list.get(i).setCurrencies(getCurrenciesByOrgId(list.get(i).getId()));
         }
         return list;
+    }
+
+    /**
+     * Gets RecyclerViewDataFragment List
+     * which contains CurrenciesEntity objects with OrganizationsEntity Lists
+     *
+     * @return RecyclerViewDataFragment List object
+     */
+    public List<RecyclerViewDataFragment> getAllCurrenciesForCurrenciesFragment() {
+
+        String searchParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter().toUpperCase();
+        String filterParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesFilterParameter();
+        Property property = null;
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                property = CurrenciesEntityDao.Properties.TitleEng;
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                property = CurrenciesEntityDao.Properties.TitleRus;
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                property = CurrenciesEntityDao.Properties.TitleUkr;
+                break;
+        }
+        List<CurrenciesEntity> listCur;
+        if (filterParameter.equals("")) {
+            listCur = mDaoSession.queryBuilder(CurrenciesEntity.class)
+                    .orderAsc(property)
+                    .list();
+        } else {
+            listCur = mDaoSession.queryBuilder(CurrenciesEntity.class)
+                    .where(new WhereCondition
+                            .StringCondition("TITLE_ENG IN " +
+                            filterParameter))
+                    .orderAsc(property)
+                    .list();
+        }
+
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+            case ConstantsManager.LANGUAGE_ENG:
+                property = OrganizationsEntityDao.Properties.TitleEng;
+                break;
+            case ConstantsManager.LANGUAGE_RUS:
+                property = OrganizationsEntityDao.Properties.TitleRus;
+                break;
+            case ConstantsManager.LANGUAGE_UKR:
+                property = OrganizationsEntityDao.Properties.TitleUkr;
+                break;
+        }
+
+        HashMap<String, String> map = new HashMap<>();
+        List<RecyclerViewDataFragment> result = new ArrayList<>();
+
+        for (CurrenciesEntity c : listCur) {
+            if (!map.containsKey(c.getTitleEng())) {
+                map.put(c.getTitleEng(), ConstantsManager.EMPTY_STRING_VALUE);
+                result.add(new RecyclerViewDataFragment(c, mDaoSession.queryBuilder(OrganizationsEntity.class)
+                        .where(new WhereCondition
+                                .StringCondition("ID IN (SELECT ORGANIZATION_ID FROM CURRENCIES WHERE SHORT_TITLE=\"" + c.getShortTitle() + "\")"))
+                        .orderAsc(property)
+                        .list()));
+            }
+        }
+
+        if (!searchParameter.equals("")) {
+            List<RecyclerViewDataFragment> tmp = new ArrayList<>();
+            for (int i = 0; i < result.size(); i++) {
+                switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+                    case ConstantsManager.LANGUAGE_ENG:
+                        if (result.get(i).getCurrency().getTitleEng().toUpperCase().contains(searchParameter)) {
+                            tmp.add(result.get(i));
+                        }
+                        break;
+                    case ConstantsManager.LANGUAGE_RUS:
+                        if (result.get(i).getCurrency().getTitleRus().toUpperCase().contains(searchParameter)) {
+                            tmp.add(result.get(i));
+                        }
+                        break;
+                    case ConstantsManager.LANGUAGE_UKR:
+                        if (result.get(i).getCurrency().getTitleUkr().toUpperCase().contains(searchParameter)) {
+                            tmp.add(result.get(i));
+                        }
+                        break;
+                }
+            }
+            result = tmp;
+        }
+
+        return result;
     }
 
     /**
@@ -486,11 +576,11 @@ public class DatabaseManager {
     /**
      * Gets data about all titles of currencies from db
      *
-     * @return List of RecycleViewDataAdapterDialogList objects
+     * @return List of RecyclerViewDataDialogList objects
      */
-    public List<RecycleViewDataAdapterDialogList> getDataForListDialogCurrencies() {
-        List<RecycleViewDataAdapterDialogList> list = new ArrayList<>();
-        list.add(new RecycleViewDataAdapterDialogList(true,
+    public List<RecyclerViewDataDialogList> getDataForListDialogCurrencies() {
+        List<RecyclerViewDataDialogList> list = new ArrayList<>();
+        list.add(new RecyclerViewDataDialogList(true,
                 CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_ukr),
                 CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_rus),
                 CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_eng)));
@@ -513,12 +603,13 @@ public class DatabaseManager {
         for (CurrenciesEntity c : listCur) {
             if (!map.containsKey(c.getTitleEng())) {
                 map.put(c.getTitleEng(), ConstantsManager.EMPTY_STRING_VALUE);
-                list.add(new RecycleViewDataAdapterDialogList(false,
+                list.add(new RecyclerViewDataDialogList(false,
                         c.getTitleUkr(), c.getTitleRus(), c.getTitleEng()));
             }
         }
         return list;
     }
+
 
     /**
      * Gets data of some organization, uses id parameter for search
@@ -561,11 +652,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Gets data of some Organizations from db, uses short form of currency title
-     * @param short_title - short form of currency title
-     * @return OrganizationsEntity List object
+     * Gets RecyclerViewDataOrganizationOrCurrency List object using String object Short Title of Currency
+     *
+     * @param short_title String object for getting data
+     * @return RecyclerViewDataOrganizationOrCurrency List
      */
-    public List<OrganizationsEntity> getOrganizationsByCurrency(String short_title){
+    public List<RecyclerViewDataOrganizationOrCurrency> getOrganizationsByCurrency(String short_title) {
         Property property = null;
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
@@ -578,21 +670,20 @@ public class DatabaseManager {
                 property = OrganizationsEntityDao.Properties.TitleUkr;
                 break;
         }
-        List<OrganizationsEntity> result=mDaoSession.queryBuilder(OrganizationsEntity.class)
+        List<OrganizationsEntity> list = mDaoSession.queryBuilder(OrganizationsEntity.class)
                 .where(new WhereCondition
                         .StringCondition("ID IN (SELECT ORGANIZATION_ID FROM CURRENCIES WHERE SHORT_TITLE=\"" + short_title + "\")"))
                 .orderAsc(property)
                 .list();
-
-        for(int i=0;i<result.size();i++){
-            List<CurrenciesEntity> list=new ArrayList<>();
-            m:for(int j=0;j<result.get(i).getCurrencies().size();j++){
-                if(result.get(i).getCurrencies().get(j).getShortTitle().equals(short_title)){
-                    list.add(result.get(i).getCurrencies().get(j));
+        List<RecyclerViewDataOrganizationOrCurrency> result = new ArrayList<>();
+        for (OrganizationsEntity orgData : list) {
+            m:
+            for (CurrenciesEntity currData : orgData.getCurrencies()) {
+                if (currData.getShortTitle().equals(short_title)) {
+                    result.add(new RecyclerViewDataOrganizationOrCurrency(orgData, currData));
                     break m;
                 }
             }
-            result.get(i).setCurrencies(list);
         }
         return result;
     }

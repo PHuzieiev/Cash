@@ -80,7 +80,7 @@
         <item name="android:layout_marginBottom">@dimen/spacing_medium_36dp</item>
     </style>
 
-    <style name="item_short_tv">
+    <style name="short_tv">
         <item name="android:layout_height">@dimen/size_100dp</item>
         <item name="android:layout_width">@dimen/size_100dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
@@ -94,22 +94,31 @@
         <item name="android:shadowRadius">2</item>
         <item name="android:shadowDy">3</item>
         <item name="android:shadowDx">1</item>
-        <item name="android:background">@drawable/circle_b</item>
+        <item name="android:background">@drawable/circle_gr</item>
+    </style>
+
+    <style name="item_short_tv" parent="short_tv">
+        <item name="android:layout_marginTop">@dimen/spacing_normal_24dp</item>
     </style>
 
     <style name="main_iv" parent="item_iv">
         <item name="android:layout_marginTop">@dimen/spacing_smallest_2dp</item>
     </style>
 
-    <style name="item_title_ll">
+    <style name="title_ll">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingBottom">@dimen/spacing_small_16dp</item>
         <item name="android:paddingRight">@dimen/spacing_small_16dp</item>
         <item name="android:paddingLeft">@dimen/spacing_small_16dp</item>
-        <item name="android:layout_gravity">bottom</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">@dimen/spacing_big_64dp</item>
     </style>
+
+    <style name="item_title_ll" parent="title_ll">
+        <item name="android:layout_marginTop">@dimen/spacing_big_86dp</item>
+    </style>
+
 
     <style name="item_title_tv">
         <item name="android:layout_width">match_parent</item>
