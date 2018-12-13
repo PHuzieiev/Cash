@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -239,7 +240,7 @@ public class OrganizationsFragment extends Fragment {
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),
-                mTitleOfDialogFilter, mDataForDialogList,
+                mTitleOfDialogFilter, mDataForDialogList, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
@@ -318,4 +319,10 @@ public class OrganizationsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER) {
+            ((MainActivity) getActivity()).checkItemOfNavigationView(R.id.item_converter);
+        }
+    }
 }

@@ -3,18 +3,22 @@ package com.apps.newstudio.cash.data.adapters;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 
-public class RecyclerViewDataOrganizationOrCurrency {
+public class RecyclerViewDataDialogListOrganizations {
 
+    private boolean mIsChecked;
     private OrganizationsEntity mOrganization;
     private CurrenciesEntity mCurrency;
 
     /**
      * Constructor for RecyclerViewDataOrganizationOrCurrency object
      *
+     * @param mIsChecked - boolean value
      * @param organization - OrganizationsEntity object
      * @param currency     - CurrenciesEntity object
      */
-    public RecyclerViewDataOrganizationOrCurrency(OrganizationsEntity organization, CurrenciesEntity currency) {
+    public RecyclerViewDataDialogListOrganizations(boolean mIsChecked,
+                                                   OrganizationsEntity organization, CurrenciesEntity currency) {
+        this.mIsChecked = mIsChecked;
         mOrganization = organization;
         mCurrency = currency;
     }
@@ -37,4 +41,21 @@ public class RecyclerViewDataOrganizationOrCurrency {
         return mCurrency;
     }
 
+    /**
+     * Setter for boolean mIsChecked
+     *
+     * @param checked boolean mIsChecked
+     */
+    public void setChecked(boolean checked) {
+        mIsChecked = checked;
+    }
+
+    /**
+     * Getter for boolean mIsChecked
+     *
+     * @return boolean value
+     */
+    public boolean isChecked() {
+        return mIsChecked;
+    }
 }

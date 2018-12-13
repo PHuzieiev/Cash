@@ -2,6 +2,8 @@
 <resources>
     <color name="color_primary">#435ce2</color>
     <color name="color_primary_dark">#3747a9</color>
+    <color name="color_primary_tr">#7d435ce2</color>
+
     <color name="color_accent">#df8231</color>
     <color name="color_accent_dark">#a45d1e</color>
     <color name="color_accent_tr">#7ddf8231</color>
@@ -9,6 +11,8 @@
 
     <color name="grey_one">#af3e3c3c</color>
     <color name="grey_two">#c83e3c3c</color>
+    <color name="grey_three">#fa313131</color>
+
     <color name="white">#FFFFFF</color>
     <color name="white_175">#afffffff</color>
     <color name="black">#000000</color>

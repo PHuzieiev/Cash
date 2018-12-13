@@ -458,10 +458,13 @@ public class DatabaseManager {
      *
      * @return RecyclerViewDataFragment List object
      */
-    public List<RecyclerViewDataFragment> getAllCurrenciesForCurrenciesFragment() {
-
-        String searchParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter().toUpperCase();
-        String filterParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesFilterParameter();
+    public List<RecyclerViewDataFragment> getAllCurrenciesForCurrenciesFragment(boolean isFiltered) {
+        String searchParameter = "";
+        String filterParameter = "";
+        if (isFiltered) {
+            searchParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter().toUpperCase();
+            filterParameter = DataManager.getInstance().getPreferenceManager().getCurrenciesFilterParameter();
+        }
         Property property = null;
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:

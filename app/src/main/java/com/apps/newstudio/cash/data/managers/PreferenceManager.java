@@ -139,4 +139,62 @@ public class PreferenceManager {
     public void setCurrenciesSearchParameter(String parameter) {
         saveString(ConstantsManager.CURRENCIES_SEARCH_PARAMETER, parameter);
     }
+
+    /**
+     * Loads String value of currency which will be converted in Converter Fragment
+     *
+     * @return String object
+     */
+    public String getConverterCurrencyShortForm() {
+        return loadString(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_KEY,
+                ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
+    }
+
+    /**
+     * Saves String value of currency which will be converted in Converter Fragment
+     *
+     * @param parameter String object of currency
+     */
+    public void setConverterCurrencyShortForm(String parameter) {
+        saveString(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_KEY, parameter);
+    }
+
+
+    /**
+     * Loads String value of organization id which will be used in Converter Fragment
+     *
+     * @return String object
+     */
+    public String getConverterOrganizationId() {
+        return loadString(ConstantsManager.CONVERTER_ORGANIZATION_ID_KEY,
+                ConstantsManager.EMPTY_STRING_VALUE);
+    }
+
+    /**
+     * Saves String value of organization id which will be used in Converter Fragment
+     *
+     * @param parameter String object of organization id
+     */
+    public void setConverterOrganizationId(String parameter) {
+        saveString(ConstantsManager.CONVERTER_ORGANIZATION_ID_KEY, parameter);
+    }
+
+    /**
+     * Loads String value which defines action in Converter Fragment
+     *
+     * @return String object
+     */
+    public String getConverterAction() {
+        return loadString(ConstantsManager.CONVERTER_ACTION_KEY,
+                ConstantsManager.CONVERTER_ACTION_SALE);
+    }
+
+    /**
+     * Saves String value which defines action in Converter Fragment
+     *
+     * @param parameter String object for defining action
+     */
+    public void setConverterAction(String parameter) {
+        saveString(ConstantsManager.CONVERTER_ACTION_KEY, parameter);
+    }
 }

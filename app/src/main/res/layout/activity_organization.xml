@@ -64,7 +64,7 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fragment_fab"
+        android:id="@+id/fab"
         style="@style/Fab"
         android:src="@drawable/ic_converter_white" />
 

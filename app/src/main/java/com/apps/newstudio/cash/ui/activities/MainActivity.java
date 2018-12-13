@@ -3,6 +3,7 @@ package com.apps.newstudio.cash.ui.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -128,7 +129,11 @@ public class MainActivity extends BaseActivity
 
             }
             if (id != R.id.item_update && id != R.id.item_language) {
-                toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
+                if(id!=R.id.item_converter) {
+                    toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
+                }else{
+                    toolbar.setTitle(ConstantsManager.EMPTY_STRING_VALUE);
+                }
                 navigationView.setCheckedItem(id);
                 checkedItemId = id;
                 fragmentTransaction.commit();
@@ -205,5 +210,6 @@ public class MainActivity extends BaseActivity
     public Context getContext() {
         return MainActivity.this;
     }
+
 
 }

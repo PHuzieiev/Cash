@@ -3,7 +3,6 @@ package com.apps.newstudio.cash.ui.activities;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -33,9 +32,9 @@ public class BaseActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, spannableStringBuilder, Toast.LENGTH_LONG);
         View viewToast = toast.getView();
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            viewToast.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectungle_for_toast));
+            viewToast.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectangle_for_toast));
         } else {
-            viewToast.setBackground(getResources().getDrawable(R.drawable.rectungle_for_toast));
+            viewToast.setBackground(getResources().getDrawable(R.drawable.rectangle_for_toast));
         }
 
         toast.show();

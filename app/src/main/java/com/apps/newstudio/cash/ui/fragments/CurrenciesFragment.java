@@ -169,7 +169,7 @@ public class CurrenciesFragment extends Fragment {
     }
 
     public void prepareDataForList() {
-        mMainDataForList = mDatabaseManager.getAllCurrenciesForCurrenciesFragment();
+        mMainDataForList = mDatabaseManager.getAllCurrenciesForCurrenciesFragment(true);
     }
 
     public void createList() {
@@ -216,7 +216,7 @@ public class CurrenciesFragment extends Fragment {
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),
-                mTitleOfDialogFilter, mDataForDialogList,
+                mTitleOfDialogFilter, mDataForDialogList, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
@@ -292,6 +292,13 @@ public class CurrenciesFragment extends Fragment {
             }
             result = result.substring(0, result.length() - 2) + ")";
             return result;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER) {
+            ((MainActivity) getActivity()).checkItemOfNavigationView(R.id.item_converter);
         }
     }
 }

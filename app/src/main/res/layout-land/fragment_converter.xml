@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.ConverterFragment">
+
+
+    <FrameLayout
+        android:id="@+id/converter_frame_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradient_for_activity_title">
+
+        <TextView
+            android:id="@+id/converter_short_tv"
+            style="@style/short_tv" />
+
+        <LinearLayout style="@style/title_ll">
+
+            <TextView
+                android:id="@+id/converter_type_tv"
+                style="@style/item_date_tv" />
+
+
+            <EditText
+                android:id="@+id/converter_title_tv"
+                style="@style/item_title_tv" />
+
+            <TextView
+                android:id="@+id/converter_count_tv"
+                style="@style/item_date_tv" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/converter_frame_title"
+        android:orientation="horizontal">
+
+        <ScrollView style="@style/scroll_fragment"
+            android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/converter_input_value_cv"
+            style="@style/card_view_fragment">
+
+            <LinearLayout style="@style/vll_in_card_view_fragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/converter_input_value_currency_one_title"
+                        style="@style/ltv_in_card_view_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="0dp"/>
+
+                    <EditText
+                        android:id="@+id/converter_input_value_currency_one_value"
+                        style="@style/let_in_card_view_fragment"
+                        android:layout_marginTop="@dimen/spacing_smaller_8dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="0dp" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_smaller_8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/converter_input_value_currency_two_title"
+                        style="@style/rtv_in_card_view_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="0dp"/>
+
+
+                    <EditText
+                        android:id="@+id/converter_input_value_currency_two_value"
+                        style="@style/ret_in_card_view_fragment"
+                        android:layout_marginTop="@dimen/spacing_smaller_8dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="0dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        </ScrollView>
+
+
+        <ScrollView style="@style/scroll_fragment"
+            android:layout_weight="1">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/spacing_big_88dp">
+
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/converter_currency_cv"
+                    style="@style/card_view_fragment">
+
+                    <LinearLayout style="@style/hll_in_card_view_fragment">
+
+                        <ImageView
+                            style="@style/normal_image_ico"
+                            android:src="@drawable/ic_currency" />
+
+                        <TextView
+                            android:id="@+id/converter_currency_tv"
+                            style="@style/item_dialog_list_tv"
+                            android:layout_marginLeft="@dimen/spacing_normal_24dp"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/converter_organization_cv"
+                    style="@style/card_view_fragment">
+
+                    <LinearLayout style="@style/hll_in_card_view_fragment">
+
+                        <ImageView
+                            style="@style/normal_image_ico"
+                            android:src="@drawable/ic_organization" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/spacing_normal_24dp"
+                            android:layout_marginRight="@dimen/spacing_smaller_8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/converter_organization_title_tv"
+                                style="@style/item_cur_title_tv" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/spacing_smallest_2dp"
+                                android:layout_marginTop="@dimen/spacing_smallest_2dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/converter_organization_purchase_tv"
+                                    style="@style/item_cur_purchase_tv" />
+
+                                <TextView
+                                    android:id="@+id/converter_organization_sale_tv"
+                                    style="@style/item_cur_sale_tv" />
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/converter_organization_date_tv"
+                                style="@style/item_cur_date_tv" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/converter_organization_phone_iv"
+                            style="@style/normal_image_ico"
+                            android:src="@drawable/ic_phone" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/converter_sale_or_purchase_cv"
+                    style="@style/card_view_fragment">
+
+                    <LinearLayout style="@style/hll_in_card_view_fragment">
+
+                        <ImageView
+                            style="@style/normal_image_ico"
+                            android:src="@drawable/ic_sale" />
+
+                        <TextView
+                            android:id="@+id/converter_sale_or_purchase_tv"
+                            style="@style/item_dialog_list_tv"
+                            android:layout_marginLeft="@dimen/spacing_normal_24dp"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/converter_fragment_fab"
+        style="@style/Fab"
+        android:src="@drawable/ic_done" />
+
+
+</RelativeLayout>

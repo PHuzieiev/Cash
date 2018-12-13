@@ -35,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CurrencyActivity extends AppCompatActivity {
 
@@ -67,7 +68,6 @@ public class CurrencyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
         ButterKnife.bind(this);
-        mShortTitle = getIntent().getStringExtra(ConstantsManager.CURRENCY_SHORT_FORM);
         setupToolbar();
         setLang();
         getDataForDialogSort();
@@ -150,6 +150,7 @@ public class CurrencyActivity extends AppCompatActivity {
     }
 
     public void setData() {
+        mShortTitle = getIntent().getStringExtra(ConstantsManager.CURRENCY_SHORT_FORM);
         shortForm.setText(mShortTitle.toUpperCase());
         titleEditText.setText(getIntent().getStringExtra(ConstantsManager.CURRENCY_TITLE).toUpperCase());
     }
@@ -208,7 +209,40 @@ public class CurrencyActivity extends AppCompatActivity {
                 new RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon() {
                     @Override
                     public void action(int position) {
+                        Intent intent;
+                        if(getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE,0)==
+                        ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE) {
+                            intent = new Intent();
+                        }else{
+                            intent = new Intent(CurrencyActivity.this,OrganizationActivity.class);
+                            intent.putExtra(ConstantsManager.START_ACTIVITY_MODE, ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
+                        }
+                        intent.putExtra(ConstantsManager.ORGANIZATION_ID, mData.get(position).getOrganization().getId());
+                        switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
+                            case ConstantsManager.LANGUAGE_ENG:
+                                intent.putExtra(ConstantsManager.ORGANIZATION_TITLE,
+                                        mData.get(position).getOrganization().getTitleEng());
+                                break;
+                            case ConstantsManager.LANGUAGE_RUS:
+                                intent.putExtra(ConstantsManager.ORGANIZATION_TITLE,
+                                        mData.get(position).getOrganization().getTitleRus());
+                                break;
+                            case ConstantsManager.LANGUAGE_UKR:
+                                intent.putExtra(ConstantsManager.ORGANIZATION_TITLE,
+                                        mData.get(position).getOrganization().getTitleUkr());
+                                break;
+                        }
+                        intent.putExtra(ConstantsManager.ORGANIZATION_DATE, mData.get(position).getOrganization().getDate());
+                        intent.putExtra(ConstantsManager.ORGANIZATION_PHONE, mData.get(position).getOrganization().getPhone());
+                        intent.putExtra(ConstantsManager.ORGANIZATION_TYPE, mData.get(position).getOrganization().getOrgType());
 
+                        if(getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE,0)==
+                                ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE) {
+                            setResult(ConstantsManager.CURRENCY_ACTIVITY_RESULT_CODE_CHANGE_DATA, intent);
+                            finish();
+                        }else{
+                            startActivityForResult(intent,ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
+                        }
                     }
                 }, new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
             @Override
@@ -261,7 +295,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     public void createDialogSort() {
         mDialogSort = new DialogList(CurrencyActivity.this,
-                mTitleOfDialogFilter, mDataForDialogList,
+                mTitleOfDialogFilter, mDataForDialogList, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
@@ -294,5 +328,25 @@ public class CurrencyActivity extends AppCompatActivity {
         ((ImageView)mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)).setImageResource(R.drawable.ic_tr);
         mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)
                 .setBackgroundColor(getResources().getColor(R.color.tr));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==ConstantsManager.ORGANIZATION_ACTIVITY_RESULT_CODE_CHANGE_DATA){
+            data.putExtra(ConstantsManager.START_ACTIVITY_MODE,0);
+            setIntent(data);
+            setData();
+            createList();
+        }
+        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER){
+            setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+            finish();
+        }
+    }
+
+    @OnClick(R.id.fab)
+    public void showConverter(){
+        setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+        finish();
     }
 }

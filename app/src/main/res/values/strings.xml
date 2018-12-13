@@ -94,6 +94,13 @@
         <item>Sale</item>
     </string-array>
 
+    <string name="converter_count_of_currencies_eng">"Count of currencies: "</string>
+    <string name="converter_main_currency_eng">UKRAINIAN HRYVNIA (UAH)</string>
+    <string name="converter_sale_eng">Sale</string>
+    <string name="converter_purchase_eng">Purchase</string>
+    <string name="converter_dialog_action_title_eng">Procedure</string>
+
+
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
     <string name="nav_header_subtitle_rus">"Последнее обновление: "</string>
@@ -136,6 +143,12 @@
         <item>Продажа</item>
     </string-array>
 
+    <string name="converter_count_of_currencies_rus">"Всего валют: "</string>
+    <string name="converter_main_currency_rus">УКРАИНСКАЯ ГРИВНА (UAH)</string>
+    <string name="converter_sale_rus">Продажа</string>
+    <string name="converter_purchase_rus">Покупка</string>
+    <string name="converter_dialog_action_title_rus">Операция</string>
+
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
     <string name="nav_header_subtitle_ukr">"Останнє оновлення: "</string>
@@ -177,6 +190,12 @@
         <item>Купівля</item>
         <item>Продаж</item>
     </string-array>
+
+    <string name="converter_count_of_currencies_ukr">"Всього валют: "</string>
+    <string name="converter_main_currency_ukr">УКРАЇНСЬКА ГРИВНЯ (UAH)</string>
+    <string name="converter_sale_ukr">Продаж</string>
+    <string name="converter_purchase_ukr">Купівля</string>
+    <string name="converter_dialog_action_title_ukr">Операція</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

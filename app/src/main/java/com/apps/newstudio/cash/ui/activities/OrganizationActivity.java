@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class OrganizationActivity extends BaseActivity {
 
@@ -55,6 +56,8 @@ public class OrganizationActivity extends BaseActivity {
     private String mTypeBank, mTypeOther;
     private String mOrganizationId = ConstantsManager.EMPTY_STRING_VALUE;
     private List<CurrenciesEntity> mData;
+    private Intent mIntent;
+    private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
 
 
     @Override
@@ -128,7 +131,6 @@ public class OrganizationActivity extends BaseActivity {
             @Override
             public void engLanguage() {
                 mOrgDate = getString(R.string.nav_header_subtitle_eng);
-                getString(R.string.nav_header_subtitle_eng);
                 mTypeBank = getString(R.string.org_list_item_type_bank_eng);
                 mTypeOther = getString(R.string.org_list_item_type_other_eng);
             }
@@ -136,7 +138,6 @@ public class OrganizationActivity extends BaseActivity {
             @Override
             public void ukrLanguage() {
                 mOrgDate = getString(R.string.nav_header_subtitle_ukr);
-                getString(R.string.nav_header_subtitle_ukr);
                 mTypeBank = getString(R.string.org_list_item_type_bank_ukr);
                 mTypeOther = getString(R.string.org_list_item_type_other_ukr);
             }
@@ -144,7 +145,6 @@ public class OrganizationActivity extends BaseActivity {
             @Override
             public void rusLanguage() {
                 mOrgDate = getString(R.string.nav_header_subtitle_rus);
-                getString(R.string.nav_header_subtitle_rus);
                 mTypeBank = getString(R.string.org_list_item_type_bank_rus);
                 mTypeOther = getString(R.string.org_list_item_type_other_rus);
             }
@@ -152,11 +152,12 @@ public class OrganizationActivity extends BaseActivity {
     }
 
     public void setData() {
-        mOrganizationId = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_ID);
-        mOrganizationTitle = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_TITLE);
-        mOrgPhone = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_PHONE);
-        mOrgType = getIntent().getStringExtra(ConstantsManager.ORGANIZATION_TYPE);
-        mOrgDate = mOrgDate + getIntent().getStringExtra(ConstantsManager.ORGANIZATION_DATE).substring(0,10);
+        mIntent = getIntent();
+        mOrganizationId = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_ID);
+        mOrganizationTitle = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_TITLE);
+        mOrgPhone = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_PHONE);
+        mOrgType = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_TYPE);
+        String date = mOrgDate + mIntent.getStringExtra(ConstantsManager.ORGANIZATION_DATE).substring(0, 10);
         switch (mOrgType) {
             case "1":
                 typeTextView.setText(mTypeBank);
@@ -179,7 +180,7 @@ public class OrganizationActivity extends BaseActivity {
             mOrganizationTitle = mOrganizationTitle.substring(0, end);
         }
         titleEditText.setText(mOrganizationTitle);
-        dateTextView.setText(mOrgDate);
+        dateTextView.setText(date);
     }
 
     public void prepareDataForList() {
@@ -190,27 +191,66 @@ public class OrganizationActivity extends BaseActivity {
         prepareDataForList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        RecyclerViewAdapterOrganizationOrCurrency adapter=new RecyclerViewAdapterOrganizationOrCurrency(mData,
+        mAdapter = new RecyclerViewAdapterOrganizationOrCurrency(mData,
                 new RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon() {
-            @Override
-            public void action(int position) {
+                    @Override
+                    public void action(int position) {
+                        Intent intent;
+                        if (getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE, 0) ==
+                                ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE) {
+                            intent = new Intent();
+                        } else {
+                            intent = new Intent(OrganizationActivity.this, CurrencyActivity.class);
+                            intent.putExtra(ConstantsManager.START_ACTIVITY_MODE, ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
+                        }
+                        intent.putExtra(ConstantsManager.CURRENCY_SHORT_FORM, mData.get(position).getShortTitle());
+                        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+                            case ConstantsManager.LANGUAGE_ENG:
+                                intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleEng());
+                                break;
+                            case ConstantsManager.LANGUAGE_RUS:
+                                intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleRus());
+                                break;
+                            case ConstantsManager.LANGUAGE_UKR:
+                                intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleUkr());
+                                break;
+                        }
+                        intent.putExtra(ConstantsManager.START_ACTIVITY_MODE, ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
+                        if (getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE, 0) ==
+                                ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE) {
+                            setResult(ConstantsManager.ORGANIZATION_ACTIVITY_RESULT_CODE_CHANGE_DATA, intent);
+                            finish();
+                        } else {
+                            startActivityForResult(intent, ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
+                        }
+                    }
+                });
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
-                Intent intent = new Intent(OrganizationActivity.this,CurrencyActivity.class);
-                intent.putExtra(ConstantsManager.CURRENCY_SHORT_FORM, mData.get(position).getShortTitle());
-                switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
-                    case ConstantsManager.LANGUAGE_ENG:
-                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleEng());
-                        break;
-                    case ConstantsManager.LANGUAGE_RUS:
-                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleRus());
-                        break;
-                    case ConstantsManager.LANGUAGE_UKR:
-                        intent.putExtra(ConstantsManager.CURRENCY_TITLE, mData.get(position).getTitleUkr());
-                        break;
-                }
-                startActivityForResult(intent,ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
-            }
-        });
-        mRecyclerView.setAdapter(adapter);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == ConstantsManager.CURRENCY_ACTIVITY_RESULT_CODE_CHANGE_DATA) {
+            data.putExtra(ConstantsManager.START_ACTIVITY_MODE,0);
+            setIntent(data);
+            setData();
+            createList();
+        }
+        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER){
+            setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+            finish();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @OnClick(R.id.fab)
+    public void showConverter(){
+        setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+        finish();
     }
 }

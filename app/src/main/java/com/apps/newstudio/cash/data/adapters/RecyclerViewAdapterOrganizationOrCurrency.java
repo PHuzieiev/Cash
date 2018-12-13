@@ -55,6 +55,10 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         mDataTwo = dataTwo;
     }
 
+    public void setData(List<CurrenciesEntity> data) {
+        mData = data;
+    }
+
     @NonNull
     @Override
     public RecyclerViewAdapterOrganizationOrCurrency.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
