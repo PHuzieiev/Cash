@@ -23,12 +23,14 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void createAllTables(Database db, boolean ifNotExists) {
         CurrenciesEntityDao.createTable(db, ifNotExists);
         OrganizationsEntityDao.createTable(db, ifNotExists);
+        TemplateEntityDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         CurrenciesEntityDao.dropTable(db, ifExists);
         OrganizationsEntityDao.dropTable(db, ifExists);
+        TemplateEntityDao.dropTable(db, ifExists);
     }
 
     /**
@@ -49,6 +51,7 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(CurrenciesEntityDao.class);
         registerDaoClass(OrganizationsEntityDao.class);
+        registerDaoClass(TemplateEntityDao.class);
     }
 
     public DaoSession newSession() {

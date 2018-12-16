@@ -3,6 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="equals">"="</string>
 
     //Values in English
     <string name="nav_header_title_eng">Money Converter (Ukraine)</string>
@@ -99,6 +100,13 @@
     <string name="converter_sale_eng">Sale</string>
     <string name="converter_purchase_eng">Purchase</string>
     <string name="converter_dialog_action_title_eng">Procedure</string>
+    <string name="converter_toast_failure_eng">Your value was not converted. Please, type correct value.</string>
+
+    <string name="dialog_template_text_eng">Do you want to create new template or edit existing?</string>
+    <string name="dialog_template_edit_eng">Edit</string>
+    <string name="dialog_template_create_eng">Create</string>
+    <string name="converter_toast_template_edit_eng">Your template was edited.</string>
+    <string name="converter_toast_template_create_eng">New template was created.</string>
 
 
     //Values in Russian
@@ -148,6 +156,13 @@
     <string name="converter_sale_rus">Продажа</string>
     <string name="converter_purchase_rus">Покупка</string>
     <string name="converter_dialog_action_title_rus">Операция</string>
+    <string name="converter_toast_failure_rus">Конвертация не проведена. Пожалуйста, введите корректное значение.</string>
+
+    <string name="dialog_template_text_rus">Вы хотите создать новый шаблон или отредактировать существующий?</string>
+    <string name="dialog_template_edit_rus">Редактировать</string>
+    <string name="dialog_template_create_rus">Создать</string>
+    <string name="converter_toast_template_edit_rus">Ваш шаблон был изменен.</string>
+    <string name="converter_toast_template_create_rus">Добавлен новый шаблон.</string>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -196,6 +211,13 @@
     <string name="converter_sale_ukr">Продаж</string>
     <string name="converter_purchase_ukr">Купівля</string>
     <string name="converter_dialog_action_title_ukr">Операція</string>
+    <string name="converter_toast_failure_ukr">Конвертація не проведена. Будь ласка, введіть коректне значення.</string>
+
+    <string name="dialog_template_text_ukr">Ви бажаєте створити новий шаблон або відредагувати наявний?</string>
+    <string name="dialog_template_edit_ukr">Редагувати</string>
+    <string name="dialog_template_create_ukr">Створити</string>
+    <string name="converter_toast_template_edit_ukr">Ваш шаблон був змінений.</string>
+    <string name="converter_toast_template_create_ukr">Додано новий шаблон.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

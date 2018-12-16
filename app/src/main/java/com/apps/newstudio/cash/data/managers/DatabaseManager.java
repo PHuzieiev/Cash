@@ -14,6 +14,8 @@ import com.apps.newstudio.cash.data.storage.models.CurrenciesEntityDao;
 import com.apps.newstudio.cash.data.storage.models.DaoSession;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntityDao;
+import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
+import com.apps.newstudio.cash.data.storage.models.TemplateEntityDao;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
@@ -35,6 +37,7 @@ public class DatabaseManager {
     private DaoSession mDaoSession;
     private OrganizationsEntityDao mOrganizationsEntityDao;
     private CurrenciesEntityDao mCurrenciesEntityDao;
+    private TemplateEntityDao mTemplateEntityDao;
     private List<OrganizationsEntity> mOrganizationsEntities;
     private List<CurrenciesEntity> mCurrenciesEntities;
     private String updateDate;
@@ -51,7 +54,7 @@ public class DatabaseManager {
         mDaoSession = CashApplication.getDaoSession();
         mOrganizationsEntityDao = mDaoSession.getOrganizationsEntityDao();
         mCurrenciesEntityDao = mDaoSession.getCurrenciesEntityDao();
-
+        mTemplateEntityDao = mDaoSession.getTemplateEntityDao();
         mOrganizationsEntities = new ArrayList<>();
         mCurrenciesEntities = new ArrayList<>();
     }
@@ -689,5 +692,24 @@ public class DatabaseManager {
             }
         }
         return result;
+    }
+
+    public String getTemplateNewId() {
+        List<TemplateEntity> list = mDaoSession.queryBuilder(TemplateEntity.class)
+                .orderAsc(TemplateEntityDao.Properties.Id)
+                .list();
+        Integer result = 1;
+        if (list.size() != 0) {
+            result = Integer.parseInt(list.get(list.size()-1).getId()) + 1;
+        }
+        return result.toString();
+    }
+
+    /**
+     * Adds new information in table TEMPLATES
+     * @param templateEntity object which contains data to edit in table
+     */
+    public void addDataInTemplateTable(TemplateEntity templateEntity) {
+        mTemplateEntityDao.insertOrReplace(templateEntity);
     }
 }

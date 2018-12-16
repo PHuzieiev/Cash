@@ -41,6 +41,7 @@ public class PreferenceManager {
         return mSharedPreferences.getString(key, defaultValue);
     }
 
+
     /**
      * Loads String value which is used to define App Language
      *
@@ -91,7 +92,7 @@ public class PreferenceManager {
      *
      * @param parameter String object which defines sort parameter
      */
-    public void setCurrenciesSortParameter(String parameter){
+    public void setCurrenciesSortParameter(String parameter) {
         saveString(ConstantsManager.CURRENCY_SORT_PARAMETER, parameter);
     }
 
@@ -100,7 +101,7 @@ public class PreferenceManager {
      *
      * @return String object
      */
-    public String getCurrenciesSortParameter(){
+    public String getCurrenciesSortParameter() {
         return loadString(ConstantsManager.CURRENCY_SORT_PARAMETER, ConstantsManager.CURRENCY_SORT_PARAMETER_TITLE);
     }
 
@@ -236,5 +237,23 @@ public class PreferenceManager {
      */
     public void setConverterValue(String parameter) {
         saveString(ConstantsManager.CONVERTER_VALUE_KEY, parameter);
+    }
+
+    /**
+     * Loads String value which defines value for template id
+     *
+     * @return String object
+     */
+    public String getTemplateId() {
+        return loadString(ConstantsManager.CONVERTER_TEMPLATE_ID_KEY, ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+    }
+
+    /**
+     * Saves String value which defines value for template id
+     *
+     * @param parameter String object for defining value for convertation
+     */
+    public void setTemplateId(String parameter) {
+        saveString(ConstantsManager.CONVERTER_TEMPLATE_ID_KEY, parameter);
     }
 }

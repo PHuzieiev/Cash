@@ -237,6 +237,7 @@ public class OrganizationsFragment extends Fragment {
         };
     }
 
+
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),

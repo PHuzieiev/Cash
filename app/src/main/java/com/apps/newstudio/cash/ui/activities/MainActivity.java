@@ -106,6 +106,7 @@ public class MainActivity extends BaseActivity
             mPreferenceManager.setConverterCurrencyShortForm(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
             mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
             mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+            mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
         }
         checkItemOfNavigationView(item.getItemId());
         return true;

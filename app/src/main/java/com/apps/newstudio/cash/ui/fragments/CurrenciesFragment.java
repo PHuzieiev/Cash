@@ -269,7 +269,7 @@ public class CurrenciesFragment extends Fragment {
     }
 
     public void checkDialogListData() {
-        String filter = DataManager.getInstance().getPreferenceManager().getOrganizationsFilterParameter();
+        String filter = DataManager.getInstance().getPreferenceManager().getCurrenciesFilterParameter();
         if (!filter.equals("")) {
             mDataForDialogList.get(0).setChecked(false);
             for(int i=1;i<mDataForDialogList.size();i++){

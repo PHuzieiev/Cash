@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
@@ -37,6 +39,11 @@ public class SplashActivity extends BaseActivity {
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
     private DatabaseManager.FinalActionSuccess mFinalActionSuccess;
     private DatabaseManager.FinalActionFailure mFinalActionFailure;
+
+    private String mTitle;
+    private String mMessage;
+    private String mTitleButtonOne;
+    private String mTitleButtonTwo;
 
 
     /**
@@ -150,6 +157,8 @@ public class SplashActivity extends BaseActivity {
         mPreferenceManager.setConverterCurrencyShortForm(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
         mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+        mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -160,6 +169,32 @@ public class SplashActivity extends BaseActivity {
      * Creates DialogInfoWithTwoButtons object
      */
     public void getDialogInfo() {
+        new LanguageManager() {
+            @Override
+            public void engLanguage() {
+                mTitle = getString(R.string.dialog_info_title_warning_eng);
+                mMessage = getString(R.string.dialog_info_message_eng);
+                mTitleButtonOne = getString(R.string.dialog_info_button_one_eng);
+                mTitleButtonTwo = getString(R.string.dialog_info_button_two_eng);
+            }
+
+            @Override
+            public void ukrLanguage() {
+                mTitle = getString(R.string.dialog_info_title_warning_ukr);
+                mMessage = getString(R.string.dialog_info_message_ukr);
+                mTitleButtonOne = getString(R.string.dialog_info_button_one_ukr);
+                mTitleButtonTwo = getString(R.string.dialog_info_button_two_ukr);
+            }
+
+            @Override
+            public void rusLanguage() {
+                mTitle = getString(R.string.dialog_info_title_warning_rus);
+                mMessage = getString(R.string.dialog_info_message_rus);
+                mTitleButtonOne = getString(R.string.dialog_info_button_one_rus);
+                mTitleButtonTwo = getString(R.string.dialog_info_button_two_rus);
+            }
+        };
+
         mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(SplashActivity.this,
                 new View.OnClickListener() {
                     @Override
@@ -178,7 +213,7 @@ public class SplashActivity extends BaseActivity {
             public void onClick(View v) {
                 mDialogInfoWithTwoButtons.getDialog().dismiss();
             }
-        });
+        }, mTitle, mMessage, mTitleButtonOne, mTitleButtonTwo);
     }
 
 }

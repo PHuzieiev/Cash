@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/tr"
-                            android:text="="
+                            android:text="@string/equals"
                             android:fontFamily="sans-serif"
                             android:textSize="@dimen/text_size_small_14sp"/>
 
@@ -95,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_accent"
-                            android:text="="
+                            android:text="@string/equals"
                             android:fontFamily="sans-serif"
                             android:textSize="@dimen/text_size_small_14sp"/>
 

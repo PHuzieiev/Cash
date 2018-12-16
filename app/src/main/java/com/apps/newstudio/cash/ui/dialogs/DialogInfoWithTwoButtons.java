@@ -20,6 +20,10 @@ public class DialogInfoWithTwoButtons {
     private Context mContext;
     private View.OnClickListener onClickListenerButtonOne;
     private View.OnClickListener onClickListenerButtonTwo;
+    private String mTitle;
+    private String mMessage;
+    private String mTitleButtonOne;
+    private String mTitleButtonTwo;
 
     /**
      * Initialises Context, onClickListenerButtonOne, onClickListenerButtonTwo
@@ -29,10 +33,15 @@ public class DialogInfoWithTwoButtons {
      */
     public DialogInfoWithTwoButtons(Context context,
                                     View.OnClickListener onClickListenerButtonOne,
-                                    View.OnClickListener onClickListenerButtonTwo) {
+                                    View.OnClickListener onClickListenerButtonTwo,
+                                    String mTitle, String mMessage, String mTitleButtonOne, String mTitleButtonTwo) {
         mContext = context;
         this.onClickListenerButtonOne = onClickListenerButtonOne;
         this.onClickListenerButtonTwo = onClickListenerButtonTwo;
+        this.mTitle = mTitle;
+        this.mMessage = mMessage;
+        this.mTitleButtonOne = mTitleButtonOne;
+        this.mTitleButtonTwo = mTitleButtonTwo;
         createDialog();
     }
 
@@ -47,44 +56,11 @@ public class DialogInfoWithTwoButtons {
         mDialog.getWindow().setBackgroundDrawable(drawable);
         mDialog.setContentView(R.layout.dialog_info_with_two_buttons);
 
-        new LanguageManager() {
-            @Override
-            public void engLanguage() {
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_title_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_title_warning_eng));
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_text_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_message_eng));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_one))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_one_eng));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_two))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_two_eng));
-            }
 
-            @Override
-            public void ukrLanguage() {
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_title_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_title_warning_ukr));
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_text_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_message_ukr));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_one))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_one_ukr));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_two))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_two_ukr));
-
-            }
-
-            @Override
-            public void rusLanguage() {
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_title_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_title_warning_rus));
-                ((TextView)mDialog.getWindow().findViewById(R.id.dialog_text_info))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_message_rus));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_one))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_one_rus));
-                ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_two))
-                        .setText(mContext.getResources().getString(R.string.dialog_info_button_two_rus));
-            }
-        };
+        ((TextView)mDialog.getWindow().findViewById(R.id.dialog_title_info)).setText(mTitle);
+        ((TextView)mDialog.getWindow().findViewById(R.id.dialog_text_info)).setText(mMessage);
+        ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_one)).setText(mTitleButtonOne);
+        ((Button)mDialog.getWindow().findViewById(R.id.dialog_button_two)).setText(mTitleButtonTwo);
 
         mDialog.getWindow().findViewById(R.id.dialog_button_one).setOnClickListener(onClickListenerButtonOne);
         mDialog.getWindow().findViewById(R.id.dialog_button_two).setOnClickListener(onClickListenerButtonTwo);

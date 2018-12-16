@@ -2,30 +2,24 @@ package com.apps.newstudio.cash.data.storage.models;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
-@Entity(active = true, nameInDb = "CURRENCIES")
-public class CurrenciesEntity {
+@Entity(active = true, nameInDb = "TEMPLATES")
+public class TemplateEntity {
 
     @Id
     private String id;
-    
-    @NotNull
+
     private String organizationId;
 
-    private String shortTitle;
+    private String shortCurrencyTitle;
 
-    private String titleUkr;
+    private String value;
 
-    private String titleRus;
+    private String direction;
 
-    private String titleEng;
-
-    private String ask;
-
-    private String bid;
+    private String action;
 
     private String date;
 
@@ -34,26 +28,24 @@ public class CurrenciesEntity {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    @Generated(hash = 221884038)
-    private transient CurrenciesEntityDao myDao;
+    @Generated(hash = 2119593750)
+    private transient TemplateEntityDao myDao;
 
-    @Generated(hash = 1873813850)
-    public CurrenciesEntity(String id, @NotNull String organizationId,
-            String shortTitle, String titleUkr, String titleRus, String titleEng,
-            String ask, String bid, String date) {
+    @Generated(hash = 964560803)
+    public TemplateEntity(String id, String organizationId,
+            String shortCurrencyTitle, String value, String direction,
+            String action, String date) {
         this.id = id;
         this.organizationId = organizationId;
-        this.shortTitle = shortTitle;
-        this.titleUkr = titleUkr;
-        this.titleRus = titleRus;
-        this.titleEng = titleEng;
-        this.ask = ask;
-        this.bid = bid;
+        this.shortCurrencyTitle = shortCurrencyTitle;
+        this.value = value;
+        this.direction = direction;
+        this.action = action;
         this.date = date;
     }
 
-    @Generated(hash = 541543905)
-    public CurrenciesEntity() {
+    @Generated(hash = 2102271725)
+    public TemplateEntity() {
     }
 
     public String getId() {
@@ -72,52 +64,36 @@ public class CurrenciesEntity {
         this.organizationId = organizationId;
     }
 
-    public String getShortTitle() {
-        return this.shortTitle;
+    public String getShortCurrencyTitle() {
+        return this.shortCurrencyTitle;
     }
 
-    public void setShortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
+    public void setShortCurrencyTitle(String shortCurrencyTitle) {
+        this.shortCurrencyTitle = shortCurrencyTitle;
     }
 
-    public String getTitleUkr() {
-        return this.titleUkr;
+    public String getValue() {
+        return this.value;
     }
 
-    public void setTitleUkr(String titleUkr) {
-        this.titleUkr = titleUkr;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public String getTitleRus() {
-        return this.titleRus;
+    public String getDirection() {
+        return this.direction;
     }
 
-    public void setTitleRus(String titleRus) {
-        this.titleRus = titleRus;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
-    public String getTitleEng() {
-        return this.titleEng;
+    public String getAction() {
+        return this.action;
     }
 
-    public void setTitleEng(String titleEng) {
-        this.titleEng = titleEng;
-    }
-
-    public String getAsk() {
-        return this.ask;
-    }
-
-    public void setAsk(String ask) {
-        this.ask = ask;
-    }
-
-    public String getBid() {
-        return this.bid;
-    }
-
-    public void setBid(String bid) {
-        this.bid = bid;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     public String getDate() {
@@ -165,10 +141,10 @@ public class CurrenciesEntity {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1112351922)
+    @Generated(hash = 85545151)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getCurrenciesEntityDao() : null;
+        myDao = daoSession != null ? daoSession.getTemplateEntityDao() : null;
     }
 
 }

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -27,12 +28,16 @@ import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
+import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
+import com.apps.newstudio.cash.ui.activities.SplashActivity;
+import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +98,7 @@ public class ConverterFragment extends Fragment {
     private List<RecyclerViewDataDialogListOrganizations> mListForOrganizationsDialog = new ArrayList<>();
     private DialogList mDialog;
     private TextWatcherAdapter mTextWatcherAdapter;
+    private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
 
     static final String TEG = ConstantsManager.TAG + "Con Fragment";
     private String mCurrencyShortForm;
@@ -110,10 +116,19 @@ public class ConverterFragment extends Fragment {
     private String mDate;
     private String mDirection;
     private String mStartValue;
-    private String mResultValue;
+    private String mToastFailure;
+    private String mToastEdited;
+    private String mToastCreated;
+    private String mTitle;
+    private String mMessage;
+    private String mTitleButtonOne;
+    private String mTitleButtonTwo;
+    private String mTemplateId;
 
     private int mPositionOfCurInList = -1;
     private int mPositionOfOrgInList = -1;
+
+    private boolean isConverted = false;
 
 
     @Override
@@ -241,6 +256,13 @@ public class ConverterFragment extends Fragment {
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_eng);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_eng);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_eng);
+                mToastFailure = getString(R.string.converter_toast_failure_eng);
+                mTitle = getResources().getString(R.string.drawer_item_converter_eng);
+                mMessage = getString(R.string.dialog_template_text_eng);
+                mTitleButtonOne = getString(R.string.dialog_template_edit_eng);
+                mTitleButtonTwo = getString(R.string.dialog_template_create_eng);
+                mToastEdited = getString(R.string.converter_toast_template_edit_eng);
+                mToastCreated = getString(R.string.converter_toast_template_create_eng);
             }
 
             @Override
@@ -259,6 +281,13 @@ public class ConverterFragment extends Fragment {
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_ukr);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_ukr);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_ukr);
+                mToastFailure = getString(R.string.converter_toast_failure_ukr);
+                mTitle = getResources().getString(R.string.drawer_item_converter_ukr);
+                mMessage = getString(R.string.dialog_template_text_ukr);
+                mTitleButtonOne = getString(R.string.dialog_template_edit_ukr);
+                mTitleButtonTwo = getString(R.string.dialog_template_create_ukr);
+                mToastEdited = getString(R.string.converter_toast_template_edit_ukr);
+                mToastCreated = getString(R.string.converter_toast_template_create_ukr);
             }
 
             @Override
@@ -277,6 +306,13 @@ public class ConverterFragment extends Fragment {
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_rus);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_rus);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_rus);
+                mToastFailure = getString(R.string.converter_toast_failure_rus);
+                mTitle = getResources().getString(R.string.drawer_item_converter_rus);
+                mMessage = getString(R.string.dialog_template_text_rus);
+                mTitleButtonOne = getString(R.string.dialog_template_edit_rus);
+                mTitleButtonTwo = getString(R.string.dialog_template_create_rus);
+                mToastEdited = getString(R.string.converter_toast_template_edit_rus);
+                mToastCreated = getString(R.string.converter_toast_template_create_rus);
             }
         };
         getDataForActionDialog();
@@ -425,18 +461,18 @@ public class ConverterFragment extends Fragment {
                 case ConstantsManager.CONVERTER_DIRECTION_FROM_UAH:
                     bDResult = bDValue.divide(bDIndex, 4, BigDecimal.ROUND_HALF_UP);
                     eTFirstValue.setText(mStartValue);
-                    if(bDResult.compareTo(new BigDecimal("0"))==0){
+                    if (bDResult.compareTo(new BigDecimal("0")) == 0) {
                         eTSecondValue.setText("0");
-                    }else {
+                    } else {
                         eTSecondValue.setText(bDResult.stripTrailingZeros().toPlainString());
                     }
                     break;
                 case ConstantsManager.CONVERTER_DIRECTION_TO_UAH:
                     bDResult = bDValue.multiply(bDIndex);
-                    if(bDResult.compareTo(new BigDecimal("0"))==0){
+                    if (bDResult.compareTo(new BigDecimal("0")) == 0) {
                         eTFirstValue.setText("0");
-                    }else {
-                        eTFirstValue.setText(bDResult.setScale(4,BigDecimal.ROUND_HALF_UP)
+                    } else {
+                        eTFirstValue.setText(bDResult.setScale(4, BigDecimal.ROUND_HALF_UP)
                                 .stripTrailingZeros().toPlainString());
                     }
                     eTSecondValue.setText(mStartValue);
@@ -444,11 +480,67 @@ public class ConverterFragment extends Fragment {
             }
             eTFirstValue.setSelection(eTFirstValue.getText().toString().length());
             eTSecondValue.setSelection(eTSecondValue.getText().toString().length());
+            isConverted = true;
 
-        }catch (Exception e){
-            //Error
+        } catch (Exception e) {
+            isConverted = false;
         }
         mTextWatcherAdapter.setActionForFirst(true);
         mTextWatcherAdapter.setActionForSecond(true);
+    }
+
+    @OnClick(R.id.converter_fragment_fab)
+    public void addToTemplates() {
+        mTemplateId = mPreferenceManager.getTemplateId();
+        if (isConverted) {
+            if (mPreferenceManager.getTemplateId().equals(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT)) {
+                mTemplateId = mDatabaseManager.getTemplateNewId();
+                mPreferenceManager.setTemplateId(mTemplateId);
+                saveTemplate(mToastCreated);
+            } else {
+                showDialog();
+            }
+        } else {
+            ((MainActivity) getActivity()).showToast(mToastFailure);
+        }
+    }
+
+    public void showDialog() {
+        mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(((MainActivity) getActivity()).getContext(),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        saveTemplate(mToastEdited);
+                        mDialogInfoWithTwoButtons.getDialog().dismiss();
+                    }
+                }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTemplateId = mDatabaseManager.getTemplateNewId();
+                mPreferenceManager.setTemplateId(mTemplateId);
+                saveTemplate(mToastCreated);
+                mDialogInfoWithTwoButtons.getDialog().dismiss();
+            }
+        }, mTitle, mMessage, mTitleButtonOne, mTitleButtonTwo);
+        mDialogInfoWithTwoButtons.getDialog().show();
+    }
+
+    public void saveTemplate(String toastText) {
+        SimpleDateFormat simpleDateFormatY = new SimpleDateFormat("yyyy");
+        SimpleDateFormat simpleDateFormatM = new SimpleDateFormat("MM");
+        SimpleDateFormat simpleDateFormatD = new SimpleDateFormat("dd");
+        SimpleDateFormat simpleDateFormatH = new SimpleDateFormat("HH");
+        SimpleDateFormat simpleDateFormatS = new SimpleDateFormat("ss");
+        String year = simpleDateFormatY.format(System.currentTimeMillis());
+        String month = simpleDateFormatM.format(System.currentTimeMillis());
+        String day = simpleDateFormatD.format(System.currentTimeMillis());
+        String hour = simpleDateFormatH.format(System.currentTimeMillis());
+        String second = simpleDateFormatS.format(System.currentTimeMillis());
+        mDatabaseManager.addDataInTemplateTable(
+                new TemplateEntity(mTemplateId, mOrganizationId, mCurrencyShortForm,
+                        mStartValue, mDirection, mAction, year+"-"+month+"-"+day+" "+hour+":"+second)
+        );
+        ((MainActivity) getActivity()).showToast(toastText);
+
     }
 }

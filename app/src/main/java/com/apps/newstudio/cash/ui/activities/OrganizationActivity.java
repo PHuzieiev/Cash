@@ -293,6 +293,7 @@ public class OrganizationActivity extends BaseActivity {
         mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
         mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+        mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
         finish();
     }
 }
