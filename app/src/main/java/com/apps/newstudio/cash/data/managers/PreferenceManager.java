@@ -197,4 +197,44 @@ public class PreferenceManager {
     public void setConverterAction(String parameter) {
         saveString(ConstantsManager.CONVERTER_ACTION_KEY, parameter);
     }
+
+
+    /**
+     * Loads String value which defines direction of convertation in Converter Fragment
+     *
+     * @return String object
+     */
+    public String getConverterDirection() {
+        return loadString(ConstantsManager.CONVERTER_DIRECTION_KEY,
+                ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+    }
+
+    /**
+     * Saves String value which defines direction of convertation in Converter Fragment
+     *
+     * @param parameter String object for defining direction of convertation
+     */
+    public void setConverterDirection(String parameter) {
+        saveString(ConstantsManager.CONVERTER_DIRECTION_KEY, parameter);
+    }
+
+
+    /**
+     * Loads String value which defines value for convertation in Converter Fragment
+     *
+     * @return String object
+     */
+    public String getConverterValue() {
+        return loadString(ConstantsManager.CONVERTER_VALUE_KEY,
+                ConstantsManager.CONVERTER_VALUE_DEFAULT);
+    }
+
+    /**
+     * Saves String value which defines value for convertation in Converter Fragment
+     *
+     * @param parameter String object for defining value for convertation
+     */
+    public void setConverterValue(String parameter) {
+        saveString(ConstantsManager.CONVERTER_VALUE_KEY, parameter);
+    }
 }

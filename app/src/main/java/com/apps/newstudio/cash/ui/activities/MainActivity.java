@@ -19,6 +19,7 @@ import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.fragments.AboutFragment;
 import com.apps.newstudio.cash.ui.fragments.ConverterFragment;
 import com.apps.newstudio.cash.ui.fragments.CurrenciesFragment;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity
 
     static final String TEG = ConstantsManager.TAG + "Main activity";
     private DataManager mDataManager;
+    private PreferenceManager mPreferenceManager;
 
     private String mStringUpdateTitle;
     private int checkedItemId = 0;
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         mDataManager = DataManager.getInstance();
+        mPreferenceManager = mDataManager.getPreferenceManager();
         setLang();
         updateDate();
 
@@ -88,14 +91,21 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        if(checkedItemId!=item.getItemId()&&item.getItemId()==R.id.item_organizations){
+        if (checkedItemId != item.getItemId() && item.getItemId() == R.id.item_organizations) {
             DataManager.getInstance().getPreferenceManager().setOrganizationsFilterParameter("");
             DataManager.getInstance().getPreferenceManager().setOrganizationsSearchParameter("");
         }
 
-        if(checkedItemId!=item.getItemId()&&item.getItemId()==R.id.item_currencies){
+        if (checkedItemId != item.getItemId() && item.getItemId() == R.id.item_currencies) {
             DataManager.getInstance().getPreferenceManager().setCurrenciesFilterParameter("");
             DataManager.getInstance().getPreferenceManager().setCurrenciesSearchParameter("");
+        }
+        if(checkedItemId==R.id.item_converter||item.getItemId()!=checkedItemId){
+            mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+            mPreferenceManager.setConverterOrganizationId(ConstantsManager.EMPTY_STRING_VALUE);
+            mPreferenceManager.setConverterCurrencyShortForm(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
+            mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+            mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         }
         checkItemOfNavigationView(item.getItemId());
         return true;
@@ -129,9 +139,9 @@ public class MainActivity extends BaseActivity
 
             }
             if (id != R.id.item_update && id != R.id.item_language) {
-                if(id!=R.id.item_converter) {
+                if (id != R.id.item_converter) {
                     toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
-                }else{
+                } else {
                     toolbar.setTitle(ConstantsManager.EMPTY_STRING_VALUE);
                 }
                 navigationView.setCheckedItem(id);

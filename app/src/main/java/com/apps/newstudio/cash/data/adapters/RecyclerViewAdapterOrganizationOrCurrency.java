@@ -36,6 +36,11 @@ public class RecyclerViewAdapterOrganizationOrCurrency
     public final static int TYPE_TWO = 2;
     private int mTypeOfList;
 
+    /**
+     * Constructor for RecyclerViewAdapterOrganizationOrCurrency object
+     * @param data main data for items in list
+     * @param actionForIcon main action for items ImageView
+     */
     public RecyclerViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon) {
         mData = data;
         mActionForIcon = actionForIcon;
@@ -43,6 +48,12 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         mTypeOfList = TYPE_ONE;
     }
 
+    /**
+     * Constructor number two for RecyclerViewAdapterOrganizationOrCurrency
+     * @param data main data for items in list
+     * @param actionForIcon main action for ImageView object in items
+     * @param actionForIconTwo main action for ImageView object in items
+     */
     public RecyclerViewAdapterOrganizationOrCurrency(List<RecyclerViewDataOrganizationOrCurrency> data, ActionForIcon actionForIcon,
                                                      ActionForIconTwo actionForIconTwo) {
         mDataTwo = data;
@@ -51,14 +62,28 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         mTypeOfList = TYPE_TWO;
     }
 
+    /**
+     * Setter for dataTwo RecyclerViewDataOrganizationOrCurrency List;
+     * @param dataTwo main data for items of list
+     */
     public void setDataTwo(List<RecyclerViewDataOrganizationOrCurrency> dataTwo) {
         mDataTwo = dataTwo;
     }
 
+    /**
+     * Setter for data CurrenciesEntity List;
+     * @param data main data for items of list
+     */
     public void setData(List<CurrenciesEntity> data) {
         mData = data;
     }
 
+    /**
+     * Creates ViewHolder object for adding data in items
+     * @param parent
+     * @param viewType
+     * @return ViewHolder object
+     */
     @NonNull
     @Override
     public RecyclerViewAdapterOrganizationOrCurrency.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -76,6 +101,11 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         return new RecyclerViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon, mActionForIconTwo);
     }
 
+    /**
+     * Adds data in all elements of items
+     * @param holder object witch is contained all elements of items
+     * @param position position of item in list
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, int position) {
         switch (mTypeOfList) {
@@ -88,6 +118,12 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         }
     }
 
+    /**
+     * Sets information for items in list
+     * @param holder object witch is contained all elements of item
+     * @param data object which is contained information for elements of item
+     * @param position position of item in list
+     */
     public void bindTypeOne(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, CurrenciesEntity data, int position) {
         holder.shortTitle.setText(data.getShortTitle().toUpperCase());
         String saleTitle = "";
@@ -126,6 +162,12 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         holder.itemLayout.setLayoutParams(layoutParams);
     }
 
+    /**
+     * Creates SpannableStringBuilder object for some elements in items
+     * @param title main title for elements
+     * @param parameter value which will be added to title
+     * @return object which will be added like title for some elements in items
+     */
     public SpannableStringBuilder getInfoString(String title, String parameter) {
         int i = title.length();
         String result = title + "\n" + parameter;
@@ -137,6 +179,12 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         return spannableStringBuilder;
     }
 
+    /**
+     * Sets information for items in list
+     * @param holder object witch is contained all elements of item
+     * @param data object which is contained information for elements of item
+     * @param position position of item in list
+     */
     public void bindTypeTwo(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder,
                             RecyclerViewDataOrganizationOrCurrency data, int position) {
         String saleTitle = "";
@@ -176,7 +224,10 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         holder.itemLayout.setLayoutParams(layoutParams);
     }
 
-
+    /**
+     * Getter for count of items in list
+     * @return count of items
+     */
     @Override
     public int getItemCount() {
         int result = 0;
@@ -191,6 +242,9 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         return result;
     }
 
+    /**
+     * Class which identificates all elements in item of list
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.item_ll)
@@ -222,6 +276,12 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         private ActionForIconTwo mActionForIconTwo;
 
 
+        /**
+         * Constructor for ViewHolder object
+         * @param itemView item main View
+         * @param actionForIcon action for item ImageView
+         * @param actionForIconTwo action for item ImageView
+         */
         public ViewHolder(View itemView, RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon,
                           ActionForIconTwo actionForIconTwo) {
             super(itemView);
@@ -251,10 +311,17 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         }
     }
 
+    /**
+     * Interface which creates action method for onClick event of ImageView of item in list
+     */
     public interface ActionForIcon {
         void action(int position);
     }
 
+
+    /**
+     * Interface which creates action method for onClick event of ImageView of item in list
+     */
     public interface ActionForIconTwo {
         void action(int position);
     }

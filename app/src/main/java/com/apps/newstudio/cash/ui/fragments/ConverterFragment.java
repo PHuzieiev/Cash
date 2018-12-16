@@ -1,12 +1,9 @@
 package com.apps.newstudio.cash.ui.fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Fragment;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -23,6 +20,7 @@ import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogListOrganizations;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataFragment;
+import com.apps.newstudio.cash.data.adapters.TextWatcherAdapter;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
@@ -34,10 +32,12 @@ import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -78,6 +78,12 @@ public class ConverterFragment extends Fragment {
     @BindView(R.id.converter_sale_or_purchase_tv)
     public TextView tVChosenAction;
 
+    @BindView(R.id.converter_input_value_currency_one_value)
+    public EditText eTFirstValue;
+
+    @BindView(R.id.converter_input_value_currency_two_value)
+    public EditText eTSecondValue;
+
     private Unbinder mUnbinder;
     private PreferenceManager mPreferenceManager;
     private DatabaseManager mDatabaseManager;
@@ -86,6 +92,7 @@ public class ConverterFragment extends Fragment {
     private List<RecyclerViewDataDialogList> mListForActionDialog = new ArrayList<>();
     private List<RecyclerViewDataDialogListOrganizations> mListForOrganizationsDialog = new ArrayList<>();
     private DialogList mDialog;
+    private TextWatcherAdapter mTextWatcherAdapter;
 
     static final String TEG = ConstantsManager.TAG + "Con Fragment";
     private String mCurrencyShortForm;
@@ -94,16 +101,16 @@ public class ConverterFragment extends Fragment {
     private String mOrganizationDialogTitle;
     private String mAction;
     private String mActionDialogTitle;
-    private String mFirstCurrency;
-    private String mSecondCurrency;
     private String mFirstCurrencyTitle;
-    private String mSecondCurrencyTitle;
     private String mSaleTitle;
     private String mPurchaseTitle;
     private String mCountTitle;
     private String mSaleValue;
     private String mPurchaseValue;
     private String mDate;
+    private String mDirection;
+    private String mStartValue;
+    private String mResultValue;
 
     private int mPositionOfCurInList = -1;
     private int mPositionOfOrgInList = -1;
@@ -121,6 +128,13 @@ public class ConverterFragment extends Fragment {
         mUnbinder = ButterKnife.bind(this, view);
         mPreferenceManager = DataManager.getInstance().getPreferenceManager();
         mDatabaseManager = DataManager.getInstance().getDatabaseManager();
+        mTextWatcherAdapter = new TextWatcherAdapter(eTFirstValue, eTSecondValue, false, false,
+                new TextWatcherAdapter.SomeAction() {
+                    @Override
+                    public void action() {
+                        convertValue();
+                    }
+                });
         getDefaultData();
         return view;
     }
@@ -135,6 +149,8 @@ public class ConverterFragment extends Fragment {
         mCurrencyShortForm = mPreferenceManager.getConverterCurrencyShortForm().toUpperCase();
         mOrganizationId = mPreferenceManager.getConverterOrganizationId();
         mAction = mPreferenceManager.getConverterAction();
+        mStartValue = mPreferenceManager.getConverterValue();
+        mDirection = mPreferenceManager.getConverterDirection();
         getMainListForActions();
     }
 
@@ -185,9 +201,9 @@ public class ConverterFragment extends Fragment {
                 isChecked = true;
             }
             for (CurrenciesEntity cur : org.get(i).getCurrencies()) {
-                if(cur.getShortTitle().toUpperCase().equals(mCurrencyShortForm)){
+                if (cur.getShortTitle().toUpperCase().equals(mCurrencyShortForm)) {
                     mListForOrganizationsDialog.add(new RecyclerViewDataDialogListOrganizations(isChecked,
-                            org.get(i),cur));
+                            org.get(i), cur));
                 }
             }
         }
@@ -217,7 +233,7 @@ public class ConverterFragment extends Fragment {
                 mCountTitle = getString(R.string.converter_count_of_currencies_eng);
                 eTTitle.setText(getResources().getString(R.string.drawer_item_converter_eng));
                 tVChosenCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleEng().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleEng().toUpperCase());
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleEng());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
@@ -235,7 +251,7 @@ public class ConverterFragment extends Fragment {
                 mCountTitle = getString(R.string.converter_count_of_currencies_ukr);
                 eTTitle.setText(getResources().getString(R.string.drawer_item_converter_ukr));
                 tVChosenCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleUkr().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleUkr().toUpperCase());
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleUkr());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
@@ -253,7 +269,7 @@ public class ConverterFragment extends Fragment {
                 mCountTitle = getString(R.string.converter_count_of_currencies_rus);
                 eTTitle.setText(getResources().getString(R.string.drawer_item_converter_rus));
                 tVChosenCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleRus().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleRus().toUpperCase());
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleRus());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
@@ -275,20 +291,23 @@ public class ConverterFragment extends Fragment {
         tVChosenOrganizationSale.setText(getInfoString(mSaleTitle + ": ", mSaleValue));
         tVChosenOrganizationDate.setText(mDate.substring(0, 10));
         if (mAction.equals(ConstantsManager.CONVERTER_ACTION_SALE)) {
-            tVChosenAction.setText(mSaleTitle);
+            tVChosenAction.setText(mSaleTitle.toUpperCase());
         } else {
-            tVChosenAction.setText(mPurchaseTitle);
+            tVChosenAction.setText(mPurchaseTitle.toUpperCase());
         }
+        mTextWatcherAdapter.setActionForFirst(false);
+        mTextWatcherAdapter.setActionForSecond(false);
+        convertValue();
     }
 
-    public void getDataForActionDialog(){
+    public void getDataForActionDialog() {
         mListForActionDialog.clear();
-        if(mAction.equals(ConstantsManager.CONVERTER_ACTION_PURCHASE)){
+        if (mAction.equals(ConstantsManager.CONVERTER_ACTION_PURCHASE)) {
             mListForActionDialog.add(new RecyclerViewDataDialogList(true,
                     mPurchaseTitle, mPurchaseTitle, mPurchaseTitle));
             mListForActionDialog.add(new RecyclerViewDataDialogList(false,
                     mSaleTitle, mSaleTitle, mSaleTitle));
-        }else{
+        } else {
             mListForActionDialog.add(new RecyclerViewDataDialogList(false,
                     mPurchaseTitle, mPurchaseTitle, mPurchaseTitle));
             mListForActionDialog.add(new RecyclerViewDataDialogList(true,
@@ -341,7 +360,7 @@ public class ConverterFragment extends Fragment {
     }
 
     @OnClick(R.id.converter_organization_cv)
-    public  void chooseOrganization(){
+    public void chooseOrganization() {
         mDialog = new DialogList(((MainActivity) getActivity()).getContext(),
                 mOrganizationDialogTitle, null, mListForOrganizationsDialog,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
@@ -361,15 +380,15 @@ public class ConverterFragment extends Fragment {
     }
 
     @OnClick(R.id.converter_sale_or_purchase_cv)
-    public void chooseAction(){
+    public void chooseAction() {
         mDialog = new DialogList(((MainActivity) getActivity()).getContext(),
                 mActionDialogTitle, mListForActionDialog, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
-                        if(position==0){
+                        if (position == 0) {
                             mAction = ConstantsManager.CONVERTER_ACTION_PURCHASE;
-                        }else{
+                        } else {
                             mAction = ConstantsManager.CONVERTER_ACTION_SALE;
                         }
                         mPreferenceManager.setConverterAction(mAction);
@@ -381,5 +400,55 @@ public class ConverterFragment extends Fragment {
                 .setImageResource(R.drawable.ic_tr);
         mDialog.getDialog().getWindow().findViewById(R.id.dialog_list_done)
                 .setBackground(getResources().getDrawable(R.drawable.ic_tr));
+    }
+
+    public void convertValue() {
+
+        try {
+            mStartValue = mPreferenceManager.getConverterValue();
+            mDirection = mPreferenceManager.getConverterDirection();
+
+            String index = null;
+            switch (mAction) {
+                case ConstantsManager.CONVERTER_ACTION_PURCHASE:
+                    index = mPurchaseValue;
+                    break;
+                case ConstantsManager.CONVERTER_ACTION_SALE:
+                    index = mSaleValue;
+                    break;
+            }
+            BigDecimal bDValue = new BigDecimal(mStartValue);
+            BigDecimal bDIndex = new BigDecimal(index);
+            BigDecimal bDResult = null;
+
+            switch (mDirection) {
+                case ConstantsManager.CONVERTER_DIRECTION_FROM_UAH:
+                    bDResult = bDValue.divide(bDIndex, 4, BigDecimal.ROUND_HALF_UP);
+                    eTFirstValue.setText(mStartValue);
+                    if(bDResult.compareTo(new BigDecimal("0"))==0){
+                        eTSecondValue.setText("0");
+                    }else {
+                        eTSecondValue.setText(bDResult.stripTrailingZeros().toPlainString());
+                    }
+                    break;
+                case ConstantsManager.CONVERTER_DIRECTION_TO_UAH:
+                    bDResult = bDValue.multiply(bDIndex);
+                    if(bDResult.compareTo(new BigDecimal("0"))==0){
+                        eTFirstValue.setText("0");
+                    }else {
+                        eTFirstValue.setText(bDResult.setScale(4,BigDecimal.ROUND_HALF_UP)
+                                .stripTrailingZeros().toPlainString());
+                    }
+                    eTSecondValue.setText(mStartValue);
+                    break;
+            }
+            eTFirstValue.setSelection(eTFirstValue.getText().toString().length());
+            eTSecondValue.setSelection(eTSecondValue.getText().toString().length());
+
+        }catch (Exception e){
+            //Error
+        }
+        mTextWatcherAdapter.setActionForFirst(true);
+        mTextWatcherAdapter.setActionForSecond(true);
     }
 }

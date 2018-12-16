@@ -216,7 +216,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/converter_fragment_fab"
         style="@style/Fab"
-        android:src="@drawable/ic_done" />
+        android:src="@drawable/ic_add_template" />
 
 
 </RelativeLayout>

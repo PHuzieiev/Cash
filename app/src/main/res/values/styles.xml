@@ -263,23 +263,24 @@
     <style name="ltv_in_card_view_fragment" parent="item_cur_purchase_tv">
         <item name="android:textSize">@dimen/text_size_smallest_12sp</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/spacing_smaller_4dp</item>
     </style>
 
     <style name="rtv_in_card_view_fragment" parent="ltv_in_card_view_fragment">
         <item name="android:layout_marginRight">0dp</item>
-        <item name="android:layout_marginLeft">@dimen/spacing_smaller_8dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_smaller_4dp</item>
     </style>
 
     <style name="let_in_card_view_fragment" parent="ltv_in_card_view_fragment">
         <item name="android:textSize">@dimen/text_size_normal_24sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/rectangle_for_edit_text</item>
-        <item name="android:inputType">textVisiblePassword</item>
+        <item name="android:inputType">textVisiblePassword|numberDecimal</item>
     </style>
 
     <style name="ret_in_card_view_fragment" parent="let_in_card_view_fragment">
         <item name="android:layout_marginRight">0dp</item>
-        <item name="android:layout_marginLeft">@dimen/spacing_smaller_8dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_smaller_4dp</item>
     </style>
 
 

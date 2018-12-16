@@ -11,7 +11,7 @@
     <string name="drawer_item_organizations_eng">Organizations</string>
     <string name="drawer_item_currencies_eng">Currencies</string>
     <string name="drawer_item_converter_eng">Converter</string>
-    <string name="drawer_item_results_eng">Results</string>
+    <string name="drawer_item_results_eng">Templates</string>
     <string name="drawer_item_others_eng">Others</string>
     <string name="drawer_item_update_eng">Update data</string>
     <string name="drawer_item_language_eng">Language</string>
@@ -108,7 +108,7 @@
     <string name="drawer_item_organizations_rus">Организации</string>
     <string name="drawer_item_currencies_rus">Курс валют</string>
     <string name="drawer_item_converter_rus">Конвертер</string>
-    <string name="drawer_item_results_rus">Результаты</string>
+    <string name="drawer_item_results_rus">Шаблоны</string>
     <string name="drawer_item_others_rus">Другое</string>
     <string name="drawer_item_update_rus">Обновить данные</string>
     <string name="drawer_item_language_rus">Язык</string>
@@ -156,7 +156,7 @@
     <string name="drawer_item_organizations_ukr">Організації</string>
     <string name="drawer_item_currencies_ukr">Курс валют</string>
     <string name="drawer_item_converter_ukr">Конвертер</string>
-    <string name="drawer_item_results_ukr">Результати</string>
+    <string name="drawer_item_results_ukr">Шаблони</string>
     <string name="drawer_item_others_ukr">Інше</string>
     <string name="drawer_item_update_ukr">Оновити дані</string>
     <string name="drawer_item_language_ukr">Мова</string>

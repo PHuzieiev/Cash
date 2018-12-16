@@ -28,16 +28,31 @@ public class RecyclerViewAdapterDialogListOrganizations
     private List<RecyclerViewDataDialogListOrganizations> mData;
     private RecyclerViewAdapterDialogList.OnItemClickListener onItemClick;
 
+    /**
+     * Constructor for RecyclerViewAdapterDialogListOrganizations object
+     * @param data main data for items in list
+     * @param onItemClick main action for item in list
+     */
     public RecyclerViewAdapterDialogListOrganizations(List<RecyclerViewDataDialogListOrganizations> data,
                                                       RecyclerViewAdapterDialogList.OnItemClickListener onItemClick) {
         mData = data;
         this.onItemClick = onItemClick;
     }
 
+    /**
+     * Setter for main data in list
+     * @param data main data for items in list
+     */
     public void setData(List<RecyclerViewDataDialogListOrganizations> data) {
         mData = data;
     }
 
+    /**
+     * Creates ViewHolder object for adding data in items
+     * @param parent
+     * @param viewType
+     * @return ViewHolder object
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,6 +61,11 @@ public class RecyclerViewAdapterDialogListOrganizations
         return new RecyclerViewAdapterDialogListOrganizations.ViewHolder(view, onItemClick);
     }
 
+    /**
+     * Adds data in all elements of items
+     * @param holder object witch is contained all elements of items
+     * @param position position of item in list
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String saleTitle = "";
@@ -89,6 +109,13 @@ public class RecyclerViewAdapterDialogListOrganizations
         holder.date.setText(mData.get(position).getCurrency().getDate().substring(0, 10));
     }
 
+    /**
+     * Creates SpannableStringBuilder object for some elements in items
+     * @param title main title for elements
+     * @param parameter value which will be added to title
+     * @param isChecked true - item was checked, false - item was not checked
+     * @return object which will be added like title for some elements in items
+     */
     public SpannableStringBuilder getInfoString(String title, String parameter, boolean isChecked) {
         int i = title.length();
         String result = title + "\n" + parameter;
@@ -106,11 +133,18 @@ public class RecyclerViewAdapterDialogListOrganizations
         return spannableStringBuilder;
     }
 
+    /**
+     * Getter for count of items in list
+     * @return count of items
+     */
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
+    /**
+     * Class which identificates all elements in item of list
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_dialog_list_iv)
         public ImageView image;
@@ -131,6 +165,11 @@ public class RecyclerViewAdapterDialogListOrganizations
         public LinearLayout layout;
 
 
+        /**
+         * Constructor for ViewHolder object
+         * @param itemView item main View
+         * @param onClick action for item
+         */
         public ViewHolder(View itemView, final RecyclerViewAdapterDialogList.OnItemClickListener onClick) {
             super(itemView);
             ButterKnife.bind(this, itemView);

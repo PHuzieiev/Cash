@@ -12,6 +12,7 @@
 
     <dimen name="spacing_start_1dp">1dp</dimen>
     <dimen name="spacing_smallest_2dp">2dp</dimen>
+    <dimen name="spacing_smaller_4dp">4dp</dimen>
     <dimen name="spacing_smaller_6dp">6dp</dimen>
     <dimen name="spacing_smaller_8dp">8dp</dimen>
     <dimen name="spacing_small_16dp">16dp</dimen>

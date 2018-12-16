@@ -65,6 +65,15 @@
                             style="@style/ltv_in_card_view_fragment"/>
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/tr"
+                            android:text="="
+                            android:fontFamily="sans-serif"
+                            android:textSize="@dimen/text_size_small_14sp"/>
+
+
+                        <TextView
                             android:id="@+id/converter_input_value_currency_two_title"
                             style="@style/rtv_in_card_view_fragment" />
 
@@ -75,11 +84,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_smaller_8dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
                         <EditText
                             android:id="@+id/converter_input_value_currency_one_value"
                             style="@style/let_in_card_view_fragment" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_accent"
+                            android:text="="
+                            android:fontFamily="sans-serif"
+                            android:textSize="@dimen/text_size_small_14sp"/>
 
                         <EditText
                             android:id="@+id/converter_input_value_currency_two_value"
@@ -193,7 +211,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/converter_fragment_fab"
         style="@style/Fab"
-        android:src="@drawable/ic_done" />
+        android:src="@drawable/ic_add_template" />
 
 
 </RelativeLayout>

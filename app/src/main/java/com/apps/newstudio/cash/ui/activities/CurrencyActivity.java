@@ -26,6 +26,7 @@ import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -62,12 +63,18 @@ public class CurrencyActivity extends AppCompatActivity {
     private List<RecyclerViewDataDialogList> mDataForDialogList;
     private DialogList mDialogSort;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
+    private PreferenceManager mPreferenceManager;
 
+    /**
+     * Creates all elements and do all work to show information in elements
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
         ButterKnife.bind(this);
+        mPreferenceManager=DataManager.getInstance().getPreferenceManager();
         setupToolbar();
         setLang();
         getDataForDialogSort();
@@ -76,6 +83,9 @@ public class CurrencyActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Sets all configuration parameters for ToolBar object
+     */
     private void setupToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -93,11 +103,19 @@ public class CurrencyActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Closes Activity
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    /**
+     * Sets menu for Activity
+     * @param menu
+     * @return value true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_order, menu);
@@ -116,6 +134,11 @@ public class CurrencyActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * if item is selected, Dialog is opened
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.order) {
@@ -124,6 +147,9 @@ public class CurrencyActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Sets main Language parameters of Strings, TextView and EditText objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -149,18 +175,27 @@ public class CurrencyActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * Initializes some String object using main Intent
+     */
     public void setData() {
         mShortTitle = getIntent().getStringExtra(ConstantsManager.CURRENCY_SHORT_FORM);
         shortForm.setText(mShortTitle.toUpperCase());
         titleEditText.setText(getIntent().getStringExtra(ConstantsManager.CURRENCY_TITLE).toUpperCase());
     }
 
+    /**
+     * Gets data for list and sets text information for countTextView object
+     */
     public void prepareDataForList() {
         mData = DataManager.getInstance().getDatabaseManager().getOrganizationsByCurrency(mShortTitle);
         countTextView.setText(mSecondTitle + mData.size());
         sortMainList();
     }
 
+    /**
+     * Does sort for list
+     */
     public void sortMainList(){
         switch (DataManager.getInstance().getPreferenceManager().getCurrenciesSortParameter()) {
             case ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE:
@@ -172,6 +207,11 @@ public class CurrencyActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sorts list using values from Ask field of items in Currency List
+     * @param data main list
+     * @return sorted list
+     */
     public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesBySale(List<RecyclerViewDataOrganizationOrCurrency> data){
         for(int i=data.size()-1;i>0;i--){
             for (int j=0;j<i;j++){
@@ -186,7 +226,11 @@ public class CurrencyActivity extends AppCompatActivity {
         return data;
     }
 
-
+    /**
+     * Sorts list using values from Bid field of items in Currency List
+     * @param data main list
+     * @return sorted list
+     */
     public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesByPurchase(List<RecyclerViewDataOrganizationOrCurrency> data){
         for(int i=data.size()-1;i>0;i--){
             for (int j=0;j<i;j++){
@@ -201,6 +245,9 @@ public class CurrencyActivity extends AppCompatActivity {
         return data;
     }
 
+    /**
+     * Create RecyclerView object, sets RecyclerViewAdapterOrganizationOrCurrency for this object
+     */
     public void createList() {
         prepareDataForList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
@@ -259,6 +306,9 @@ public class CurrencyActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Updates main list using new information
+     */
     public void updateList() {
         mData.clear();
         prepareDataForList();
@@ -266,6 +316,9 @@ public class CurrencyActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Gets data for Dialog of Sort
+     */
     public void getDataForDialogSort() {
         mDataForDialogList = new ArrayList<>();
         for (int i = 0; i < mItemsDialogSort.length; i++) {
@@ -275,6 +328,11 @@ public class CurrencyActivity extends AppCompatActivity {
         mDataForDialogList = setParameterForDialogSort(mDataForDialogList);
     }
 
+    /**
+     * Sets boolean value for items in list for Sort Dialog
+     * @param data main list of Sort Dialog
+     * @return changed main list of Sort Dialog
+     */
     public List<RecyclerViewDataDialogList> setParameterForDialogSort(List<RecyclerViewDataDialogList> data) {
         for (int i = 0; i < data.size(); i++) {
             data.get(i).setChecked(false);
@@ -293,6 +351,9 @@ public class CurrencyActivity extends AppCompatActivity {
         return data;
     }
 
+    /**
+     * Creates DialogList object for making sort of main list in Activity
+     */
     public void createDialogSort() {
         mDialogSort = new DialogList(CurrencyActivity.this,
                 mTitleOfDialogFilter, mDataForDialogList, null,
@@ -330,6 +391,12 @@ public class CurrencyActivity extends AppCompatActivity {
                 .setBackgroundColor(getResources().getColor(R.color.tr));
     }
 
+    /**
+     * Change some information in Activity or closes Activity
+     * @param requestCode
+     * @param resultCode value which defines what will be done
+     * @param data object which is contains information from previous Activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode==ConstantsManager.ORGANIZATION_ACTIVITY_RESULT_CODE_CHANGE_DATA){
@@ -344,9 +411,17 @@ public class CurrencyActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * OnClick event for FAB object in Activity, opens Converter with special parameters
+     */
     @OnClick(R.id.fab)
     public void showConverter(){
         setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+        mPreferenceManager.setConverterOrganizationId(mData.get(0).getOrganization().getId());
+        mPreferenceManager.setConverterCurrencyShortForm(mShortTitle);
+        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         finish();
     }
 }

@@ -21,6 +21,7 @@ import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterOrganizationOrCurrency;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -58,19 +59,27 @@ public class OrganizationActivity extends BaseActivity {
     private List<CurrenciesEntity> mData;
     private Intent mIntent;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
+    private PreferenceManager mPreferenceManager;
 
-
+    /**
+     * Creates all elements and do all work to show information in elements
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
         ButterKnife.bind(this);
+        mPreferenceManager = DataManager.getInstance().getPreferenceManager();
         setupToolbar();
         setLang();
         setData();
         createList();
     }
 
+    /**
+     * Sets all configuration parameters for ToolBar object
+     */
     private void setupToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -87,12 +96,19 @@ public class OrganizationActivity extends BaseActivity {
         });
     }
 
-
+    /**
+     * Closes Activity
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    /**
+     * Sets menu for Activity
+     * @param menu
+     * @return value true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_phone, menu);
@@ -111,6 +127,11 @@ public class OrganizationActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * if item is selected, you will call organization
+     * @param item
+     * @return value true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.call) {
@@ -126,6 +147,9 @@ public class OrganizationActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * Sets main Language parameters of Strings, TextView and EditText objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -151,6 +175,9 @@ public class OrganizationActivity extends BaseActivity {
         };
     }
 
+    /**
+     * Initializes some String object using main Intent
+     */
     public void setData() {
         mIntent = getIntent();
         mOrganizationId = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_ID);
@@ -183,10 +210,16 @@ public class OrganizationActivity extends BaseActivity {
         dateTextView.setText(date);
     }
 
+    /**
+     * Gets data for list
+     */
     public void prepareDataForList() {
         mData = DataManager.getInstance().getDatabaseManager().getCurrenciesByOrgId(mOrganizationId);
     }
 
+    /**
+     * Create RecyclerView object, sets RecyclerViewAdapterOrganizationOrCurrency for this object
+     */
     public void createList() {
         prepareDataForList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CashApplication.getContext());
@@ -228,7 +261,12 @@ public class OrganizationActivity extends BaseActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-
+    /**
+     * Change some information in Activity or closes Activity
+     * @param requestCode
+     * @param resultCode value which defines what will be done
+     * @param data object which is contains information from previous Activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == ConstantsManager.CURRENCY_ACTIVITY_RESULT_CODE_CHANGE_DATA) {
@@ -243,14 +281,18 @@ public class OrganizationActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
+    /**
+     * OnClick event for FAB object in Activity, opens Converter with special parameters
+     */
     @OnClick(R.id.fab)
     public void showConverter(){
         setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+        mPreferenceManager.setConverterOrganizationId(mOrganizationId);
+        mPreferenceManager.setConverterCurrencyShortForm(mData.get(0).getShortTitle());
+        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         finish();
     }
 }

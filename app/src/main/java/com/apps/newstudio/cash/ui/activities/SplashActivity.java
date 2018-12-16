@@ -17,6 +17,7 @@ import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -31,6 +32,7 @@ public class SplashActivity extends BaseActivity {
     public ProgressBar mProgressBar;
 
     private DataManager mDataManager;
+    private PreferenceManager mPreferenceManager;
     static final String TEG = ConstantsManager.TAG + "SplashActivity";
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
     private DatabaseManager.FinalActionSuccess mFinalActionSuccess;
@@ -66,6 +68,7 @@ public class SplashActivity extends BaseActivity {
         }
 
         mDataManager = DataManager.getInstance();
+        mPreferenceManager = mDataManager.getPreferenceManager();
         getDialogInfo();
 
         mFinalActionFailure = new DatabaseManager.FinalActionFailure() {
@@ -141,6 +144,13 @@ public class SplashActivity extends BaseActivity {
      * Creates Intent for starting MainActivity and starts it
      */
     public void startMainActivity() {
+
+        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+        mPreferenceManager.setConverterOrganizationId(ConstantsManager.EMPTY_STRING_VALUE);
+        mPreferenceManager.setConverterCurrencyShortForm(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
+        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
