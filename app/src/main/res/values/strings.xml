@@ -108,6 +108,10 @@
     <string name="converter_toast_template_edit_eng">Your template was edited.</string>
     <string name="converter_toast_template_create_eng">New template was created.</string>
 
+    <string name="template_list_item_date_title_eng">"Last update of currency: "</string>
+    <string name="template_toast_list_empty_eng">You do not have templates to show in this window.
+        Please, open Converter and add new template.</string>
+
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -164,6 +168,10 @@
     <string name="converter_toast_template_edit_rus">Ваш шаблон был изменен.</string>
     <string name="converter_toast_template_create_rus">Добавлен новый шаблон.</string>
 
+    <string name="template_list_item_date_title_rus">"Последнее обновление валюты: "</string>
+    <string name="template_toast_list_empty_rus">У вас нет шаблонов, которые можно отобразить в этом окне.
+        Пожалуйста, откройте Конвертер и добавте новый шаблон.</string>
+
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
     <string name="nav_header_subtitle_ukr">"Останнє оновлення: "</string>
@@ -218,6 +226,10 @@
     <string name="dialog_template_create_ukr">Створити</string>
     <string name="converter_toast_template_edit_ukr">Ваш шаблон був змінений.</string>
     <string name="converter_toast_template_create_ukr">Додано новий шаблон.</string>
+
+    <string name="template_list_item_date_title_ukr">"Останнє оновлення валюти: "</string>
+    <string name="template_toast_list_empty_ukr">У вас немає шаблонів, які можна відобразити у цьому вікні.
+        Будь ласка, відкрийте Конвертер та додайте новий шаблон.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

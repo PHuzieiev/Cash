@@ -65,12 +65,8 @@
                             style="@style/ltv_in_card_view_fragment"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/tr"
-                            android:text="@string/equals"
-                            android:fontFamily="sans-serif"
-                            android:textSize="@dimen/text_size_small_14sp"/>
+                            style="@style/tv_equals"
+                            android:text=""/>
 
 
                         <TextView
@@ -92,12 +88,7 @@
                             style="@style/let_in_card_view_fragment" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_accent"
-                            android:text="@string/equals"
-                            android:fontFamily="sans-serif"
-                            android:textSize="@dimen/text_size_small_14sp"/>
+                            style="@style/tv_equals"/>
 
                         <EditText
                             android:id="@+id/converter_input_value_currency_two_value"

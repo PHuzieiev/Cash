@@ -139,6 +139,20 @@
         <item name="android:textColor">@color/white_175</item>
     </style>
 
+    <style name="item_date_two_tv" parent="item_date_tv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">@dimen/spacing_small_16dp</item>
+    </style>
+
+    <style name="item_action_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/text_size_smallest_12sp</item>
+        <item name="android:textColor">@color/white_175</item>
+    </style>
+
     <style name="item_about_tv">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -281,6 +295,36 @@
     <style name="ret_in_card_view_fragment" parent="let_in_card_view_fragment">
         <item name="android:layout_marginRight">0dp</item>
         <item name="android:layout_marginLeft">@dimen/spacing_smaller_4dp</item>
+    </style>
+
+
+    <style name="vll_in_item_templates">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">@dimen/spacing_small_16dp</item>
+        <item name="android:paddingRight">@dimen/spacing_small_16dp</item>
+        <item name="android:paddingBottom">@dimen/spacing_smaller_8dp</item>
+        <item name="android:paddingTop">@dimen/spacing_smaller_8dp</item>
+    </style>
+
+    <style name="ltv_value_in_item_template" parent="ltv_in_card_view_fragment">
+        <item name="android:textSize">@dimen/text_size_normal_24sp</item>
+        <item name="android:textColor">@color/color_accent</item>
+    </style>
+
+    <style name="rtv_value_in_item_template" parent="ltv_value_in_item_template">
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_smaller_4dp</item>
+    </style>
+
+    <style name="tv_equals">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/color_accent</item>
+        <item name="android:textSize">@dimen/text_size_small_14sp</item>
+        <item name="android:text">@string/equals</item>
     </style>
 
 

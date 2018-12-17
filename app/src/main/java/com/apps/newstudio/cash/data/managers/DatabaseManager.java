@@ -4,6 +4,7 @@ import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataFragment;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataOrganizationOrCurrency;
+import com.apps.newstudio.cash.data.adapters.RecyclerViewDataTemplates;
 import com.apps.newstudio.cash.data.network.RetrofitServiceRus;
 import com.apps.newstudio.cash.data.network.RetrofitServiceUkr;
 import com.apps.newstudio.cash.data.network.RetrofitClient;
@@ -700,16 +701,89 @@ public class DatabaseManager {
                 .list();
         Integer result = 1;
         if (list.size() != 0) {
-            result = Integer.parseInt(list.get(list.size()-1).getId()) + 1;
+            result = Integer.parseInt(list.get(list.size() - 1).getId()) + 1;
         }
         return result.toString();
     }
 
     /**
      * Adds new information in table TEMPLATES
+     *
      * @param templateEntity object which contains data to edit in table
      */
     public void addDataInTemplateTable(TemplateEntity templateEntity) {
         mTemplateEntityDao.insertOrReplace(templateEntity);
+    }
+
+    /**
+     * Gets RecyclerViewDataTemplates List object for RecyclerView of Templates
+     * @return data for RecyclerView of Templates
+     */
+    public List<RecyclerViewDataTemplates> getTemplateList() {
+        List<RecyclerViewDataTemplates> result = new ArrayList<>();
+        List<TemplateEntity> templates = mDaoSession.queryBuilder(TemplateEntity.class)
+                .orderAsc(TemplateEntityDao.Properties.Date)
+                .list();
+
+        if (templates.size() != 0) {
+            for (TemplateEntity template : templates) {
+                List<OrganizationsEntity> organizations = mDaoSession.queryBuilder(OrganizationsEntity.class)
+                        .where(new WhereCondition
+                                .StringCondition("ID = \"" + template.getOrganizationId() + "\""))
+                        .list();
+                if (organizations.size() != 0) {
+                    List<CurrenciesEntity> currencies = organizations.get(0).getCurrencies();
+                    for (CurrenciesEntity currency : currencies) {
+                        if (currency.getShortTitle().toUpperCase()
+                                .equals(template.getShortCurrencyTitle().toUpperCase())) {
+
+                            switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
+                                case ConstantsManager.LANGUAGE_ENG:
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                            currency.getTitleEng(), template.getShortCurrencyTitle(),
+                                            organizations.get(0).getTitleEng(), template.getAction(),
+                                            template.getDirection(),
+                                            currency.getTitleEng() + " (" + template.getShortCurrencyTitle() + ")",
+                                            "", "", template.getValue(),
+                                            currency.getBid(),currency.getAsk()));
+                                    break;
+                                case ConstantsManager.LANGUAGE_RUS:
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                            currency.getTitleRus(), template.getShortCurrencyTitle(),
+                                            organizations.get(0).getTitleRus(), template.getAction(),
+                                            template.getDirection(),
+                                            currency.getTitleRus() + " (" + template.getShortCurrencyTitle() + ")",
+                                            "", "", template.getValue(),
+                                            currency.getBid(),currency.getAsk()));
+                                    break;
+                                case ConstantsManager.LANGUAGE_UKR:
+
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                            currency.getTitleUkr(), template.getShortCurrencyTitle(),
+                                            organizations.get(0).getTitleUkr(), template.getAction(),
+                                            template.getDirection(),
+                                            currency.getTitleUkr() + " (" + template.getShortCurrencyTitle() + ")",
+                                            "", "", template.getValue(),
+                                            currency.getBid(),currency.getAsk()));
+                                    break;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+        }
+        return result;
+    }
+
+    /**
+     * Deletes form Templates table using Id
+     * @param id value which using to find what will be deleted
+     */
+    public void deleteFromTemplatesById(String id){
+        mTemplateEntityDao.deleteByKey(id);
     }
 }

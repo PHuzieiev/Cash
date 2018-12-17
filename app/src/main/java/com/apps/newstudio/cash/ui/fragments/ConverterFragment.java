@@ -455,7 +455,7 @@ public class ConverterFragment extends Fragment {
             }
             BigDecimal bDValue = new BigDecimal(mStartValue);
             BigDecimal bDIndex = new BigDecimal(index);
-            BigDecimal bDResult = null;
+            BigDecimal bDResult;
 
             switch (mDirection) {
                 case ConstantsManager.CONVERTER_DIRECTION_FROM_UAH:
@@ -530,17 +530,18 @@ public class ConverterFragment extends Fragment {
         SimpleDateFormat simpleDateFormatM = new SimpleDateFormat("MM");
         SimpleDateFormat simpleDateFormatD = new SimpleDateFormat("dd");
         SimpleDateFormat simpleDateFormatH = new SimpleDateFormat("HH");
+        SimpleDateFormat simpleDateFormatMin = new SimpleDateFormat("mm");
         SimpleDateFormat simpleDateFormatS = new SimpleDateFormat("ss");
         String year = simpleDateFormatY.format(System.currentTimeMillis());
         String month = simpleDateFormatM.format(System.currentTimeMillis());
         String day = simpleDateFormatD.format(System.currentTimeMillis());
         String hour = simpleDateFormatH.format(System.currentTimeMillis());
+        String minute = simpleDateFormatMin.format(System.currentTimeMillis());
         String second = simpleDateFormatS.format(System.currentTimeMillis());
         mDatabaseManager.addDataInTemplateTable(
                 new TemplateEntity(mTemplateId, mOrganizationId, mCurrencyShortForm,
-                        mStartValue, mDirection, mAction, year+"-"+month+"-"+day+" "+hour+":"+second)
+                        mStartValue, mDirection, mAction, year+"-"+month+"-"+day+" "+hour+":"+minute+";"+second)
         );
         ((MainActivity) getActivity()).showToast(toastText);
-
     }
 }

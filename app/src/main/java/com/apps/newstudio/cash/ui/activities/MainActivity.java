@@ -3,28 +3,25 @@ package com.apps.newstudio.cash.ui.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.managers.DataManager;
-import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.fragments.AboutFragment;
 import com.apps.newstudio.cash.ui.fragments.ConverterFragment;
 import com.apps.newstudio.cash.ui.fragments.CurrenciesFragment;
 import com.apps.newstudio.cash.ui.fragments.OrganizationsFragment;
-import com.apps.newstudio.cash.ui.fragments.ResultsFragment;
+import com.apps.newstudio.cash.ui.fragments.TemplatesFragment;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
 import butterknife.BindView;
@@ -128,7 +125,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.frame_for_fragments, new ConverterFragment());
                     break;
                 case R.id.item_results:
-                    fragmentTransaction.replace(R.id.frame_for_fragments, new ResultsFragment());
+                    fragmentTransaction.replace(R.id.frame_for_fragments, new TemplatesFragment());
                     break;
                 case R.id.item_update:
                     break;
