@@ -17,6 +17,8 @@ import com.apps.newstudio.cash.data.adapters.RecyclerViewDataTemplates;
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
+import com.apps.newstudio.cash.data.managers.PreferenceManager;
+import com.apps.newstudio.cash.ui.activities.ConverterActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
 import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
 import com.apps.newstudio.cash.utils.CashApplication;
@@ -39,6 +41,7 @@ public class TemplatesFragment extends Fragment {
     private List<RecyclerViewDataTemplates> mMainDataForList;
     private DatabaseManager mDatabaseManager;
     private RecyclerViewAdapterTemplates mRecycleViewAdapter;
+    private PreferenceManager mPreferenceManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class TemplatesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_templates, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         mDatabaseManager = DataManager.getInstance().getDatabaseManager();
+        mPreferenceManager = DataManager.getInstance().getPreferenceManager();
         createList();
 
         return view;
@@ -142,6 +146,17 @@ public class TemplatesFragment extends Fragment {
                 new RecyclerViewAdapterTemplates.ActionForItem() {
                     @Override
                     public void action(int position) {
+                        RecyclerViewDataTemplates template = mMainDataForList.get(position);
+                        mPreferenceManager.setConverterOrganizationId(template.getOrganizationId());
+                        mPreferenceManager.setConverterCurrencyShortForm(template.getShortCurrencyTitle());
+                        mPreferenceManager.setConverterAction(template.getAction());
+                        mPreferenceManager.setConverterDirection(template.getDirection());
+                        mPreferenceManager.setConverterValue(template.getStartValue());
+                        mPreferenceManager.setTemplateId(template.getId());
+                        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES);
+
+                        Intent intent=new Intent(((MainActivity)getActivity()).getContext(),ConverterActivity.class);
+                        startActivityForResult(intent,ConstantsManager.TEMPLATES_FRAGMENT_REQUEST_CODE);
 
                     }
                 },
@@ -163,4 +178,12 @@ public class TemplatesFragment extends Fragment {
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==ConstantsManager.CONVERTERACTIVITY_RESULT_CODE_CHANGED){
+            updateList();
+            mRecyclerView.scrollToPosition(mMainDataForList.size()-1);
+        }
+    }
 }

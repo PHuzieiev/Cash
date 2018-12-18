@@ -256,4 +256,23 @@ public class PreferenceManager {
     public void setTemplateId(String parameter) {
         saveString(ConstantsManager.CONVERTER_TEMPLATE_ID_KEY, parameter);
     }
+
+
+    /**
+     * Loads String value which defines what object opened converter
+     *
+     * @return String object
+     */
+    public String getConverterRoot() {
+        return loadString(ConstantsManager.CONVERTER_OPEN_FROM_KEY, ConstantsManager.EMPTY_STRING_VALUE);
+    }
+
+    /**
+     * Saves String value which defines what object opened converter
+     *
+     * @param parameter String object for defining what object opened converter
+     */
+    public void setConverterRoot(String parameter) {
+        saveString(ConstantsManager.CONVERTER_OPEN_FROM_KEY, parameter);
+    }
 }

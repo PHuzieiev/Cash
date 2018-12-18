@@ -112,6 +112,10 @@
     <string name="template_toast_list_empty_eng">You do not have templates to show in this window.
         Please, open Converter and add new template.</string>
 
+    <string name="converter_final_dialog_text_eng">Do you want to save changes?</string>
+    <string name="converter_final_dialog_yes_eng">Yes</string>
+    <string name="converter_final_dialog_no_eng">No</string>
+
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -172,6 +176,10 @@
     <string name="template_toast_list_empty_rus">У вас нет шаблонов, которые можно отобразить в этом окне.
         Пожалуйста, откройте Конвертер и добавте новый шаблон.</string>
 
+    <string name="converter_final_dialog_text_rus">Вы хотите сохранить изменения?</string>
+    <string name="converter_final_dialog_yes_rus">Да</string>
+    <string name="converter_final_dialog_no_rus">Нет</string>
+
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
     <string name="nav_header_subtitle_ukr">"Останнє оновлення: "</string>
@@ -230,6 +238,10 @@
     <string name="template_list_item_date_title_ukr">"Останнє оновлення валюти: "</string>
     <string name="template_toast_list_empty_ukr">У вас немає шаблонів, які можна відобразити у цьому вікні.
         Будь ласка, відкрийте Конвертер та додайте новий шаблон.</string>
+
+    <string name="converter_final_dialog_text_ukr">Ви бажаєте зберегти зміни?</string>
+    <string name="converter_final_dialog_yes_ukr">Так</string>
+    <string name="converter_final_dialog_no_ukr">Ні</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

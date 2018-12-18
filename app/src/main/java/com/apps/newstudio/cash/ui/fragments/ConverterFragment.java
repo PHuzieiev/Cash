@@ -1,14 +1,14 @@
 package com.apps.newstudio.cash.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +29,9 @@ import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
+import com.apps.newstudio.cash.ui.activities.BaseActivity;
+import com.apps.newstudio.cash.ui.activities.ConverterActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
-import com.apps.newstudio.cash.ui.activities.SplashActivity;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
@@ -42,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -89,6 +89,9 @@ public class ConverterFragment extends Fragment {
     @BindView(R.id.converter_input_value_currency_two_value)
     public EditText eTSecondValue;
 
+    @BindView(R.id.converter_fragment_fab)
+    public FloatingActionButton mFloatingActionButton;
+
     private Unbinder mUnbinder;
     private PreferenceManager mPreferenceManager;
     private DatabaseManager mDatabaseManager;
@@ -123,12 +126,22 @@ public class ConverterFragment extends Fragment {
     private String mMessage;
     private String mTitleButtonOne;
     private String mTitleButtonTwo;
+    private String mMessageFinal;
+    private String mTitleButtonOneFinal;
+    private String mTitleButtonTwoFinal;
     private String mTemplateId;
+    private String mRootParameter;
+
 
     private int mPositionOfCurInList = -1;
     private int mPositionOfOrgInList = -1;
 
     private boolean isConverted = false;
+    private boolean isSaved = true;
+    private boolean isFinish = false;
+
+    private Context mContext;
+    private BaseActivity mBaseActivity;
 
 
     @Override
@@ -166,6 +179,15 @@ public class ConverterFragment extends Fragment {
         mAction = mPreferenceManager.getConverterAction();
         mStartValue = mPreferenceManager.getConverterValue();
         mDirection = mPreferenceManager.getConverterDirection();
+        mRootParameter = mPreferenceManager.getConverterRoot();
+        if (mRootParameter.equals(ConstantsManager.EMPTY_STRING_VALUE)) {
+            mContext = ((MainActivity) getActivity()).getContext();
+            mBaseActivity = (MainActivity) getActivity();
+        } else {
+            mContext = ((ConverterActivity) getActivity()).getContext();
+            mBaseActivity = (ConverterActivity) getActivity();
+            mFloatingActionButton.setImageResource(R.drawable.ic_done);
+        }
         getMainListForActions();
     }
 
@@ -227,13 +249,12 @@ public class ConverterFragment extends Fragment {
 
     public void getPurchaseAndSaleValue(int curPos, int orgPos) {
         OrganizationsEntity org = mMainListForActions.get(curPos).getOrganizations().get(orgPos);
-        m:
         for (CurrenciesEntity cur : org.getCurrencies()) {
             if (cur.getShortTitle().toUpperCase().equals(mCurrencyShortForm)) {
                 mSaleValue = cur.getAsk();
                 mPurchaseValue = cur.getBid();
                 mDate = cur.getDate();
-                break m;
+                break;
             }
         }
     }
@@ -263,6 +284,9 @@ public class ConverterFragment extends Fragment {
                 mTitleButtonTwo = getString(R.string.dialog_template_create_eng);
                 mToastEdited = getString(R.string.converter_toast_template_edit_eng);
                 mToastCreated = getString(R.string.converter_toast_template_create_eng);
+                mMessageFinal = getString(R.string.converter_final_dialog_text_eng);
+                mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_eng);
+                mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_eng);
             }
 
             @Override
@@ -288,6 +312,9 @@ public class ConverterFragment extends Fragment {
                 mTitleButtonTwo = getString(R.string.dialog_template_create_ukr);
                 mToastEdited = getString(R.string.converter_toast_template_edit_ukr);
                 mToastCreated = getString(R.string.converter_toast_template_create_ukr);
+                mMessageFinal = getString(R.string.converter_final_dialog_text_ukr);
+                mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_ukr);
+                mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_ukr);
             }
 
             @Override
@@ -313,6 +340,9 @@ public class ConverterFragment extends Fragment {
                 mTitleButtonTwo = getString(R.string.dialog_template_create_rus);
                 mToastEdited = getString(R.string.converter_toast_template_edit_rus);
                 mToastCreated = getString(R.string.converter_toast_template_create_rus);
+                mMessageFinal = getString(R.string.converter_final_dialog_text_rus);
+                mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_rus);
+                mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_rus);
             }
         };
         getDataForActionDialog();
@@ -377,7 +407,7 @@ public class ConverterFragment extends Fragment {
 
     @OnClick(R.id.converter_currency_cv)
     public void chooseCurrency() {
-        mDialog = new DialogList(((MainActivity) getActivity()).getContext(),
+        mDialog = new DialogList(mContext,
                 mCurrencyDialogTitle, mListForCurrencyDialog, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
@@ -397,7 +427,7 @@ public class ConverterFragment extends Fragment {
 
     @OnClick(R.id.converter_organization_cv)
     public void chooseOrganization() {
-        mDialog = new DialogList(((MainActivity) getActivity()).getContext(),
+        mDialog = new DialogList(mContext,
                 mOrganizationDialogTitle, null, mListForOrganizationsDialog,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
@@ -417,7 +447,7 @@ public class ConverterFragment extends Fragment {
 
     @OnClick(R.id.converter_sale_or_purchase_cv)
     public void chooseAction() {
-        mDialog = new DialogList(((MainActivity) getActivity()).getContext(),
+        mDialog = new DialogList(mContext,
                 mActionDialogTitle, mListForActionDialog, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
@@ -481,6 +511,7 @@ public class ConverterFragment extends Fragment {
             eTFirstValue.setSelection(eTFirstValue.getText().toString().length());
             eTSecondValue.setSelection(eTSecondValue.getText().toString().length());
             isConverted = true;
+            isSaved = false;
 
         } catch (Exception e) {
             isConverted = false;
@@ -490,6 +521,11 @@ public class ConverterFragment extends Fragment {
     }
 
     @OnClick(R.id.converter_fragment_fab)
+    public void fabClick() {
+        isFinish = false;
+        addToTemplates();
+    }
+
     public void addToTemplates() {
         mTemplateId = mPreferenceManager.getTemplateId();
         if (isConverted) {
@@ -501,12 +537,12 @@ public class ConverterFragment extends Fragment {
                 showDialog();
             }
         } else {
-            ((MainActivity) getActivity()).showToast(mToastFailure);
+            mBaseActivity.showToast(mToastFailure);
         }
     }
 
     public void showDialog() {
-        mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(((MainActivity) getActivity()).getContext(),
+        mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(mContext,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -540,8 +576,38 @@ public class ConverterFragment extends Fragment {
         String second = simpleDateFormatS.format(System.currentTimeMillis());
         mDatabaseManager.addDataInTemplateTable(
                 new TemplateEntity(mTemplateId, mOrganizationId, mCurrencyShortForm,
-                        mStartValue, mDirection, mAction, year+"-"+month+"-"+day+" "+hour+":"+minute+";"+second)
+                        mStartValue, mDirection, mAction, year + "-" + month + "-" + day + " " + hour + ":" + minute + ";" + second)
         );
-        ((MainActivity) getActivity()).showToast(toastText);
+        mBaseActivity.showToast(toastText);
+        isSaved = true;
+        if (mRootParameter.equals(ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES)) {
+            getActivity().setResult(ConstantsManager.CONVERTERACTIVITY_RESULT_CODE_CHANGED);
+            if(isFinish){
+                getActivity().finish();
+            }
+        }
+    }
+
+    public void finalRequest() {
+        if (!isSaved) {
+            mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(mContext,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            isFinish = true;
+                            mDialogInfoWithTwoButtons.getDialog().dismiss();
+                            addToTemplates();
+                        }
+                    }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDialogInfoWithTwoButtons.getDialog().dismiss();
+                    getActivity().finish();
+                }
+            }, mTitle, mMessageFinal, mTitleButtonOneFinal, mTitleButtonTwoFinal);
+            mDialogInfoWithTwoButtons.getDialog().show();
+        } else {
+            getActivity().finish();
+        }
     }
 }

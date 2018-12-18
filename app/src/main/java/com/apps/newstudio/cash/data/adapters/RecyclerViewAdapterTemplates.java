@@ -84,28 +84,28 @@ public class RecyclerViewAdapterTemplates extends RecyclerView.Adapter<RecyclerV
                 mFirstCurrencyTitle = CashApplication.getContext().getString(R.string.converter_main_currency_eng);
                 mSaleTitle = CashApplication.getContext().getString(R.string.converter_sale_eng);
                 mPurchaseTitle = CashApplication.getContext().getString(R.string.converter_purchase_eng);
-                buttonTitle = CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_eng);
+                buttonTitle = CashApplication.getContext().getString(R.string.org_list_item_button_eng);
                 dateTitle = CashApplication.getContext().getString(R.string.template_list_item_date_title_eng);
                 break;
             case ConstantsManager.LANGUAGE_RUS:
                 mFirstCurrencyTitle = CashApplication.getContext().getString(R.string.converter_main_currency_rus);
                 mSaleTitle = CashApplication.getContext().getString(R.string.converter_sale_rus);
                 mPurchaseTitle = CashApplication.getContext().getString(R.string.converter_purchase_rus);
-                buttonTitle = CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_rus);
+                buttonTitle = CashApplication.getContext().getString(R.string.org_list_item_button_rus);
                 dateTitle = CashApplication.getContext().getString(R.string.template_list_item_date_title_rus);
                 break;
             case ConstantsManager.LANGUAGE_UKR:
                 mFirstCurrencyTitle = CashApplication.getContext().getString(R.string.converter_main_currency_ukr);
                 mSaleTitle = CashApplication.getContext().getString(R.string.converter_sale_ukr);
                 mPurchaseTitle = CashApplication.getContext().getString(R.string.converter_purchase_ukr);
-                buttonTitle = CashApplication.getContext().getString(R.string.dialog_list_filter_first_item_ukr);
+                buttonTitle = CashApplication.getContext().getString(R.string.org_list_item_button_ukr);
                 dateTitle = CashApplication.getContext().getString(R.string.template_list_item_date_title_ukr);
                 break;
         }
         if (template.getAction().equals(ConstantsManager.CONVERTER_ACTION_PURCHASE)) {
-            holder.action.setText(mPurchaseTitle);
+            holder.action.setText(mPurchaseTitle.toUpperCase());
         } else {
-            holder.action.setText(mSaleTitle);
+            holder.action.setText(mSaleTitle.toUpperCase());
         }
 
         holder.date.setText(dateTitle.concat(template.getDate().substring(0, 10)));

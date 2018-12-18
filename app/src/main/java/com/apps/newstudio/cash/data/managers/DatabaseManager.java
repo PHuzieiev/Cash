@@ -739,29 +739,29 @@ public class DatabaseManager {
 
                             switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
                                 case ConstantsManager.LANGUAGE_ENG:
-                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), currency.getDate(),
                                             currency.getTitleEng(), template.getShortCurrencyTitle(),
-                                            organizations.get(0).getTitleEng(), template.getAction(),
-                                            template.getDirection(),
+                                            organizations.get(0).getTitleEng(), organizations.get(0).getId(),
+                                            template.getAction(), template.getDirection(),
                                             currency.getTitleEng() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
                                             currency.getBid(),currency.getAsk()));
                                     break;
                                 case ConstantsManager.LANGUAGE_RUS:
-                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), currency.getDate(),
                                             currency.getTitleRus(), template.getShortCurrencyTitle(),
-                                            organizations.get(0).getTitleRus(), template.getAction(),
-                                            template.getDirection(),
+                                            organizations.get(0).getTitleRus(), organizations.get(0).getId(),
+                                            template.getAction(), template.getDirection(),
                                             currency.getTitleRus() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
                                             currency.getBid(),currency.getAsk()));
                                     break;
                                 case ConstantsManager.LANGUAGE_UKR:
 
-                                    result.add(new RecyclerViewDataTemplates(template.getId(), template.getDate(),
+                                    result.add(new RecyclerViewDataTemplates(template.getId(), currency.getDate(),
                                             currency.getTitleUkr(), template.getShortCurrencyTitle(),
-                                            organizations.get(0).getTitleUkr(), template.getAction(),
-                                            template.getDirection(),
+                                            organizations.get(0).getTitleUkr(), organizations.get(0).getId(),
+                                            template.getAction(), template.getDirection(),
                                             currency.getTitleUkr() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
                                             currency.getBid(),currency.getAsk()));

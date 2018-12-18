@@ -158,6 +158,7 @@ public class SplashActivity extends BaseActivity {
         mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+        mPreferenceManager.setConverterRoot(ConstantsManager.EMPTY_STRING_VALUE);
 
 
         Intent intent = new Intent(this, MainActivity.class);

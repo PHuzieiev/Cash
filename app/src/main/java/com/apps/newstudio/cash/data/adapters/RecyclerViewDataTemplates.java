@@ -7,6 +7,7 @@ public class RecyclerViewDataTemplates {
     private String mCurrencyTitle;
     private String mShortCurrencyTitle;
     private String mOrganizationTitle;
+    private String mOrganizationId;
     private String mAction;
     private String mDirection;
     private String mSecondCurrencyTitle;
@@ -23,6 +24,7 @@ public class RecyclerViewDataTemplates {
      * @param currencyTitle title of currency
      * @param shortCurrencyTitle short title of currency
      * @param organizationTitle title of organization
+     * @param organizationId id of organization
      * @param action action for convertation
      * @param direction direction of convertation
      * @param secondCurrencyTitle title for currency with short title
@@ -33,13 +35,15 @@ public class RecyclerViewDataTemplates {
      * @param saleValue sale value of currency
      */
     public RecyclerViewDataTemplates(String id, String date, String currencyTitle, String shortCurrencyTitle,
-                                     String organizationTitle, String action, String direction, String secondCurrencyTitle, String firstValue,
-                                     String secondValue, String startValue, String purchaseValue, String saleValue) {
+                                     String organizationTitle, String organizationId, String action,
+                                     String direction, String secondCurrencyTitle, String firstValue, String secondValue,
+                                     String startValue, String purchaseValue, String saleValue) {
         mId = id;
         mDate = date;
         mCurrencyTitle = currencyTitle;
         mShortCurrencyTitle = shortCurrencyTitle;
         mOrganizationTitle = organizationTitle;
+        mOrganizationId = organizationId;
         mAction = action;
         mDirection = direction;
         mSecondCurrencyTitle = secondCurrencyTitle;
@@ -48,6 +52,11 @@ public class RecyclerViewDataTemplates {
         mStartValue = startValue;
         mPurchaseValue = purchaseValue;
         mSaleValue = saleValue;
+    }
+
+
+    public String getOrganizationId() {
+        return mOrganizationId;
     }
 
     public String getId() {
