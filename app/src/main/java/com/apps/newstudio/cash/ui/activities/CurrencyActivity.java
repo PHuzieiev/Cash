@@ -1,6 +1,7 @@
 package com.apps.newstudio.cash.ui.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -67,6 +68,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * Creates all elements and do all work to show information in elements
+     *
      * @param savedInstanceState
      */
     @Override
@@ -74,7 +76,7 @@ public class CurrencyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
         ButterKnife.bind(this);
-        mPreferenceManager=DataManager.getInstance().getPreferenceManager();
+        mPreferenceManager = DataManager.getInstance().getPreferenceManager();
         setupToolbar();
         setLang();
         getDataForDialogSort();
@@ -113,6 +115,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * Sets menu for Activity
+     *
      * @param menu
      * @return value true
      */
@@ -136,6 +139,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * if item is selected, Dialog is opened
+     *
      * @param item
      * @return
      */
@@ -196,7 +200,7 @@ public class CurrencyActivity extends AppCompatActivity {
     /**
      * Does sort for list
      */
-    public void sortMainList(){
+    public void sortMainList() {
         switch (DataManager.getInstance().getPreferenceManager().getCurrenciesSortParameter()) {
             case ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE:
                 mData = sortCurrenciesByPurchase(mData);
@@ -209,17 +213,18 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * Sorts list using values from Ask field of items in Currency List
+     *
      * @param data main list
      * @return sorted list
      */
-    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesBySale(List<RecyclerViewDataOrganizationOrCurrency> data){
-        for(int i=data.size()-1;i>0;i--){
-            for (int j=0;j<i;j++){
-                if(Double.parseDouble(data.get(j).getCurrency().getAsk())>
-                        Double.parseDouble(data.get(j+1).getCurrency().getAsk())){
+    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesBySale(List<RecyclerViewDataOrganizationOrCurrency> data) {
+        for (int i = data.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (Double.parseDouble(data.get(j).getCurrency().getAsk()) >
+                        Double.parseDouble(data.get(j + 1).getCurrency().getAsk())) {
                     RecyclerViewDataOrganizationOrCurrency tmp = data.get(j);
-                    data.set(j,data.get(j+1));
-                    data.set(j+1,tmp);
+                    data.set(j, data.get(j + 1));
+                    data.set(j + 1, tmp);
                 }
             }
         }
@@ -228,17 +233,18 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * Sorts list using values from Bid field of items in Currency List
+     *
      * @param data main list
      * @return sorted list
      */
-    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesByPurchase(List<RecyclerViewDataOrganizationOrCurrency> data){
-        for(int i=data.size()-1;i>0;i--){
-            for (int j=0;j<i;j++){
-                if(Double.parseDouble(data.get(j).getCurrency().getBid())<
-                        Double.parseDouble(data.get(j+1).getCurrency().getBid())){
+    public List<RecyclerViewDataOrganizationOrCurrency> sortCurrenciesByPurchase(List<RecyclerViewDataOrganizationOrCurrency> data) {
+        for (int i = data.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (Double.parseDouble(data.get(j).getCurrency().getBid()) <
+                        Double.parseDouble(data.get(j + 1).getCurrency().getBid())) {
                     RecyclerViewDataOrganizationOrCurrency tmp = data.get(j);
-                    data.set(j,data.get(j+1));
-                    data.set(j+1,tmp);
+                    data.set(j, data.get(j + 1));
+                    data.set(j + 1, tmp);
                 }
             }
         }
@@ -257,15 +263,15 @@ public class CurrencyActivity extends AppCompatActivity {
                     @Override
                     public void action(int position) {
                         Intent intent;
-                        if(getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE,0)==
-                        ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE) {
+                        if (getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE, 0) ==
+                                ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE) {
                             intent = new Intent();
-                        }else{
-                            intent = new Intent(CurrencyActivity.this,OrganizationActivity.class);
+                        } else {
+                            intent = new Intent(CurrencyActivity.this, OrganizationActivity.class);
                             intent.putExtra(ConstantsManager.START_ACTIVITY_MODE, ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
                         }
                         intent.putExtra(ConstantsManager.ORGANIZATION_ID, mData.get(position).getOrganization().getId());
-                        switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
+                        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
                             case ConstantsManager.LANGUAGE_ENG:
                                 intent.putExtra(ConstantsManager.ORGANIZATION_TITLE,
                                         mData.get(position).getOrganization().getTitleEng());
@@ -283,12 +289,12 @@ public class CurrencyActivity extends AppCompatActivity {
                         intent.putExtra(ConstantsManager.ORGANIZATION_PHONE, mData.get(position).getOrganization().getPhone());
                         intent.putExtra(ConstantsManager.ORGANIZATION_TYPE, mData.get(position).getOrganization().getOrgType());
 
-                        if(getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE,0)==
+                        if (getIntent().getIntExtra(ConstantsManager.START_ACTIVITY_MODE, 0) ==
                                 ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE) {
                             setResult(ConstantsManager.CURRENCY_ACTIVITY_RESULT_CODE_CHANGE_DATA, intent);
                             finish();
-                        }else{
-                            startActivityForResult(intent,ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
+                        } else {
+                            startActivityForResult(intent, ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
                         }
                     }
                 }, new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
@@ -330,6 +336,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     /**
      * Sets boolean value for items in list for Sort Dialog
+     *
      * @param data main list of Sort Dialog
      * @return changed main list of Sort Dialog
      */
@@ -340,13 +347,13 @@ public class CurrencyActivity extends AppCompatActivity {
         switch (DataManager.getInstance().getPreferenceManager().getCurrenciesSortParameter()) {
             case ConstantsManager.CURRENCY_SORT_PARAMETER_PURCHASE:
                 data.get(1).setChecked(true);
-            break;
+                break;
             case ConstantsManager.CURRENCY_SORT_PARAMETER_SALE:
                 data.get(2).setChecked(true);
-            break;
+                break;
             default:
                 data.get(0).setChecked(true);
-            break;
+                break;
         }
         return data;
     }
@@ -360,7 +367,7 @@ public class CurrencyActivity extends AppCompatActivity {
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
                     @Override
                     public void onClick(int position) {
-                        switch (position){
+                        switch (position) {
                             case 0:
                                 DataManager.getInstance().getPreferenceManager()
                                         .setCurrenciesSortParameter(ConstantsManager.CURRENCY_SORT_PARAMETER_TITLE);
@@ -386,28 +393,25 @@ public class CurrencyActivity extends AppCompatActivity {
             }
         });
 
-        ((ImageView)mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)).setImageResource(R.drawable.ic_tr);
+        ((ImageView) mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)).setImageResource(R.drawable.ic_tr);
         mDialogSort.getDialog().getWindow().findViewById(R.id.dialog_list_done)
                 .setBackgroundColor(getResources().getColor(R.color.tr));
     }
 
     /**
-     * Change some information in Activity or closes Activity
+     * Change some information in Activity
+     *
      * @param requestCode
-     * @param resultCode value which defines what will be done
-     * @param data object which is contains information from previous Activity
+     * @param resultCode  value which defines what will be done
+     * @param data        object which is contains information from previous Activity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==ConstantsManager.ORGANIZATION_ACTIVITY_RESULT_CODE_CHANGE_DATA){
-            data.putExtra(ConstantsManager.START_ACTIVITY_MODE,0);
+        if (resultCode == ConstantsManager.ORGANIZATION_ACTIVITY_RESULT_CODE_CHANGE_DATA) {
+            data.putExtra(ConstantsManager.START_ACTIVITY_MODE, 0);
             setIntent(data);
             setData();
             createList();
-        }
-        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER){
-            setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
-            finish();
         }
     }
 
@@ -415,15 +419,23 @@ public class CurrencyActivity extends AppCompatActivity {
      * OnClick event for FAB object in Activity, opens Converter with special parameters
      */
     @OnClick(R.id.fab)
-    public void showConverter(){
-        setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
+    public void showConverter() {
         mPreferenceManager.setConverterOrganizationId(mData.get(0).getOrganization().getId());
         mPreferenceManager.setConverterCurrencyShortForm(mShortTitle);
         mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
         mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
-        mPreferenceManager.setConverterRoot(ConstantsManager.EMPTY_STRING_VALUE);
-        finish();
+        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_CURRENCY);
+        Intent intent = new Intent(this, ConverterActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Getter for Context object of this Activity
+     * @return Context object of CurrencyActivity
+     */
+    public Context getContext() {
+        return CurrencyActivity.this;
     }
 }

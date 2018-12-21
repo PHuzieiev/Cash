@@ -1,102 +1,91 @@
 package com.apps.newstudio.cash.ui.fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
+import com.apps.newstudio.cash.data.managers.LanguageManager;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 public class AboutFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.about_title_tv)
+    public EditText mTitle;
 
-    private OnFragmentInteractionListener mListener;
+    @BindView(R.id.about_app_title_tv)
+    public TextView mAppTitle;
 
-    public AboutFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.about_text_info)
+    public TextView mAbout;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AboutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AboutFragment newInstance(String param1, String param2) {
-        AboutFragment fragment = new AboutFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Unbinder mUnbinder;
+    private String mLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        mUnbinder = ButterKnife.bind(this, view);
+        setLang();
+        return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void setLang() {
+        new LanguageManager() {
+            @Override
+            public void engLanguage() {
+                mTitle.setText(getString(R.string.drawer_item_about_eng));
+                mAppTitle.setText(getString(R.string.nav_header_title_eng));
+                mLink=getString(R.string.finance_link_ukr);
+                mAbout.setText(getString(R.string.about_text_eng));
+            }
+
+            @Override
+            public void ukrLanguage() {
+                mTitle.setText(getString(R.string.drawer_item_about_ukr));
+                mAppTitle.setText(getString(R.string.nav_header_title_ukr));
+                mLink=getString(R.string.finance_link_ukr);
+                mAbout.setText(getString(R.string.about_text_ukr));
+            }
+
+            @Override
+            public void rusLanguage() {
+                mTitle.setText(getString(R.string.drawer_item_about_rus));
+                mAppTitle.setText(getString(R.string.nav_header_title_rus));
+                mLink=getString(R.string.finance_link_rus);
+                mAbout.setText(getString(R.string.about_text_rus));
+            }
+        };
+
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @OnClick(R.id.about_source_b)
+    public void goOnPageOfSource(){
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(mLink));
+        startActivity(intent);
     }
 }

@@ -82,6 +82,10 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
         this.currencies = currencies;
     }
 
+    public void setLang(RecyclerViewLangFragment lang) {
+        this.lang = lang;
+    }
+
     /**
      * Creates ViewHolder object for items in list
      * @param parent ViewGroup object

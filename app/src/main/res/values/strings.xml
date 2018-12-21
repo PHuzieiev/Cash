@@ -4,6 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="equals">"="</string>
+    <string name="button_finance_title">FІNANCE.UA</string>
 
     //Values in English
     <string name="nav_header_title_eng">Money Converter (Ukraine)</string>
@@ -112,10 +113,18 @@
     <string name="template_toast_list_empty_eng">You do not have templates to show in this window.
         Please, open Converter and add new template.</string>
 
-    <string name="converter_final_dialog_text_eng">Do you want to save changes?</string>
+    <string name="converter_final_dialog_text_eng">Do you want to save template?</string>
     <string name="converter_final_dialog_yes_eng">Yes</string>
     <string name="converter_final_dialog_no_eng">No</string>
 
+    <string name="toast_update_success_eng">Currencies data was updated.</string>
+    <string name="button_cancel_eng">Cancel</string>
+
+    <string name="language_english_eng">English</string>
+    <string name="language_russian_eng">Russian</string>
+    <string name="language_ukrainian_eng">Ukrainian</string>
+
+    <string name="about_text_eng"></string>
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -172,13 +181,24 @@
     <string name="converter_toast_template_edit_rus">Ваш шаблон был изменен.</string>
     <string name="converter_toast_template_create_rus">Добавлен новый шаблон.</string>
 
-    <string name="template_list_item_date_title_rus">"Последнее обновление валюты: "</string>
+    <string name="template_list_item_date_title_rus">"Дата обновления валюты: "</string>
     <string name="template_toast_list_empty_rus">У вас нет шаблонов, которые можно отобразить в этом окне.
         Пожалуйста, откройте Конвертер и добавте новый шаблон.</string>
 
-    <string name="converter_final_dialog_text_rus">Вы хотите сохранить изменения?</string>
+    <string name="converter_final_dialog_text_rus">Вы хотите сохранить шаблон?</string>
     <string name="converter_final_dialog_yes_rus">Да</string>
     <string name="converter_final_dialog_no_rus">Нет</string>
+
+    <string name="toast_update_success_rus">Данные относительно курса валют были обновлены.</string>
+    <string name="button_cancel_rus">Отмена</string>
+
+    <string name="language_english_rus">Английский</string>
+    <string name="language_russian_rus">Русский</string>
+    <string name="language_ukrainian_rus">Украинский</string>
+
+    <string name="finance_link_rus">"https://finance.ua/ru/currency"</string>
+
+    <string name="about_text_rus"></string>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -235,13 +255,24 @@
     <string name="converter_toast_template_edit_ukr">Ваш шаблон був змінений.</string>
     <string name="converter_toast_template_create_ukr">Додано новий шаблон.</string>
 
-    <string name="template_list_item_date_title_ukr">"Останнє оновлення валюти: "</string>
+    <string name="template_list_item_date_title_ukr">"Дата оновлення валюти: "</string>
     <string name="template_toast_list_empty_ukr">У вас немає шаблонів, які можна відобразити у цьому вікні.
         Будь ласка, відкрийте Конвертер та додайте новий шаблон.</string>
 
-    <string name="converter_final_dialog_text_ukr">Ви бажаєте зберегти зміни?</string>
+    <string name="converter_final_dialog_text_ukr">Ви бажаєте зберегти шаблон?</string>
     <string name="converter_final_dialog_yes_ukr">Так</string>
     <string name="converter_final_dialog_no_ukr">Ні</string>
+
+    <string name="toast_update_success_ukr">Дані щодо курсу валют були оновлені.</string>
+    <string name="button_cancel_ukr">Відміна</string>
+
+    <string name="language_english_ukr">Англійська</string>
+    <string name="language_russian_ukr">Російська</string>
+    <string name="language_ukrainian_ukr">Українська</string>
+
+    <string name="finance_link_ukr">"https://finance.ua/ua/currency"</string>
+
+    <string name="about_text_ukr"></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

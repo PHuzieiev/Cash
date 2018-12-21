@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.fragments.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/about_frame_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="About" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradient_for_activity_title">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/about_main_iv"
+            style="@style/main_iv"
+            android:padding="@dimen/spacing_smaller_6dp"
+            android:src="@drawable/ico_small" />
+
+        <LinearLayout style="@style/title_ll">
+
+            <TextView
+                android:id="@+id/about_type_tv"
+                style="@style/item_date_tv" />
+
+
+            <EditText
+                android:id="@+id/about_title_tv"
+                style="@style/item_title_tv" />
+
+            <TextView
+                android:id="@+id/about_app_title_tv"
+                style="@style/item_date_tv" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <ScrollView
+        style="@style/scroll_fragment"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/about_frame_title"
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small_16dp">
+
+            <TextView
+                android:id="@+id/about_text_info"
+                style="@style/DialogInfoTextViewMain"
+                android:layout_margin="0dp"/>
+
+            <Button
+                android:id="@+id/about_source_b"
+                style="@style/AppTheme.Button.Red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_finance_title"
+                android:theme="@style/AppTheme.Button.Red"
+                android:layout_marginTop="@dimen/spacing_small_16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

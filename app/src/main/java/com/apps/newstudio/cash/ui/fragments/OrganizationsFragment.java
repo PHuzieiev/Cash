@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,7 +53,6 @@ public class OrganizationsFragment extends Fragment {
     private Unbinder mUnbinder;
     private DialogList mDialogFilter;
     private DatabaseManager mDatabaseManager;
-    private MenuItem mMenuItemSearch;
 
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
@@ -73,8 +71,6 @@ public class OrganizationsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_organizations, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         mDatabaseManager = DataManager.getInstance().getDatabaseManager();
-        mDataForDialogList = mDatabaseManager.getDataForListDialogCurrencies();
-        checkDialogListData();
         setLang();
         createList();
         return view;
@@ -89,24 +85,23 @@ public class OrganizationsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         String queryHint = "";
+        inflater.inflate(R.menu.menu_fragment, menu);
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
             case ConstantsManager.LANGUAGE_ENG:
-                inflater.inflate(R.menu.menu_fragment_eng, menu);
                 queryHint=getString(R.string.menu_item_search_hint_eng);
                 break;
             case ConstantsManager.LANGUAGE_RUS:
-                inflater.inflate(R.menu.menu_fragment_rus, menu);
                 queryHint=getString(R.string.menu_item_search_hint_rus);
                 break;
             case ConstantsManager.LANGUAGE_UKR:
-                inflater.inflate(R.menu.menu_fragment_ukr, menu);
                 queryHint=getString(R.string.menu_item_search_hint_ukr);
                 break;
         }
 
-        mMenuItemSearch = menu.findItem(R.id.search_in_list);
-        mSearchView = (SearchView) mMenuItemSearch.getActionView();
+        MenuItem menuItemSearch = menu.findItem(R.id.search_in_list);
+        mSearchView = (SearchView) menuItemSearch.getActionView();
         mSearchView.setQueryHint(queryHint);
+        mSearchView.findViewById(android.support.v7.appcompat.R.id.search_button).setOnLongClickListener(null);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -187,6 +182,7 @@ public class OrganizationsFragment extends Fragment {
     public void updateList() {
         mMainDataForList.clear();
         prepareDataForList();
+        mRecycleViewAdapter.setLang(mRecycleViewLang);
         mRecycleViewAdapter.setOrganizations(mMainDataForList);
         mRecycleViewAdapter.notifyDataSetChanged();
     }
@@ -240,6 +236,8 @@ public class OrganizationsFragment extends Fragment {
 
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
+        mDataForDialogList = mDatabaseManager.getDataForListDialogCurrencies();
+        checkDialogListData();
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),
                 mTitleOfDialogFilter, mDataForDialogList, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
@@ -320,10 +318,5 @@ public class OrganizationsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER) {
-            ((MainActivity) getActivity()).checkItemOfNavigationView(R.id.item_converter);
-        }
-    }
+
 }

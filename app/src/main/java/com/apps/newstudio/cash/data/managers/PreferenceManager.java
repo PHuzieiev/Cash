@@ -52,6 +52,15 @@ public class PreferenceManager {
     }
 
     /**
+     * Saves String value which is used to define App Language
+     *
+     * @param parameter String object which defines App Language
+     */
+    public void setLanguage(String parameter){
+        saveString(ConstantsManager.LANGUAGE_KEY,parameter);
+    }
+
+    /**
      * Loads String value which is used to define filter parameter for list in Organization Fragment
      *
      * @return String object

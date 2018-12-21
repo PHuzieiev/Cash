@@ -1,6 +1,7 @@
 package com.apps.newstudio.cash.ui.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -262,7 +263,7 @@ public class OrganizationActivity extends BaseActivity {
     }
 
     /**
-     * Change some information in Activity or closes Activity
+     * Change some information in Activity
      * @param requestCode
      * @param resultCode value which defines what will be done
      * @param data object which is contains information from previous Activity
@@ -275,10 +276,6 @@ public class OrganizationActivity extends BaseActivity {
             setData();
             createList();
         }
-        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER){
-            setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
-            finish();
-        }
     }
 
 
@@ -287,14 +284,21 @@ public class OrganizationActivity extends BaseActivity {
      */
     @OnClick(R.id.fab)
     public void showConverter(){
-        setResult(ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER);
         mPreferenceManager.setConverterOrganizationId(mOrganizationId);
         mPreferenceManager.setConverterCurrencyShortForm(mData.get(0).getShortTitle());
         mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
         mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
-        mPreferenceManager.setConverterRoot(ConstantsManager.EMPTY_STRING_VALUE);
-        finish();
+        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_ORGANIZATION);
+        Intent intent=new Intent(this,ConverterActivity.class);
+        startActivity(intent);
+    }
+    /**
+     * Getter for Context object of this Activity
+     * @return Context object of OrganizationActivity
+     */
+    public Context getContext() {
+        return OrganizationActivity.this;
     }
 }

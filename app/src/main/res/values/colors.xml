@@ -17,4 +17,6 @@
     <color name="white_175">#afffffff</color>
     <color name="black">#000000</color>
     <color name="tr">#00ffffff</color>
+
+    <color name="background">#f9f9f9</color>
 </resources>

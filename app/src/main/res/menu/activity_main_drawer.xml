@@ -18,7 +18,7 @@
             android:title="@string/drawer_item_converter_eng" />
 
         <item
-            android:id="@+id/item_results"
+            android:id="@+id/item_templates"
             android:icon="@drawable/ic_result"
             android:title="@string/drawer_item_results_eng" />
 

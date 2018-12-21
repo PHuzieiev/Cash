@@ -3,12 +3,14 @@ package com.apps.newstudio.cash.ui.activities;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.apps.newstudio.cash.R;
@@ -56,14 +58,14 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void showProgressDialog(){
         if(mProgressDialog==null){
-            mProgressDialog=new Dialog(this,R.style.custom_dialog);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            mProgressDialog.show();
+            mProgressDialog = new Dialog(this);
+            mProgressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            Drawable drawable = new ColorDrawable(Color.TRANSPARENT);
+            mProgressDialog.getWindow().setBackgroundDrawable(drawable);
             mProgressDialog.setContentView(R.layout.dialog_progress);
+            mProgressDialog.show();
         }else{
             mProgressDialog.show();
-            mProgressDialog.setContentView(R.layout.dialog_progress);
         }
     }
 
@@ -73,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
     public void hideProgressDialog(){
         if(mProgressDialog!=null){
             if(mProgressDialog.isShowing()){
-                mProgressDialog.hide();
+                mProgressDialog.dismiss();
             }
         }
 

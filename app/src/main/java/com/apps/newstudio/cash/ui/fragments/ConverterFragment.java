@@ -31,7 +31,9 @@ import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
 import com.apps.newstudio.cash.ui.activities.BaseActivity;
 import com.apps.newstudio.cash.ui.activities.ConverterActivity;
+import com.apps.newstudio.cash.ui.activities.CurrencyActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
+import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
@@ -180,13 +182,21 @@ public class ConverterFragment extends Fragment {
         mStartValue = mPreferenceManager.getConverterValue();
         mDirection = mPreferenceManager.getConverterDirection();
         mRootParameter = mPreferenceManager.getConverterRoot();
-        if (mRootParameter.equals(ConstantsManager.EMPTY_STRING_VALUE)) {
-            mContext = ((MainActivity) getActivity()).getContext();
-            mBaseActivity = (MainActivity) getActivity();
-        } else {
-            mContext = ((ConverterActivity) getActivity()).getContext();
-            mBaseActivity = (ConverterActivity) getActivity();
-            mFloatingActionButton.setImageResource(R.drawable.ic_done);
+        switch (mRootParameter) {
+            case ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES:
+                mContext = ((ConverterActivity) getActivity()).getContext();
+                mBaseActivity = (ConverterActivity) getActivity();
+                mFloatingActionButton.setImageResource(R.drawable.ic_done);
+                break;
+            case ConstantsManager.CONVERTER_OPEN_FROM_CURRENCY:
+            case ConstantsManager.CONVERTER_OPEN_FROM_ORGANIZATION:
+                mContext = ((ConverterActivity) getActivity()).getContext();
+                mBaseActivity = (ConverterActivity) getActivity();
+                break;
+            default:
+                mContext = ((MainActivity) getActivity()).getContext();
+                mBaseActivity = (MainActivity) getActivity();
+                break;
         }
         getMainListForActions();
     }
@@ -512,7 +522,6 @@ public class ConverterFragment extends Fragment {
             eTSecondValue.setSelection(eTSecondValue.getText().toString().length());
             isConverted = true;
             isSaved = false;
-
         } catch (Exception e) {
             isConverted = false;
         }
@@ -580,11 +589,15 @@ public class ConverterFragment extends Fragment {
         );
         mBaseActivity.showToast(toastText);
         isSaved = true;
-        if (mRootParameter.equals(ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES)) {
-            getActivity().setResult(ConstantsManager.CONVERTERACTIVITY_RESULT_CODE_CHANGED);
-            if(isFinish){
-                getActivity().finish();
-            }
+        switch (mRootParameter) {
+            case ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES:
+            case ConstantsManager.CONVERTER_OPEN_FROM_CURRENCY:
+            case ConstantsManager.CONVERTER_OPEN_FROM_ORGANIZATION:
+                getActivity().setResult(ConstantsManager.CONVERTER_ACTIVITY_RESULT_CODE_CHANGED);
+                if (isFinish) {
+                    getActivity().finish();
+                }
+                break;
         }
     }
 

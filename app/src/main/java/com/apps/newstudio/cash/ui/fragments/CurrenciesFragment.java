@@ -2,7 +2,6 @@ package com.apps.newstudio.cash.ui.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
@@ -26,7 +26,6 @@ import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.ui.activities.CurrencyActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
-import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -51,7 +50,6 @@ public class CurrenciesFragment extends Fragment {
     private Unbinder mUnbinder;
     private DialogList mDialogFilter;
     private DatabaseManager mDatabaseManager;
-    private MenuItem mMenuItemSearch;
     private List<RecyclerViewDataFragment> mMainDataForList;
     private List<RecyclerViewDataDialogList> mDataForDialogList;
     private RecyclerViewAdapterFragment mRecycleViewAdapter;
@@ -67,12 +65,9 @@ public class CurrenciesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_currencies, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         mDatabaseManager = DataManager.getInstance().getDatabaseManager();
-        mDataForDialogList = mDatabaseManager.getDataForListDialogCurrencies();
-        checkDialogListData();
         setLang();
         createList();
         return view;
@@ -88,23 +83,22 @@ public class CurrenciesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         String queryHint = "";
+        inflater.inflate(R.menu.menu_fragment, menu);
         switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
             case ConstantsManager.LANGUAGE_ENG:
-                inflater.inflate(R.menu.menu_fragment_eng, menu);
                 queryHint=getString(R.string.menu_item_search_hint_eng);
                 break;
             case ConstantsManager.LANGUAGE_RUS:
-                inflater.inflate(R.menu.menu_fragment_rus, menu);
                 queryHint=getString(R.string.menu_item_search_hint_rus);
                 break;
             case ConstantsManager.LANGUAGE_UKR:
-                inflater.inflate(R.menu.menu_fragment_ukr, menu);
                 queryHint=getString(R.string.menu_item_search_hint_ukr);
                 break;
         }
-        mMenuItemSearch = menu.findItem(R.id.search_in_list);
-        mSearchView = (SearchView) mMenuItemSearch.getActionView();
+        MenuItem menuItemSearch = menu.findItem(R.id.search_in_list);
+        mSearchView = (SearchView) menuItemSearch.getActionView();
         mSearchView.setQueryHint(queryHint);
+        mSearchView.findViewById(android.support.v7.appcompat.R.id.search_button).setOnLongClickListener(null);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -209,12 +203,15 @@ public class CurrenciesFragment extends Fragment {
     public void updateList() {
         mMainDataForList.clear();
         prepareDataForList();
+        mRecycleViewAdapter.setLang(mRecycleViewLang);
         mRecycleViewAdapter.setCurrencies(mMainDataForList);
         mRecycleViewAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
+        mDataForDialogList = mDatabaseManager.getDataForListDialogCurrencies();
+        checkDialogListData();
         mDialogFilter = new DialogList(((MainActivity) getActivity()).getContext(),
                 mTitleOfDialogFilter, mDataForDialogList, null,
                 new RecyclerViewAdapterDialogList.OnItemClickListener() {
@@ -295,10 +292,4 @@ public class CurrenciesFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==ConstantsManager.ACTIVITY_RESULT_CODE_OPEN_CONVERTER) {
-            ((MainActivity) getActivity()).checkItemOfNavigationView(R.id.item_converter);
-        }
-    }
 }

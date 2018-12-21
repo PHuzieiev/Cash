@@ -1,7 +1,6 @@
 package com.apps.newstudio.cash.ui.fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterFragment;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterTemplates;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataTemplates;
 import com.apps.newstudio.cash.data.managers.DataManager;
@@ -20,7 +18,6 @@ import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.activities.ConverterActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
-import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
@@ -181,7 +178,7 @@ public class TemplatesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==ConstantsManager.CONVERTERACTIVITY_RESULT_CODE_CHANGED){
+        if(resultCode==ConstantsManager.CONVERTER_ACTIVITY_RESULT_CODE_CHANGED){
             updateList();
             mRecyclerView.scrollToPosition(mMainDataForList.size()-1);
         }
