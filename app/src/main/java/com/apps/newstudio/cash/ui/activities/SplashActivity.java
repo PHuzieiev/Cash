@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity {
 
     private DataManager mDataManager;
     private PreferenceManager mPreferenceManager;
-    static final String TEG = ConstantsManager.TAG + "SplashActivity";
+    static final String TEG = ConstantsManager.TEG + "SplashActivity";
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
     private DialogList mDialogLang;
     private DatabaseManager.FinalActionSuccess mFinalActionSuccess;

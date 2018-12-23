@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
@@ -43,7 +42,7 @@ public class CurrenciesFragment extends Fragment {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TAG + "Curr Fragment";
+    static final String TEG = ConstantsManager.TEG + "Curr Fragment";
     private String mTitleOfDialogFilter;
 
     private SearchView mSearchView = null;

@@ -2,7 +2,6 @@ package com.apps.newstudio.cash.data.adapters;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.apps.newstudio.cash.data.managers.DataManager;
@@ -54,7 +53,7 @@ public class TextWatcherAdapter {
      * Adds TextWatcher objects for all EditTexts from Constructors,
      * if text is changed and boolean value is true, action method from SomeAction object is done
      */
-    public void setTextWatchers(){
+    private void setTextWatchers(){
         mFirstValue.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -114,6 +113,6 @@ public class TextWatcherAdapter {
      * Interface which creates action method for afterTextChanged method of TextWatcher
      */
     public interface SomeAction{
-        public void action();
+        void action();
     }
 }

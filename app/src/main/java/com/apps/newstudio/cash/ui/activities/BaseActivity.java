@@ -18,7 +18,7 @@ import com.apps.newstudio.cash.utils.ConstantsManager;
 
 public class BaseActivity extends AppCompatActivity {
 
-    static final String TAG= ConstantsManager.TAG+"Base activity";
+    static final String TAG= ConstantsManager.TEG +"Base activity";
     protected Dialog mProgressDialog=null;
 
 

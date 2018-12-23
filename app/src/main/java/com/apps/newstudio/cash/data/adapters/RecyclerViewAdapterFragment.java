@@ -68,6 +68,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Setter for OrganizationsEntity List object organizations
+     *
      * @param organizations OrganizationsEntity List object
      */
     public void setOrganizations(List<OrganizationsEntity> organizations) {
@@ -76,6 +77,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Setter for RecyclerViewDataFragment List object currencies
+     *
      * @param currencies RecyclerViewDataFragment List object
      */
     public void setCurrencies(List<RecyclerViewDataFragment> currencies) {
@@ -88,7 +90,8 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Creates ViewHolder object for items in list
-     * @param parent ViewGroup object
+     *
+     * @param parent   ViewGroup object
      * @param viewType viewType int value
      * @return ViewHolder object
      */
@@ -111,7 +114,8 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Calls method for changing data in items layout
-     * @param holder ViewHolder object
+     *
+     * @param holder   ViewHolder object
      * @param position position of item in list
      */
     @Override
@@ -143,10 +147,11 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Changes data in ViewHolder if  type = TYPE_ONE
+     *
      * @param holder ViewHolder object
-     * @param data OrganizationsEntity object
+     * @param data   OrganizationsEntity object
      */
-    public void bindTypeOne(ViewHolder holder, OrganizationsEntity data) {
+    private void bindTypeOne(ViewHolder holder, OrganizationsEntity data) {
         switch (data.getOrgType()) {
             case "1":
                 holder.type.setText(lang.getTypeBank());
@@ -169,11 +174,9 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
                 title = data.getTitleEng();
                 for (int i = 0; i < data.getCurrenciesTwo().size(); i++) {
                     currency = data.getCurrenciesTwo().get(i).getTitleEng().toUpperCase();
-                    about = about + currency;
-                    if (i == data.getCurrenciesTwo().size() - 1) {
-                        about = about + ".";
-                    } else {
-                        about = about + ", ";
+                    about = about.concat(currency);
+                    if (i != data.getCurrenciesTwo().size() - 1) {
+                        about = about.concat(", ");
                     }
                 }
                 break;
@@ -181,11 +184,9 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
                 title = data.getTitleRus();
                 for (int i = 0; i < data.getCurrenciesTwo().size(); i++) {
                     currency = data.getCurrenciesTwo().get(i).getTitleRus().toUpperCase();
-                    about = about + currency;
-                    if (i == data.getCurrenciesTwo().size() - 1) {
-                        about = about + ".";
-                    } else {
-                        about = about + ", ";
+                    about = about.concat(currency);
+                    if (i != data.getCurrenciesTwo().size() - 1) {
+                        about = about.concat(", ");
                     }
                 }
                 break;
@@ -193,9 +194,9 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
                 title = data.getTitleUkr();
                 for (int i = 0; i < data.getCurrenciesTwo().size(); i++) {
                     currency = data.getCurrenciesTwo().get(i).getTitleUkr().toUpperCase();
-                    about = about + currency;
+                    about = about.concat(currency);
                     if (i != data.getCurrenciesTwo().size() - 1) {
-                        about = about + ", ";
+                        about = about.concat(", ");
                     }
                 }
                 break;
@@ -204,11 +205,10 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
         if (title.contains("(")) {
             int end = title.length() - 1;
-            m:
             for (int i = 0; i < title.length(); i++) {
                 if (title.charAt(i) == '(') {
                     end = i - 1;
-                    break m;
+                    break;
                 }
             }
             title = title.substring(0, end);
@@ -219,10 +219,11 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Changes data in ViewHolder if  type = TYPE_TWO
+     *
      * @param holder ViewHolder object
-     * @param data RecyclerViewDataFragment object
+     * @param data   RecyclerViewDataFragment object
      */
-    public void bindTypeTwo(ViewHolder holder, RecyclerViewDataFragment data) {
+    private void bindTypeTwo(ViewHolder holder, RecyclerViewDataFragment data) {
         String count = lang.getUpdate() + data.getOrganizations().size();
         holder.date.setText(count);
         holder.shortForm.setText(data.getCurrency().getShortTitle().toUpperCase());
@@ -231,7 +232,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
             case ConstantsManager.LANGUAGE_ENG:
                 holder.title.setText(data.getCurrency().getTitleEng().toUpperCase());
                 for (int i = 0; i < data.getOrganizations().size(); i++) {
-                    organizations = organizations + data.getOrganizations().get(i).getTitleEng();
+                    organizations = organizations.concat(data.getOrganizations().get(i).getTitleEng());
                     if (i != data.getOrganizations().size() - 1) {
                         organizations = organizations + ", ";
                     }
@@ -240,7 +241,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
             case ConstantsManager.LANGUAGE_RUS:
                 holder.title.setText(data.getCurrency().getTitleRus().toUpperCase());
                 for (int i = 0; i < data.getOrganizations().size(); i++) {
-                    organizations = organizations + data.getOrganizations().get(i).getTitleEng();
+                    organizations = organizations.concat(data.getOrganizations().get(i).getTitleEng());
                     if (i != data.getOrganizations().size() - 1) {
                         organizations = organizations + ", ";
                     }
@@ -249,7 +250,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
             case ConstantsManager.LANGUAGE_UKR:
                 holder.title.setText(data.getCurrency().getTitleUkr().toUpperCase());
                 for (int i = 0; i < data.getOrganizations().size(); i++) {
-                    organizations = organizations + data.getOrganizations().get(i).getTitleUkr();
+                    organizations = organizations.concat(data.getOrganizations().get(i).getTitleUkr());
                     if (i != data.getOrganizations().size() - 1) {
                         organizations = organizations + ", ";
                     }
@@ -264,6 +265,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Getter for items count of list
+     *
      * @return size of organizations list if type = TYPE_ONE, else - size of currencies list
      */
     @Override
@@ -280,36 +282,36 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.item_card)
-        public CardView cardView;
+        CardView cardView;
 
         @BindView(R.id.item_type_tv)
-        public TextView type;
+        TextView type;
 
         @BindView(R.id.item_title_tv)
-        public TextView title;
+        TextView title;
 
         @BindView(R.id.item_date_tv)
-        public TextView date;
-
+        TextView date;
 
         @BindView(R.id.item_about_tv)
-        public TextView about;
+        TextView about;
 
         @BindView(R.id.item_show_b)
-        public Button buttonShow;
+        Button buttonShow;
 
         @BindView(R.id.item_call_iv)
-        public ImageView phoneImage;
+        ImageView phoneImage;
 
-        public TextView shortForm;
-        public ImageView mainImage;
+        TextView shortForm;
+        ImageView mainImage;
 
         private ActionForIcon actionForIcon;
         private ActionForItem mActionForItem;
 
         /**
          * Constructor for ViewHolder object
-         * @param itemView some item in list
+         *
+         * @param itemView      some item in list
          * @param actionForIcon action for ImageView object phoneImage
          * @param actionForItem action for all item
          */
@@ -330,6 +332,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
 
         /**
          * Sets events for some objects of item
+         *
          * @param v view which was clicked
          */
         @Override
@@ -358,6 +361,7 @@ public class RecyclerViewAdapterFragment extends RecyclerView.Adapter<RecyclerVi
     public interface ActionForIcon {
         void action(int position);
     }
+
     /**
      * Interface for item click event
      */

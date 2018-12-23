@@ -80,8 +80,8 @@ public class RecyclerViewAdapterOrganizationOrCurrency
 
     /**
      * Creates ViewHolder object for adding data in items
-     * @param parent
-     * @param viewType
+     * @param parent object for inflating
+     * @param viewType int value
      * @return ViewHolder object
      */
     @NonNull
@@ -124,7 +124,7 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * @param data object which is contained information for elements of item
      * @param position position of item in list
      */
-    public void bindTypeOne(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, CurrenciesEntity data, int position) {
+    private void bindTypeOne(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder, CurrenciesEntity data, int position) {
         holder.shortTitle.setText(data.getShortTitle().toUpperCase());
         String saleTitle = "";
         String purchaseTitle = "";
@@ -168,7 +168,7 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * @param parameter value which will be added to title
      * @return object which will be added like title for some elements in items
      */
-    public SpannableStringBuilder getInfoString(String title, String parameter) {
+    private SpannableStringBuilder getInfoString(String title, String parameter) {
         int i = title.length();
         String result = title + "\n" + parameter;
 
@@ -185,7 +185,7 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * @param data object which is contained information for elements of item
      * @param position position of item in list
      */
-    public void bindTypeTwo(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder,
+    private void bindTypeTwo(RecyclerViewAdapterOrganizationOrCurrency.ViewHolder holder,
                             RecyclerViewDataOrganizationOrCurrency data, int position) {
         String saleTitle = "";
         String purchaseTitle = "";
@@ -248,32 +248,32 @@ public class RecyclerViewAdapterOrganizationOrCurrency
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.item_ll)
-        public LinearLayout itemLayout;
+        LinearLayout itemLayout;
 
         @BindView(R.id.item_title_tv)
-        public TextView title;
+        TextView title;
 
         @BindView(R.id.item_purchase_tv)
-        public TextView purchase;
+        TextView purchase;
 
         @BindView(R.id.item_sale_tv)
-        public TextView sale;
+        TextView sale;
 
         @BindView(R.id.item_show_details)
-        public ImageView details;
+        ImageView details;
 
         @BindView(R.id.item_v)
-        public View line;
+        View line;
 
         @BindView(R.id.item_date_tv)
-        public TextView date;
+        TextView date;
 
-        public ImageView call;
+        ImageView call;
 
-        public TextView shortTitle;
+        TextView shortTitle;
 
-        private ActionForIcon mActionForIcon;
-        private ActionForIconTwo mActionForIconTwo;
+        ActionForIcon mActionForIcon;
+        ActionForIconTwo mActionForIconTwo;
 
 
         /**

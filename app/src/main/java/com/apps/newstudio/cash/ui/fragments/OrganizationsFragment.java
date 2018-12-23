@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,7 +44,7 @@ import butterknife.Unbinder;
 public class OrganizationsFragment extends Fragment {
 
 
-    static final String TEG = ConstantsManager.TAG + "Org Fragment";
+    static final String TEG = ConstantsManager.TEG + "Org Fragment";
     private String mTitleOfDialogFilter;
 
     private RecyclerViewLangFragment mRecycleViewLang;

@@ -150,40 +150,40 @@ public class RecyclerViewAdapterTemplates extends RecyclerView.Adapter<RecyclerV
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.item_card)
-        public CardView cardView;
+        CardView cardView;
 
         @BindView(R.id.item_date_tv)
-        public TextView date;
+        TextView date;
 
         @BindView(R.id.item_short_tv)
-        public TextView shortForm;
+        TextView shortForm;
 
         @BindView(R.id.item_title_tv)
-        public TextView title;
+        TextView title;
 
         @BindView(R.id.item_organization_tv)
-        public TextView organization;
+        TextView organization;
 
         @BindView(R.id.item_action_tv)
-        public TextView action;
+        TextView action;
 
         @BindView(R.id.item_currency_title_one_tv)
-        public TextView currencyOneTitle;
+        TextView currencyOneTitle;
 
         @BindView(R.id.item_currency_title_two_tv)
-        public TextView currencyTwoTitle;
+        TextView currencyTwoTitle;
 
         @BindView(R.id.item_currency_value_one_tv)
-        public TextView currencyOneValue;
+        TextView currencyOneValue;
 
         @BindView(R.id.item_currency_value_two_tv)
-        public TextView currencyTwoValue;
+        TextView currencyTwoValue;
 
         @BindView(R.id.item_show_b)
-        public Button buttonShow;
+        Button buttonShow;
 
         @BindView(R.id.item_delete_iv)
-        public ImageView delete;
+        ImageView delete;
 
         private ActionForItem mActionForItem;
         private ActionForIcon mActionForIcon;

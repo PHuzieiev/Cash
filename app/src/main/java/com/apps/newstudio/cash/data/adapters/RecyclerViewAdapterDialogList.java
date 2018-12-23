@@ -27,8 +27,8 @@ public class RecyclerViewAdapterDialogList extends RecyclerView.Adapter<Recycler
 
     /**
      * Constructor of RecyclerViewAdapterDialogList object
-     * @param data
-     * @param onItemClick
+     * @param data information for elements of items
+     * @param onItemClick object for onClick event
      */
     public RecyclerViewAdapterDialogList(List<RecyclerViewDataDialogList> data, OnItemClickListener onItemClick) {
         this.data = data;

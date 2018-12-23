@@ -8,12 +8,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +55,7 @@ public class CurrencyActivity extends BaseActivity {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TAG + "Cur Activity";
+    static final String TEG = ConstantsManager.TEG + "Cur Activity";
     private String mShortTitle, mSecondTitle;
     private String mTitleOfDialogFilter;
     private String[] mItemsDialogSort;

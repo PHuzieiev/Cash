@@ -1,5 +1,6 @@
 package com.apps.newstudio.cash.data.managers;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.apps.newstudio.cash.R;
@@ -35,8 +36,6 @@ import retrofit2.Response;
 
 public class DatabaseManager {
 
-    static final String TAG = ConstantsManager.TAG + "Database";
-
     private DaoSession mDaoSession;
     private OrganizationsEntityDao mOrganizationsEntityDao;
     private CurrenciesEntityDao mCurrenciesEntityDao;
@@ -44,6 +43,8 @@ public class DatabaseManager {
     private List<OrganizationsEntity> mOrganizationsEntities;
     private List<CurrenciesEntity> mCurrenciesEntities;
     private String updateDate;
+    private static final String TEG = ConstantsManager.TEG + "Database";
+
     private FinalActionSuccess mFinalActionSuccess;
     private FinalActionFailure mFinalActionFailure;
 
@@ -64,8 +65,6 @@ public class DatabaseManager {
 
     /**
      * Starts updating of Database, runs getMainDataFromNet() function
-     *
-     * @return true if don't find any Exceptions
      */
     public void updateDataBase(FinalActionSuccess finalActionSuccess, FinalActionFailure finalActionFailure) {
         mFinalActionFailure = finalActionFailure;
@@ -82,7 +81,7 @@ public class DatabaseManager {
         Call<MainModel> call = service.getMyJSON();
         call.enqueue(new Callback<MainModel>() {
             @Override
-            public void onResponse(Call<MainModel> call, Response<MainModel> response) {
+            public void onResponse(@NonNull Call<MainModel> call, @NonNull Response<MainModel> response) {
                 if (response.isSuccessful()) {
                     try {
                         ArrayList<Organization> organization = response.body().getOrganizations();
@@ -106,27 +105,19 @@ public class DatabaseManager {
 
                         updateMainDataFromNet();
                     } catch (Exception e) {
-
+                        Log.d(TEG, e.toString());
                     }
                 } else {
-                    try {
-                        if (mFinalActionFailure != null) {
-                            mFinalActionFailure.finalFunctionFailure();
-                        }
-                    } catch (Exception ex) {
-
+                    if (mFinalActionFailure != null) {
+                        mFinalActionFailure.finalFunctionFailure();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<MainModel> call, Throwable t) {
-                try {
-                    if (mFinalActionFailure != null) {
-                        mFinalActionFailure.finalFunctionFailure();
-                    }
-                } catch (Exception ex) {
-
+            public void onFailure(@NonNull Call<MainModel> call, @NonNull Throwable t) {
+                if (mFinalActionFailure != null) {
+                    mFinalActionFailure.finalFunctionFailure();
                 }
             }
         });
@@ -141,7 +132,7 @@ public class DatabaseManager {
         Call<MainModel> call = service.getMyJSON();
         call.enqueue(new Callback<MainModel>() {
             @Override
-            public void onResponse(Call<MainModel> call, Response<MainModel> response) {
+            public void onResponse(@NonNull Call<MainModel> call, @NonNull Response<MainModel> response) {
                 if (response.isSuccessful()) {
                     try {
                         ArrayList<Organization> organization = response.body().getOrganizations();
@@ -356,43 +347,27 @@ public class DatabaseManager {
                         DataManager.getInstance().getPreferenceManager()
                                 .saveString(ConstantsManager.LAST_UPDATE_DATE, response.body().getDate());
 
-                        try {
-                            if (mFinalActionSuccess != null) {
-                                Log.d("TEG","Success");
-                                mFinalActionSuccess.finalFunctionSuccess();
-                            }
-                        } catch (Exception e) {
-
+                        if (mFinalActionSuccess != null) {
+                            mFinalActionSuccess.finalFunctionSuccess();
                         }
-
                     } catch (Exception e) {
-                        //Error
+                        Log.d(TEG, e.toString());
                     }
                 } else {
-                    try {
-                        if (mFinalActionFailure != null) {
-                            mFinalActionFailure.finalFunctionFailure();
-                        }
-                    } catch (Exception ex) {
-
+                    if (mFinalActionFailure != null) {
+                        mFinalActionFailure.finalFunctionFailure();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<MainModel> call, Throwable t) {
-
-                try {
-                    if (mFinalActionFailure != null) {
-                        mFinalActionFailure.finalFunctionFailure();
-                    }
-                } catch (Exception ex) {
-
+            public void onFailure(@NonNull Call<MainModel> call, @NonNull Throwable t) {
+                if (mFinalActionFailure != null) {
+                    mFinalActionFailure.finalFunctionFailure();
                 }
             }
         });
     }
-
 
     /**
      * Gets data from db for list of OrganizationsFragment object, uses filter and search parameters for correct result
@@ -561,11 +536,7 @@ public class DatabaseManager {
                 .orderAsc(OrganizationsEntityDao.Properties.TitleUkr)
                 .limit(1)
                 .list();
-        if (list.size() != 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return list.size() == 0;
     }
 
 
@@ -573,14 +544,14 @@ public class DatabaseManager {
      * Interface which containes final function for final step in loading data from Internet to db
      */
     public interface FinalActionSuccess {
-        public void finalFunctionSuccess();
+        void finalFunctionSuccess();
     }
 
     /**
      * Interface which containes final function if loading data from Internet to db  finished with error
      */
     public interface FinalActionFailure {
-        public void finalFunctionFailure();
+        void finalFunctionFailure();
     }
 
     /**
@@ -687,11 +658,10 @@ public class DatabaseManager {
                 .list();
         List<RecyclerViewDataOrganizationOrCurrency> result = new ArrayList<>();
         for (OrganizationsEntity orgData : list) {
-            m:
             for (CurrenciesEntity currData : orgData.getCurrencies()) {
                 if (currData.getShortTitle().equals(short_title)) {
                     result.add(new RecyclerViewDataOrganizationOrCurrency(orgData, currData));
-                    break m;
+                    break;
                 }
             }
         }
@@ -720,6 +690,7 @@ public class DatabaseManager {
 
     /**
      * Gets RecyclerViewDataTemplates List object for RecyclerView of Templates
+     *
      * @return data for RecyclerView of Templates
      */
     public List<RecyclerViewDataTemplates> getTemplateList() {
@@ -748,7 +719,7 @@ public class DatabaseManager {
                                             template.getAction(), template.getDirection(),
                                             currency.getTitleEng() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
-                                            currency.getBid(),currency.getAsk()));
+                                            currency.getBid(), currency.getAsk()));
                                     break;
                                 case ConstantsManager.LANGUAGE_RUS:
                                     result.add(new RecyclerViewDataTemplates(template.getId(), currency.getDate(),
@@ -757,7 +728,7 @@ public class DatabaseManager {
                                             template.getAction(), template.getDirection(),
                                             currency.getTitleRus() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
-                                            currency.getBid(),currency.getAsk()));
+                                            currency.getBid(), currency.getAsk()));
                                     break;
                                 case ConstantsManager.LANGUAGE_UKR:
 
@@ -767,7 +738,7 @@ public class DatabaseManager {
                                             template.getAction(), template.getDirection(),
                                             currency.getTitleUkr() + " (" + template.getShortCurrencyTitle() + ")",
                                             "", "", template.getValue(),
-                                            currency.getBid(),currency.getAsk()));
+                                            currency.getBid(), currency.getAsk()));
                                     break;
                             }
 
@@ -784,9 +755,10 @@ public class DatabaseManager {
 
     /**
      * Deletes form Templates table using Id
+     *
      * @param id value which using to find what will be deleted
      */
-    public void deleteFromTemplatesById(String id){
+    public void deleteFromTemplatesById(String id) {
         mTemplateEntityDao.deleteByKey(id);
     }
 }

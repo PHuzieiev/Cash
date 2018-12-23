@@ -12,7 +12,6 @@ public class PreferenceManager {
     /**
      * Gets SharedPreferences object from CashApplication object
      *
-     * @return SharedPreferences mSharedPreferences
      */
     public PreferenceManager() {
         mSharedPreferences = CashApplication.getSharedPreferences();
@@ -27,7 +26,7 @@ public class PreferenceManager {
     public void saveString(String key, String value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**

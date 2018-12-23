@@ -49,8 +49,8 @@ public class RecyclerViewAdapterDialogListOrganizations
 
     /**
      * Creates ViewHolder object for adding data in items
-     * @param parent
-     * @param viewType
+     * @param parent object for inflating
+     * @param viewType int value
      * @return ViewHolder object
      */
     @NonNull
@@ -116,7 +116,7 @@ public class RecyclerViewAdapterDialogListOrganizations
      * @param isChecked true - item was checked, false - item was not checked
      * @return object which will be added like title for some elements in items
      */
-    public SpannableStringBuilder getInfoString(String title, String parameter, boolean isChecked) {
+    private SpannableStringBuilder getInfoString(String title, String parameter, boolean isChecked) {
         int i = title.length();
         String result = title + "\n" + parameter;
 
@@ -147,22 +147,22 @@ public class RecyclerViewAdapterDialogListOrganizations
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_dialog_list_iv)
-        public ImageView image;
+        ImageView image;
 
         @BindView(R.id.item_dialog_title_tv)
-        public TextView title;
+        TextView title;
 
         @BindView(R.id.item_dialog_purchase_tv)
-        public TextView purchase;
+        TextView purchase;
 
         @BindView(R.id.item_dialog_sale_tv)
-        public TextView sale;
+        TextView sale;
 
         @BindView(R.id.item_dialog_date_tv)
-        public TextView date;
+        TextView date;
 
         @BindView(R.id.item_dialog_ll)
-        public LinearLayout layout;
+        LinearLayout layout;
 
 
         /**

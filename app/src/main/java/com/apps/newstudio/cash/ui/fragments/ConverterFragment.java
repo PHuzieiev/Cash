@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +34,7 @@ import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
 import com.apps.newstudio.cash.ui.activities.BaseActivity;
 import com.apps.newstudio.cash.ui.activities.ConverterActivity;
-import com.apps.newstudio.cash.ui.activities.CurrencyActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
-import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
@@ -109,7 +106,7 @@ public class ConverterFragment extends Fragment {
     private TextWatcherAdapter mTextWatcherAdapter;
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
 
-    static final String TEG = ConstantsManager.TAG + "Con Fragment";
+    static final String TEG = ConstantsManager.TEG + "Con Fragment";
     private String mCurrencyShortForm;
     private String mCurrencyDialogTitle;
     private String mOrganizationId;

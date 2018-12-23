@@ -1,7 +1,5 @@
 package com.apps.newstudio.cash.data.managers;
 
-import android.content.SharedPreferences;
-
 public class DataManager {
 
     private static DataManager INSTANCE = null;

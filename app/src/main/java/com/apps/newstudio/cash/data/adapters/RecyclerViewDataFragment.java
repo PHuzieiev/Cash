@@ -3,7 +3,6 @@ package com.apps.newstudio.cash.data.adapters;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
 
-import java.util.Currency;
 import java.util.List;
 
 public class RecyclerViewDataFragment {

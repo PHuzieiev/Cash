@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,7 +53,7 @@ public class OrganizationActivity extends BaseActivity {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TAG + "Org Activity";
+    static final String TEG = ConstantsManager.TEG + "Org Activity";
     private String mOrganizationTitle, mOrgType, mOrgPhone, mOrgDate;
     private String mTypeBank, mTypeOther;
     private String mOrganizationId = ConstantsManager.EMPTY_STRING_VALUE;
