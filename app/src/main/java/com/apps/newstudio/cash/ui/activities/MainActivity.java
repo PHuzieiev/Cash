@@ -6,12 +6,12 @@ import android.content.Context;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +25,6 @@ import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
-import com.apps.newstudio.cash.data.network.models.Organization;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.ui.fragments.AboutFragment;
@@ -67,6 +66,11 @@ public class MainActivity extends BaseActivity
     private String mDialogLangTitle;
     private int checkedItemId = 0;
 
+    /**
+     * Creates all elements and do all work to show information in elements
+     *
+     * @param savedInstanceState object for loading saved data
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +96,19 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /**
+     * Saves data in Bundle object
+     * @param outState object for saving data
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putInt(ConstantsManager.SAVED_FRAGMENT_ID, checkedItemId);
+        super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Closes drawer menu if it was opened
+     */
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -107,9 +118,14 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /**
+     * Does some work when item of drawer menu is selected
+     * @param item item which is selected
+     * @return boolean value
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (checkedItemId != item.getItemId() && item.getItemId() == R.id.item_organizations) {
             DataManager.getInstance().getPreferenceManager().setOrganizationsFilterParameter("");
             DataManager.getInstance().getPreferenceManager().setOrganizationsSearchParameter("");
@@ -132,6 +148,10 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    /**
+     * Loads fragments, changes ToolBar title and call updateDate method
+     * @param id id of selected item of drawer menu
+     */
     public void checkItemOfNavigationView(int id) {
         if (id != checkedItemId) {
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -181,7 +201,9 @@ public class MainActivity extends BaseActivity
         updateDate();
     }
 
-
+    /**
+     * Sets main Language parameters of Strings, TextView and Menu objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -241,6 +263,9 @@ public class MainActivity extends BaseActivity
         getDialogInfo();
     }
 
+    /**
+     * Sets date of information update
+     */
     public void updateDate() {
         String updateDate = mStringUpdateTitle + mDataManager.getPreferenceManager()
                 .loadString(ConstantsManager.LAST_UPDATE_DATE, ConstantsManager.EMPTY_STRING_VALUE).substring(0, 10);
@@ -248,10 +273,17 @@ public class MainActivity extends BaseActivity
                 .setText(updateDate);
     }
 
+    /**
+     * Getter for Context object of MainActivity object
+     * @return
+     */
     public Context getContext() {
         return MainActivity.this;
     }
 
+    /**
+     * Prepares FinalActionFailure and FinalActionSuccess objects for final actions of information update process
+     */
     public void prepareFinalActionsForUpdate() {
         mFinalActionFailure = new DatabaseManager.FinalActionFailure() {
             @Override
@@ -279,6 +311,9 @@ public class MainActivity extends BaseActivity
         };
     }
 
+    /**
+     * Updates main information from Internet
+     */
     public void updateData() {
         showProgressDialog();
         mDataManager.getDatabaseManager().updateDataBase(mFinalActionSuccess, mFinalActionFailure);
@@ -335,6 +370,9 @@ public class MainActivity extends BaseActivity
         }, mTitle, mMessage, mTitleButtonOne, mTitleButtonTwo);
     }
 
+    /**
+     * Changes objects after update process
+     */
     public void changeDataInFragmentAfterUpdate() {
         hideProgressDialog();
         showToast(mToastSuccessUpdate);
@@ -355,6 +393,9 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /**
+     * Creates DialogList object for choosing language of application
+     */
     public void createDialogLang() {
         getDataForDialogLang();
         mDialogLang = new DialogList(MainActivity.this,
@@ -373,6 +414,9 @@ public class MainActivity extends BaseActivity
                 .setBackgroundColor(getResources().getColor(R.color.tr));
     }
 
+    /**
+     * Prepares data for DialogList object
+     */
     public void getDataForDialogLang() {
         mDataForDialogList = new ArrayList<>();
         mDataForDialogList.add(new RecyclerViewDataDialogList(false,
@@ -387,6 +431,11 @@ public class MainActivity extends BaseActivity
         mDataForDialogList = setParameterForDialogLang(mDataForDialogList);
     }
 
+    /**
+     * Sets parameters for RecyclerViewDataDialogList object for DialogList object
+     * @param data input data list for DialogList object
+     * @return RecyclerViewDataDialogList list object after changing
+     */
     public List<RecyclerViewDataDialogList> setParameterForDialogLang(List<RecyclerViewDataDialogList> data) {
         for (int i = 0; i < data.size(); i++) {
             data.get(i).setChecked(false);
@@ -405,6 +454,11 @@ public class MainActivity extends BaseActivity
         return data;
     }
 
+    /**
+     * Changes objects after language selection
+     *
+     * @param position position of selected item of DialogList object
+     */
     public void changeLanguage(int position) {
         switch (position) {
             case 0:

@@ -33,11 +33,19 @@ public class AboutFragment extends Fragment {
     private Unbinder mUnbinder;
     private String mLink;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates main objects of Fragment object
+     * @param inflater object for inflating process
+     * @param container root for inflating process
+     * @param savedInstanceState Bundle object of saved data
+     * @return main object of fragment interface
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,12 +55,18 @@ public class AboutFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Does unbind process when Fragment object is on destroy stage
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
     }
 
+    /**
+     * Sets main Language parameters of Strings, TextView objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -82,6 +96,9 @@ public class AboutFragment extends Fragment {
 
     }
 
+    /**
+     * Opens link to show information of resource
+     */
     @OnClick(R.id.about_source_b)
     public void goOnPageOfSource(){
         Intent intent = new Intent(Intent.ACTION_VIEW,

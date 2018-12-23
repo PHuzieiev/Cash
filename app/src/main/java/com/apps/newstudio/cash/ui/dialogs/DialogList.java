@@ -55,7 +55,7 @@ public class DialogList {
     /**
      * Creates Dialog with RecycleView object and shows it
      */
-    public void createDialog() {
+    private void createDialog() {
         mDialog = new Dialog(mContext);
         mDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Drawable drawable = new ColorDrawable(Color.TRANSPARENT);
@@ -69,22 +69,20 @@ public class DialogList {
             mAdapterDialogList = new RecyclerViewAdapterDialogList(mData, onItemClickListener);
             mAdapterDialogList.notifyDataSetChanged();
             mRecyclerView.setAdapter(mAdapterDialogList);
-            m:
             for (int i = 0; i < mData.size(); i++) {
                 if (mData.get(i).isChecked()) {
                     mRecyclerView.scrollToPosition(i);
-                    break m;
+                    break;
                 }
             }
         } else {
             mAdapterDialogListTwo = new RecyclerViewAdapterDialogListOrganizations(mDataTwo, onItemClickListener);
             mAdapterDialogListTwo.notifyDataSetChanged();
             mRecyclerView.setAdapter(mAdapterDialogListTwo);
-            m:
             for (int i = 0; i < mDataTwo.size(); i++) {
                 if (mDataTwo.get(i).isChecked()) {
                     mRecyclerView.scrollToPosition(i);
-                    break m;
+                    break;
                 }
             }
         }

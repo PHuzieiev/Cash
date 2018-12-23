@@ -8,17 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.utils.ConstantsManager;
 
 public class BaseActivity extends AppCompatActivity {
 
-    static final String TAG= ConstantsManager.TEG +"Base activity";
     protected Dialog mProgressDialog=null;
 
 
@@ -40,16 +37,7 @@ public class BaseActivity extends AppCompatActivity {
         toast.show();
     }
 
-    /**
-     * Shows Toast and Log with error message
-     * @param message is String object
-     * @param e is Exception object
-     */
 
-    public void showError(String message, Exception e){
-        showToast(message);
-        Log.d(TAG,String.valueOf(e));
-    }
 
     /**
      * Creates and shows Dialog with ProgressView

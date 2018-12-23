@@ -3,9 +3,7 @@ package com.apps.newstudio.cash.ui.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.os.Binder;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,7 +23,8 @@ public class ConverterActivity extends BaseActivity {
 
     /**
      * Creates all elements and do all work to show information in elements
-     * @param savedInstanceState
+     *
+     * @param savedInstanceState object for loading saved data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +65,12 @@ public class ConverterActivity extends BaseActivity {
      */
     @Override
     public void onBackPressed() {
-        try {
-            mConverterFragment.finalRequest();
-        }catch (Exception e){
-            //Error
-        }
+        mConverterFragment.finalRequest();
     }
 
     /**
      * Getter for Context object
+     *
      * @return Context object of ConverterActivity
      */
     public Context getContext() {

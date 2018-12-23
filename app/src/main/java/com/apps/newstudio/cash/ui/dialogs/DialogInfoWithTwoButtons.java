@@ -8,11 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
-import com.apps.newstudio.cash.data.managers.LanguageManager;
 
 public class DialogInfoWithTwoButtons {
 
@@ -27,9 +25,9 @@ public class DialogInfoWithTwoButtons {
 
     /**
      * Initialises Context, onClickListenerButtonOne, onClickListenerButtonTwo
-     * @param context
-     * @param onClickListenerButtonOne
-     * @param onClickListenerButtonTwo
+     * @param context object which is used for creation Dialog object
+     * @param onClickListenerButtonOne object for onClick event of the first button
+     * @param onClickListenerButtonTwo object for onClick event of the second button
      */
     public DialogInfoWithTwoButtons(Context context,
                                     View.OnClickListener onClickListenerButtonOne,
@@ -49,7 +47,7 @@ public class DialogInfoWithTwoButtons {
      * Creates default Dialog object, sets OnClickListeners for buttons
      */
 
-    public void createDialog(){
+    private void createDialog(){
         mDialog = new Dialog(mContext);
         mDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Drawable drawable = new ColorDrawable(Color.TRANSPARENT);

@@ -55,22 +55,21 @@ public class CurrencyActivity extends BaseActivity {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TEG + "Cur Activity";
     private String mShortTitle, mSecondTitle;
     private String mTitleOfDialogFilter;
+    private String failureCall;
     private String[] mItemsDialogSort;
     private List<RecyclerViewDataOrganizationOrCurrency> mData;
     private List<RecyclerViewDataDialogList> mDataForDialogList;
     private DialogList mDialogSort;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
     private PreferenceManager mPreferenceManager;
-    private String failureCall;
 
 
     /**
      * Creates all elements and do all work to show information in elements
      *
-     * @param savedInstanceState
+     * @param savedInstanceState object for loading saved data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +116,7 @@ public class CurrencyActivity extends BaseActivity {
     /**
      * Sets menu for Activity
      *
-     * @param menu
+     * @param menu object for inflating
      * @return value true
      */
     @Override
@@ -141,8 +140,8 @@ public class CurrencyActivity extends BaseActivity {
     /**
      * if item is selected, Dialog is opened
      *
-     * @param item
-     * @return
+     * @param item item of Menu
+     * @return result of operation
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -197,7 +196,7 @@ public class CurrencyActivity extends BaseActivity {
      */
     public void prepareDataForList() {
         mData = DataManager.getInstance().getDatabaseManager().getOrganizationsByCurrency(mShortTitle);
-        countTextView.setText(mSecondTitle + mData.size());
+        countTextView.setText(mSecondTitle.concat(String.valueOf(mData.size())));
         sortMainList();
     }
 
@@ -332,9 +331,9 @@ public class CurrencyActivity extends BaseActivity {
      */
     public void getDataForDialogSort() {
         mDataForDialogList = new ArrayList<>();
-        for (int i = 0; i < mItemsDialogSort.length; i++) {
-            mDataForDialogList.add(new RecyclerViewDataDialogList(false, mItemsDialogSort[i],
-                    mItemsDialogSort[i], mItemsDialogSort[i]));
+        for (String aMItemsDialogSort : mItemsDialogSort) {
+            mDataForDialogList.add(new RecyclerViewDataDialogList(false, aMItemsDialogSort,
+                    aMItemsDialogSort, aMItemsDialogSort));
         }
         mDataForDialogList = setParameterForDialogSort(mDataForDialogList);
     }
@@ -406,7 +405,7 @@ public class CurrencyActivity extends BaseActivity {
     /**
      * Change some information in Activity
      *
-     * @param requestCode
+     * @param requestCode value which defines code of request
      * @param resultCode  value which defines what will be done
      * @param data        object which is contains information from previous Activity
      */

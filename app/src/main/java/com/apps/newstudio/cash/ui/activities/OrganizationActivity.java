@@ -53,19 +53,17 @@ public class OrganizationActivity extends BaseActivity {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TEG + "Org Activity";
     private String mOrganizationTitle, mOrgType, mOrgPhone, mOrgDate;
     private String mTypeBank, mTypeOther;
     private String mOrganizationId = ConstantsManager.EMPTY_STRING_VALUE;
     private List<CurrenciesEntity> mData;
-    private Intent mIntent;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
     private PreferenceManager mPreferenceManager;
     private String failureCall;
 
     /**
      * Creates all elements and do all work to show information in elements
-     * @param savedInstanceState
+     * @param savedInstanceState object for loading saved data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +106,7 @@ public class OrganizationActivity extends BaseActivity {
 
     /**
      * Sets menu for Activity
-     * @param menu
+     * @param menu object for inflating
      * @return value true
      */
     @Override
@@ -131,7 +129,7 @@ public class OrganizationActivity extends BaseActivity {
 
     /**
      * if item is selected, you will call organization
-     * @param item
+     * @param item item of Menu
      * @return value true
      */
     @Override
@@ -185,12 +183,12 @@ public class OrganizationActivity extends BaseActivity {
      * Initializes some String object using main Intent
      */
     public void setData() {
-        mIntent = getIntent();
-        mOrganizationId = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_ID);
-        mOrganizationTitle = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_TITLE);
-        mOrgPhone = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_PHONE);
-        mOrgType = mIntent.getStringExtra(ConstantsManager.ORGANIZATION_TYPE);
-        String date = mOrgDate + mIntent.getStringExtra(ConstantsManager.ORGANIZATION_DATE).substring(0, 10);
+        Intent intent = getIntent();
+        mOrganizationId = intent.getStringExtra(ConstantsManager.ORGANIZATION_ID);
+        mOrganizationTitle = intent.getStringExtra(ConstantsManager.ORGANIZATION_TITLE);
+        mOrgPhone = intent.getStringExtra(ConstantsManager.ORGANIZATION_PHONE);
+        mOrgType = intent.getStringExtra(ConstantsManager.ORGANIZATION_TYPE);
+        String date = mOrgDate + intent.getStringExtra(ConstantsManager.ORGANIZATION_DATE).substring(0, 10);
         switch (mOrgType) {
             case "1":
                 typeTextView.setText(mTypeBank);
@@ -203,11 +201,10 @@ public class OrganizationActivity extends BaseActivity {
         }
         if (mOrganizationTitle.contains("(")) {
             int end = mOrganizationTitle.length() - 1;
-            m:
             for (int i = 0; i < mOrganizationTitle.length(); i++) {
                 if (mOrganizationTitle.charAt(i) == '(') {
                     end = i - 1;
-                    break m;
+                    break;
                 }
             }
             mOrganizationTitle = mOrganizationTitle.substring(0, end);
@@ -269,7 +266,7 @@ public class OrganizationActivity extends BaseActivity {
 
     /**
      * Change some information in Activity
-     * @param requestCode
+     * @param requestCode value which defines code of request
      * @param resultCode value which defines what will be done
      * @param data object which is contains information from previous Activity
      */

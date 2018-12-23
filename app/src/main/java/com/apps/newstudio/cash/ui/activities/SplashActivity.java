@@ -33,7 +33,6 @@ public class SplashActivity extends BaseActivity {
 
     private DataManager mDataManager;
     private PreferenceManager mPreferenceManager;
-    static final String TEG = ConstantsManager.TEG + "SplashActivity";
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
     private DialogList mDialogLang;
     private DatabaseManager.FinalActionSuccess mFinalActionSuccess;
@@ -51,7 +50,7 @@ public class SplashActivity extends BaseActivity {
      * Changes main background, initialises FinalActionSuccess, FinalActionFailure objects,
      * starts in new threat updating of data, starts DialogInfoWithTwoButtons object
      *
-     * @param savedInstanceState
+     * @param savedInstanceState object for loading saved data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +67,7 @@ public class SplashActivity extends BaseActivity {
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 data);
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            findViewById(R.id.splash_rl).setBackgroundDrawable(gd);
-        } else {
-            findViewById(R.id.splash_rl).setBackground(gd);
-        }
+        findViewById(R.id.splash_rl).setBackground(gd);
 
         mDataManager = DataManager.getInstance();
         mPreferenceManager = mDataManager.getPreferenceManager();

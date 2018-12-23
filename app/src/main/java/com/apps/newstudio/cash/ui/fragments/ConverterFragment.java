@@ -106,7 +106,6 @@ public class ConverterFragment extends Fragment {
     private TextWatcherAdapter mTextWatcherAdapter;
     private DialogInfoWithTwoButtons mDialogInfoWithTwoButtons;
 
-    static final String TEG = ConstantsManager.TEG + "Con Fragment";
     private String mCurrencyShortForm;
     private String mCurrencyDialogTitle;
     private String mOrganizationId;
@@ -152,6 +151,14 @@ public class ConverterFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates main objects of Fragment object
+     *
+     * @param inflater           object for inflating process
+     * @param container          root for inflating process
+     * @param savedInstanceState Bundle object of saved data
+     * @return main object of fragment interface
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -172,12 +179,18 @@ public class ConverterFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Does unbind process when Fragment object is on destroy stage
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
     }
 
+    /**
+     * Initializes main objects for conversion
+     */
     public void getDefaultData() {
         mCurrencyShortForm = mPreferenceManager.getConverterCurrencyShortForm().toUpperCase();
         mOrganizationId = mPreferenceManager.getConverterOrganizationId();
@@ -204,12 +217,18 @@ public class ConverterFragment extends Fragment {
         getMainListForActions();
     }
 
+    /**
+     * Prepares data for Actions list and calls checkDefaultData and setLang method
+     */
     public void getMainListForActions() {
         mMainListForActions = mDatabaseManager.getAllCurrenciesForCurrenciesFragment(false);
         checkDefaultData();
         setLang();
     }
 
+    /**
+     * Checks main data for conversion
+     */
     public void checkDefaultData() {
         mListForCurrencyDialog.clear();
         mListForOrganizationsDialog.clear();
@@ -260,6 +279,12 @@ public class ConverterFragment extends Fragment {
         getPurchaseAndSaleValue(mPositionOfCurInList, mPositionOfOrgInList);
     }
 
+    /**
+     * Sets mSaleValue, mPurchaseValue and mDate values of checked currency
+     *
+     * @param curPos position of checked currency in list
+     * @param orgPos position of checked organization in list
+     */
     public void getPurchaseAndSaleValue(int curPos, int orgPos) {
         OrganizationsEntity org = mMainListForActions.get(curPos).getOrganizations().get(orgPos);
         for (CurrenciesEntity cur : org.getCurrencies()) {
@@ -272,6 +297,9 @@ public class ConverterFragment extends Fragment {
         }
     }
 
+    /**
+     * Sets main Language parameters of Strings, TextView objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -286,7 +314,7 @@ public class ConverterFragment extends Fragment {
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleEng());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleEng().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleEng().toUpperCase().concat(" (").concat(mCurrencyShortForm).concat(")"));
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_eng);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_eng);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_eng);
@@ -315,7 +343,7 @@ public class ConverterFragment extends Fragment {
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleUkr());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleUkr().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleUkr().toUpperCase().concat(" (").concat(mCurrencyShortForm).concat(")"));
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_ukr);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_ukr);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_ukr);
@@ -344,7 +372,7 @@ public class ConverterFragment extends Fragment {
                 tVChosenOrganizationTitle.setText(mMainListForActions.get(mPositionOfCurInList)
                         .getOrganizations().get(mPositionOfOrgInList).getTitleRus());
                 tVSecondCurrency.setText(mMainListForActions.get(mPositionOfCurInList)
-                        .getCurrency().getTitleRus().toUpperCase() + " (" + mCurrencyShortForm + ")");
+                        .getCurrency().getTitleRus().toUpperCase().concat(" (").concat(mCurrencyShortForm).concat(")"));
                 mCurrencyDialogTitle = getString(R.string.drawer_item_currencies_rus);
                 mOrganizationDialogTitle = getString(R.string.drawer_item_organizations_rus);
                 mActionDialogTitle = getString(R.string.converter_dialog_action_title_rus);
@@ -365,9 +393,12 @@ public class ConverterFragment extends Fragment {
         setData();
     }
 
+    /**
+     * Sets main values in interface objects
+     */
     public void setData() {
         tVShortTitle.setText(mCurrencyShortForm);
-        tVCount.setText(mCountTitle + mMainListForActions.size());
+        tVCount.setText(mCountTitle.concat(String.valueOf(mMainListForActions.size())));
         tVFirstCurrency.setText(mFirstCurrencyTitle);
         tVChosenOrganizationPurchase.setText(getInfoString(mPurchaseTitle + ": ", mPurchaseValue));
         tVChosenOrganizationSale.setText(getInfoString(mSaleTitle + ": ", mSaleValue));
@@ -382,6 +413,9 @@ public class ConverterFragment extends Fragment {
         convertValue();
     }
 
+    /**
+     * Prepares data for Dialog of choosing conversion action type
+     */
     public void getDataForActionDialog() {
         mListForActionDialog.clear();
         if (mAction.equals(ConstantsManager.CONVERTER_ACTION_PURCHASE)) {
@@ -397,6 +431,13 @@ public class ConverterFragment extends Fragment {
         }
     }
 
+    /**
+     * Unites two String object in SpannableStringBuilder object
+     *
+     * @param title     the first String object
+     * @param parameter the second String object
+     * @return converted SpannableStringBuilder object
+     */
     public SpannableStringBuilder getInfoString(String title, String parameter) {
         int i = title.length();
         String result = title + "\n" + parameter;
@@ -408,6 +449,9 @@ public class ConverterFragment extends Fragment {
         return spannableStringBuilder;
     }
 
+    /**
+     * Initializes Intent object to make call
+     */
     @OnClick(R.id.converter_organization_phone_iv)
     public void callToOrg() {
         if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -421,6 +465,9 @@ public class ConverterFragment extends Fragment {
     }
 
 
+    /**
+     * Creates dialog for choosing currency
+     */
     @OnClick(R.id.converter_currency_cv)
     public void chooseCurrency() {
         mDialog = new DialogList(mContext,
@@ -441,6 +488,9 @@ public class ConverterFragment extends Fragment {
                 .setBackground(getResources().getDrawable(R.drawable.ic_tr));
     }
 
+    /**
+     * Creates dialog for choosing organization
+     */
     @OnClick(R.id.converter_organization_cv)
     public void chooseOrganization() {
         mDialog = new DialogList(mContext,
@@ -461,6 +511,9 @@ public class ConverterFragment extends Fragment {
                 .setBackground(getResources().getDrawable(R.drawable.ic_tr));
     }
 
+    /**
+     * Creates dialog for choosing action
+     */
     @OnClick(R.id.converter_sale_or_purchase_cv)
     public void chooseAction() {
         mDialog = new DialogList(mContext,
@@ -484,8 +537,10 @@ public class ConverterFragment extends Fragment {
                 .setBackground(getResources().getDrawable(R.drawable.ic_tr));
     }
 
+    /**
+     * Converts values
+     */
     public void convertValue() {
-
         try {
             mStartValue = mPreferenceManager.getConverterValue();
             mDirection = mPreferenceManager.getConverterDirection();
@@ -535,12 +590,19 @@ public class ConverterFragment extends Fragment {
         mTextWatcherAdapter.setActionForSecond(true);
     }
 
+    /**
+     * Calls addToTemplates method
+     */
     @OnClick(R.id.converter_fragment_fab)
     public void fabClick() {
         isFinish = false;
         addToTemplates();
     }
 
+    /**
+     * Initializes id value for templates
+     * If template is not saved before, method will save it.
+     */
     public void addToTemplates() {
         mTemplateId = mPreferenceManager.getTemplateId();
         if (isConverted) {
@@ -556,6 +618,9 @@ public class ConverterFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates DialogInfoWithTwoButtons object to choosing what to do - save or edit template
+     */
     public void showDialog() {
         mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(mContext,
                 new View.OnClickListener() {
@@ -576,6 +641,9 @@ public class ConverterFragment extends Fragment {
         mDialogInfoWithTwoButtons.getDialog().show();
     }
 
+    /**
+     * Adds information which is used in templates
+     */
     public void saveTemplate(String toastText) {
         SimpleDateFormat simpleDateFormatY = new SimpleDateFormat("yyyy");
         SimpleDateFormat simpleDateFormatM = new SimpleDateFormat("MM");
@@ -607,6 +675,9 @@ public class ConverterFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates and open dialog for saving
+     */
     public void finalRequest() {
         if (!isSaved) {
             mDialogInfoWithTwoButtons = new DialogInfoWithTwoButtons(mContext,
