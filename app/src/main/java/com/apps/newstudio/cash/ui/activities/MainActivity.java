@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,7 +84,6 @@ public class MainActivity extends BaseActivity
         mPreferenceManager = mDataManager.getPreferenceManager();
         setLang();
         prepareFinalActionsForUpdate();
-        getDialogInfo();
 
         if (savedInstanceState != null) {
             checkItemOfNavigationView(savedInstanceState.getInt(ConstantsManager.SAVED_FRAGMENT_ID));
@@ -149,12 +149,7 @@ public class MainActivity extends BaseActivity
                     mFragment = new TemplatesFragment();
                     break;
                 case R.id.item_update:
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateData();
-                        }
-                    }, 600);
+                    updateData();
                     break;
                 case R.id.item_language:
                     new Handler().postDelayed(new Runnable() {
@@ -171,9 +166,9 @@ public class MainActivity extends BaseActivity
             }
 
             if (id != R.id.item_update && id != R.id.item_language) {
-                if(id == R.id.item_converter||id == R.id.item_about){
+                if (id == R.id.item_converter || id == R.id.item_about) {
                     toolbar.setTitle(ConstantsManager.EMPTY_STRING_VALUE);
-                }else{
+                } else {
                     toolbar.setTitle(navigationView.getMenu().findItem(id).getTitle());
                 }
                 navigationView.setCheckedItem(id);
@@ -243,7 +238,7 @@ public class MainActivity extends BaseActivity
                 mDialogLangTitle = getString(R.string.drawer_item_language_rus);
             }
         };
-
+        getDialogInfo();
     }
 
     public void updateDate() {
@@ -261,7 +256,7 @@ public class MainActivity extends BaseActivity
         mFinalActionFailure = new DatabaseManager.FinalActionFailure() {
             @Override
             public void finalFunctionFailure() {
-                new Handler().post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         hideProgressDialog();
@@ -274,7 +269,7 @@ public class MainActivity extends BaseActivity
         mFinalActionSuccess = new DatabaseManager.FinalActionSuccess() {
             @Override
             public void finalFunctionSuccess() {
-                new Handler().post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         changeDataInFragmentAfterUpdate();
@@ -330,12 +325,7 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onClick(View v) {
                         mDialogInfoWithTwoButtons.getDialog().dismiss();
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateData();
-                            }
-                        });
+                        updateData();
                     }
                 }, new View.OnClickListener() {
             @Override
@@ -451,7 +441,10 @@ public class MainActivity extends BaseActivity
                 break;
 
         }
-        if (checkedItemId != R.id.item_converter) {
+
+        if (checkedItemId == R.id.item_converter || checkedItemId == R.id.item_about) {
+            toolbar.setTitle(ConstantsManager.EMPTY_STRING_VALUE);
+        } else {
             toolbar.setTitle(navigationView.getMenu().findItem(checkedItemId).getTitle());
         }
     }

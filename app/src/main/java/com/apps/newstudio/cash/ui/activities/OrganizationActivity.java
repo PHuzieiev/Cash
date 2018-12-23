@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +62,7 @@ public class OrganizationActivity extends BaseActivity {
     private Intent mIntent;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
     private PreferenceManager mPreferenceManager;
+    private String failureCall;
 
     /**
      * Creates all elements and do all work to show information in elements
@@ -137,12 +139,13 @@ public class OrganizationActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.call) {
             if (mOrgPhone != null) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mOrgPhone));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return true;
+                    showToast(failureCall);
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mOrgPhone));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
-                startActivity(intent);
             }
         }
         return true;
@@ -158,6 +161,7 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_eng);
                 mTypeBank = getString(R.string.org_list_item_type_bank_eng);
                 mTypeOther = getString(R.string.org_list_item_type_other_eng);
+                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -165,6 +169,7 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_ukr);
                 mTypeBank = getString(R.string.org_list_item_type_bank_ukr);
                 mTypeOther = getString(R.string.org_list_item_type_other_ukr);
+                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -172,6 +177,7 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_rus);
                 mTypeBank = getString(R.string.org_list_item_type_bank_rus);
                 mTypeOther = getString(R.string.org_list_item_type_other_rus);
+                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }

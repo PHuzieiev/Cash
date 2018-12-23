@@ -1,5 +1,6 @@
 package com.apps.newstudio.cash.data.network;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -18,6 +19,7 @@ public class RetrofitClient {
     public static Retrofit getRetrofitInstance() {
         return new Retrofit.Builder()
                 .baseUrl(URL)
+                .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

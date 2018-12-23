@@ -33,11 +33,9 @@ public class BaseActivity extends AppCompatActivity {
                 0, message.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         Toast toast = Toast.makeText(this, spannableStringBuilder, Toast.LENGTH_LONG);
         View viewToast = toast.getView();
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            viewToast.setBackgroundDrawable(getResources().getDrawable(R.drawable.rectangle_for_toast));
-        } else {
-            viewToast.setBackground(getResources().getDrawable(R.drawable.rectangle_for_toast));
-        }
+        viewToast.setPadding(toastPadding, toastPadding, toastPadding, toastPadding);
+
+        viewToast.setBackground(getResources().getDrawable(R.drawable.rectangle_for_toast));
 
         toast.show();
     }

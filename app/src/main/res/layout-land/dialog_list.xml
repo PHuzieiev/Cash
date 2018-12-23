@@ -35,7 +35,6 @@
 
                 <TextView style="@style/DialogInfoTextViewTitle"
                     android:id="@+id/dialog_list_title"
-                    android:text="Filter"
                     android:layout_weight="1"/>
 
                 <ImageView
@@ -43,7 +42,8 @@
                     style="@style/item_call_iv"
                     android:src="@drawable/ic_done"
                     android:background="@drawable/circle"
-                    android:padding="@dimen/spacing_smallest_2dp"/>
+                    android:padding="@dimen/spacing_smallest_2dp"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 

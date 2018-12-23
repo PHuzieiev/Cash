@@ -23,12 +23,12 @@
     <string name="dialog_info_title_warning_eng">Warning</string>
     <string name="dialog_info_message_eng">Your Internet connection is disable. Moreover, you do not have
         saved data in database to work with app without Internet.
-        Please, check your Internet connection.</string>
+        Please, check your Internet connection and Internet permissions of application in device Settings.</string>
     <string name="dialog_info_button_one_eng">Repeat</string>
     <string name="dialog_info_button_two_eng">Exit</string>
     <string name="toast_message_server_error_eng">Your Internet connection
         is disable or app can not get answer from server. Your data is not updated.
-        Please, check your Internet connection.</string>
+        Please, check your Internet connection  and Internet permissions of application in device Settings.</string>
 
     <string name="org_list_item_type_bank_eng">Bank</string>
     <string name="org_list_item_type_other_eng">Exchange office</string>
@@ -124,7 +124,21 @@
     <string name="language_russian_eng">Russian</string>
     <string name="language_ukrainian_eng">Ukrainian</string>
 
-    <string name="about_text_eng"></string>
+    <string name="about_text_eng">"        Main function of this application is currencies conversion, which are interesting for you. Program includes four categories. Organizations and currencies lists make your work more convenient and clear. You can employ functions of sort and search in lists. Application makes conversion of currency using data, which are given by organizations from list. To convert from Ukrainian hryvnia or into Ukrainian hryvnia, you need to choose currency, organization and type of activity (purchase or sale). In addition, you can create templates and use them in future. Information of currencies updates every day in the background. You are able to update data from application too. All information about currency is updated from finance.ua, where data was given by finance organizations.
+        Features:
+        -	comfortable converter,
+        -	templates,
+        -	actual information about currencies,
+        -	background update,
+        -	everyday update ,
+        -	sort and search functions,
+        -	nice design,
+        -	a lot of finance organizations.
+        Big thanks to finance.ua for actual information. To visit this resource, you can use the special button below.
+        Have a good time with our application!"</string>
+
+    <string name="toast_phone_no_permissions_eng">Application do not have needed permission for calling.
+        Please, give this permission in Settings of device.</string>
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -144,12 +158,14 @@
     <string name="dialog_info_title_warning_rus">Предупреждение</string>
     <string name="dialog_info_message_rus">Ваше интернет-соединение отключено. Кроме того, у вас нет сохраненных
         данных в базе данных для работы с приложением без интернета.
-        Пожалуйста, проверьте подключение к интернету.</string>
+        Пожалуйста, проверьте подключение к интернету
+        и предоставьте приложению разрешения на использование интернета в Настройках устройства.</string>
     <string name="dialog_info_button_one_rus">Повторить</string>
     <string name="dialog_info_button_two_rus">Выход</string>
     <string name="toast_message_server_error_rus">Ваше интернет-соединение отключено
         или приложение не может получить ответа от сервера. Ваши данные не обновлены.
-        Пожалуйста, проверьте подключение к интернету.</string>
+        Пожалуйста, проверьте подключение к интернету
+        и предоставьте приложению разрешения на использование интернета в Настройках устройства.</string>
 
     <string name="org_list_item_type_bank_rus">Банк</string>
     <string name="org_list_item_type_other_rus">Обменный пункт</string>
@@ -161,7 +177,7 @@
     <string name="currencies_sale_rus">"Продажа: "</string>
     <string name="currencies_purchase_rus">"Покупка: "</string>
     <string name="menu_order_item_title_rus">Сортировка</string>
-    <string name="currency_activity_count_rus">"Количестно организаций: </string>
+    <string name="currency_activity_count_rus">"Количестно организаций: "</string>
     <string-array name="currencies_order_by_options_rus">
         <item>По названию</item>
         <item>Покупка</item>
@@ -198,7 +214,21 @@
 
     <string name="finance_link_rus">"https://finance.ua/ru/currency"</string>
 
-    <string name="about_text_rus"></string>
+    <string name="about_text_rus">"        Данное приложение предназначено для конвертации интересующих вас валют. Весь функционал разбит на четыре основные категории. Список организаций и валют сделает просмотр и изучения информации более простым и понятным. Реализована функция поиска и сортировки в списках.  Основной раздел приложение касается непосредственно конвертации валют по курсу, который предоставляет финансовое учреждение из списка. Для перевода в гривну с интересующей вас валюты или наоборот, вам необходимо выбрать валюту, организацию, и тип будущего действия – покупка или продажа. Создание шаблонов сделает работу с данными еще удобнее. Данные в приложении обновляются три раза в день. Также вы можете обновить их из самого приложения в любой момент. Вся информация по курсам валют загружается из сайта finance.ua и основывается на данных, что были предоставлены финансовыми организациями для этого ресурса.
+        Особенности приложения:
+        - удобный конвертер,
+        - создание шаблонов,
+        - актуальные данные о курсе валют,
+        - фоновое обновление или по требованию пользователя,
+        - ежедневные обновления курсов валют,
+        - сортировка данных и поиск в списках,
+        - приятный дизайн,
+        - большой перечень финансовых учреждений.
+        Огромная благодарность finance.ua за актуальные данные. Для перехода на ресурс, вы можете использовать специальную кнопку внизу.
+        Приятной работы с нашим приложением!"</string>
+
+    <string name="toast_phone_no_permissions_rus">У приложения нет разрешение на проведения звонков.
+        Пожалуйста, предоставте это разрешение в Настройках успройства.</string>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -218,10 +248,12 @@
     <string name="dialog_info_title_warning_ukr">Попередження</string>
     <string name="dialog_info_message_ukr">Відсутнє підключення до мережі інтернет. Крім того, у вас немає збережених
         даних у базі даних для роботи з додатком без інтернету.
-        Будь-ласка, перевірте підключення до інтернету.</string>
+        Будь-ласка, перевірте підключення до інтернету
+        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою.</string>
     <string name="toast_message_server_error_ukr">Відсутнє підключення до мережі інтернет або додаток
         не може отримати відповідь від сервера. Ваші дані не вдалось оновити.
-        Будь-ласка, перевірте підключення до інтернету.</string>
+        Будь-ласка, перевірте підключення до інтернету
+        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою.</string>
     <string name="dialog_info_button_one_ukr">Повторити</string>
     <string name="dialog_info_button_two_ukr">Вихід</string>
     <string name="org_list_item_type_bank_ukr">Банк</string>
@@ -234,7 +266,7 @@
     <string name="currencies_sale_ukr">"Продаж: "</string>
     <string name="currencies_purchase_ukr">"Купівля: "</string>
     <string name="menu_order_item_title_ukr">Сортування</string>
-    <string name="currency_activity_count_ukr">"Кількість організацій: </string>
+    <string name="currency_activity_count_ukr">"Кількість організацій: "</string>
 
     <string-array name="currencies_order_by_options_ukr">
         <item>По назві</item>
@@ -272,11 +304,22 @@
 
     <string name="finance_link_ukr">"https://finance.ua/ua/currency"</string>
 
-    <string name="about_text_ukr"></string>
+    <string name="toast_phone_no_permissions_ukr">Додатку не надані необхідні дозволи на проведення дзвінків.
+        Будь ласка, надайте необхідні дозволи в Налаштуваннях пристрою.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_splash">Splash</string>
-    <string name="title_activity_organization">OrganizationActivity</string>
+    <string name="about_text_ukr">"        Призначення цього додатку полягає у конвертації обраних вами валют. Весь функціонал розбитий на чотири основні категорії. Список організацій і валют зробить перегляд і вивчення інформації більш простим і зрозумілим. Реалізована функція пошуку і сортування в списках. Основний розділ програми стосується безпосередньо конвертації валют по курсу, який вказує фінансова установа зі списку. Для переведення в гривню з потрібної валюти або навпаки, вам необхідно вибрати саму валюту, організацію, і тип майбутньої дії - покупка або продаж. Створення шаблонів зробить роботу з даними ще зручнішою. Дані в додатку оновлюються три рази в день. Також ви можете оновити їх з самого додатка в будь-який момент. Вся інформація по курсам валют завантажується з сайту finance.ua та ґрунтується на даних, що були надані фінансовими організаціями для цього ресурсу.
+        Особливості додатку:
+        - зручний конвертер,
+        - створення шаблонів,
+        - актуальні дані про курс валют,
+        - фонове оновлення або за вимогою користувача,
+        - щоденні оновлення курсів валют,
+        - сортування даних і пошук у списках,
+        - приємний дизайн,
+        - великий перелік фінансових установ.
+        Величезна подяка finance.ua за актуальні дані. Для переходу на ресурс, ви можете скористатись спеціальною кнопкою внизу.
+        Приємної роботи з нашим додатком!"</string>
+
+
 
 </resources>

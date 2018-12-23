@@ -1,13 +1,17 @@
 package com.apps.newstudio.cash.ui.fragments;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,6 +57,8 @@ public class OrganizationsFragment extends Fragment {
     private Unbinder mUnbinder;
     private DialogList mDialogFilter;
     private DatabaseManager mDatabaseManager;
+    private String failureCall;
+
 
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
@@ -145,12 +151,12 @@ public class OrganizationsFragment extends Fragment {
                 new RecyclerViewAdapterFragment.ActionForIcon() {
                     @Override
                     public void action(int position) {
-                        try {
+                        if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ((MainActivity)getActivity()).showToast(failureCall);
+                        }else{
                             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mMainDataForList.get(position).getPhone()));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                        }catch (Exception e){
-                            //Error
                         }
                     }
                 },
@@ -201,6 +207,7 @@ public class OrganizationsFragment extends Fragment {
                 }
 
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_eng);
+                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -214,7 +221,7 @@ public class OrganizationsFragment extends Fragment {
                     mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_ukr));
                 }
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_ukr);
-
+                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -228,7 +235,7 @@ public class OrganizationsFragment extends Fragment {
                     mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_rus));
                 }
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_rus);
-
+                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }

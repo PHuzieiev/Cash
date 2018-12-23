@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/converter_frame_title"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
 
         <ScrollView style="@style/scroll_fragment"
             android:layout_weight="1">
@@ -62,14 +62,16 @@
                         android:id="@+id/converter_input_value_currency_one_title"
                         style="@style/ltv_in_card_view_fragment"
                         android:layout_width="match_parent"
-                        android:layout_marginRight="0dp"/>
+                        android:layout_marginRight="0dp"
+                        android:layout_marginEnd="0dp" />
 
                     <EditText
                         android:id="@+id/converter_input_value_currency_one_value"
                         style="@style/let_in_card_view_fragment"
                         android:layout_marginTop="@dimen/spacing_smaller_8dp"
                         android:layout_width="match_parent"
-                        android:layout_marginRight="0dp" />
+                        android:layout_marginRight="0dp"
+                        android:layout_marginEnd="0dp" />
 
 
 
@@ -85,7 +87,8 @@
                         android:id="@+id/converter_input_value_currency_two_title"
                         style="@style/rtv_in_card_view_fragment"
                         android:layout_width="match_parent"
-                        android:layout_marginLeft="0dp"/>
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginStart="0dp" />
 
 
                     <EditText
@@ -93,7 +96,8 @@
                         style="@style/ret_in_card_view_fragment"
                         android:layout_marginTop="@dimen/spacing_smaller_8dp"
                         android:layout_width="match_parent"
-                        android:layout_marginLeft="0dp"/>
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginStart="0dp" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -116,17 +120,20 @@
                     android:id="@+id/converter_currency_cv"
                     style="@style/card_view_fragment">
 
-                    <LinearLayout style="@style/hll_in_card_view_fragment">
+                    <LinearLayout style="@style/hll_in_card_view_fragment"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             style="@style/normal_image_ico"
-                            android:src="@drawable/ic_currency" />
+                            android:src="@drawable/ic_currency"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/converter_currency_tv"
                             style="@style/item_dialog_list_tv"
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp" />
 
                     </LinearLayout>
 
@@ -140,7 +147,8 @@
 
                         <ImageView
                             style="@style/normal_image_ico"
-                            android:src="@drawable/ic_organization" />
+                            android:src="@drawable/ic_organization"
+                            tools:ignore="ContentDescription" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -148,7 +156,9 @@
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
                             android:layout_marginRight="@dimen/spacing_smaller_8dp"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp"
+                            android:layout_marginEnd="@dimen/spacing_smaller_8dp">
 
                             <TextView
                                 android:id="@+id/converter_organization_title_tv"
@@ -182,7 +192,9 @@
                             android:id="@+id/converter_organization_phone_iv"
                             style="@style/normal_image_ico"
                             android:src="@drawable/ic_phone"
-                            android:layout_marginRight="@dimen/spacing_smaller_8dp" />
+                            android:layout_marginRight="@dimen/spacing_smaller_8dp"
+                            android:layout_marginEnd="@dimen/spacing_smaller_8dp"
+                            tools:ignore="ContentDescription" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -191,17 +203,20 @@
                     android:id="@+id/converter_sale_or_purchase_cv"
                     style="@style/card_view_fragment">
 
-                    <LinearLayout style="@style/hll_in_card_view_fragment">
+                    <LinearLayout style="@style/hll_in_card_view_fragment"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             style="@style/normal_image_ico"
-                            android:src="@drawable/ic_sale" />
+                            android:src="@drawable/ic_sale"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/converter_sale_or_purchase_tv"
                             style="@style/item_dialog_list_tv"
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp" />
 
                     </LinearLayout>
 

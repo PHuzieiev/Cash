@@ -1,5 +1,7 @@
 package com.apps.newstudio.cash.data.managers;
 
+import android.util.Log;
+
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataDialogList;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewDataFragment;
@@ -356,6 +358,7 @@ public class DatabaseManager {
 
                         try {
                             if (mFinalActionSuccess != null) {
+                                Log.d("TEG","Success");
                                 mFinalActionSuccess.finalFunctionSuccess();
                             }
                         } catch (Exception e) {

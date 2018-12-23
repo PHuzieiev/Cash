@@ -5,16 +5,9 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.adapters.RecyclerViewAdapterDialogList;
@@ -25,13 +18,7 @@ import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
-import com.apps.newstudio.cash.ui.fragments.ConverterFragment;
-import com.apps.newstudio.cash.ui.fragments.CurrenciesFragment;
-import com.apps.newstudio.cash.ui.fragments.OrganizationsFragment;
-import com.apps.newstudio.cash.ui.fragments.TemplatesFragment;
-import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
-import com.apps.newstudio.cash.utils.InternetConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.splash_progress_bar)
+    @BindView(R.id.progress_bar)
     public ProgressBar mProgressBar;
 
     private DataManager mDataManager;
@@ -58,7 +45,6 @@ public class SplashActivity extends BaseActivity {
     private String mTitleButtonOne;
     private String mTitleButtonTwo;
     private String mDialogLangTitle;
-    private String mToastSuccessUpdate;
 
 
     /**
@@ -96,7 +82,7 @@ public class SplashActivity extends BaseActivity {
         mFinalActionFailure = new DatabaseManager.FinalActionFailure() {
             @Override
             public void finalFunctionFailure() {
-                new Handler().post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mProgressBar.setVisibility(View.GONE);
@@ -129,28 +115,26 @@ public class SplashActivity extends BaseActivity {
         mFinalActionSuccess = new DatabaseManager.FinalActionSuccess() {
             @Override
             public void finalFunctionSuccess() {
-                new Handler().post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mProgressBar.setVisibility(View.GONE);
-                        showToast(mToastSuccessUpdate);
                         startMainActivity();
                         finish();
                     }
                 });
             }
         };
-
         mProgressBar.setVisibility(View.GONE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(mPreferenceManager.loadString(ConstantsManager.LANGUAGE_CHOSEN_KEY,ConstantsManager.EMPTY_STRING_VALUE)
-                        .equals(ConstantsManager.EMPTY_STRING_VALUE)){
-                    mPreferenceManager.saveString(ConstantsManager.LANGUAGE_CHOSEN_KEY,ConstantsManager.LANGUAGE_CHOSEN);
+                if (mPreferenceManager.loadString(ConstantsManager.LANGUAGE_CHOSEN_KEY, ConstantsManager.EMPTY_STRING_VALUE)
+                        .equals(ConstantsManager.EMPTY_STRING_VALUE)) {
+                    mPreferenceManager.saveString(ConstantsManager.LANGUAGE_CHOSEN_KEY, ConstantsManager.LANGUAGE_CHOSEN);
                     createDialogLang();
-                }else{
+                } else {
                     updateData();
                 }
             }
@@ -161,13 +145,13 @@ public class SplashActivity extends BaseActivity {
      * Tries to update data, changes visibility of ProgressBar and sets OnDismissListener for DialogInfoWithTwoButtons
      */
     public void updateData() {
+        mProgressBar.setVisibility(View.VISIBLE);
         mDialogInfoWithTwoButtons.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 finish();
             }
         });
-        mProgressBar.setVisibility(View.VISIBLE);
         mDataManager.getDatabaseManager().updateDataBase(mFinalActionSuccess, mFinalActionFailure);
     }
 
@@ -193,7 +177,7 @@ public class SplashActivity extends BaseActivity {
     /**
      * Defines all useful String object using LanguageManager
      */
-    public void setLang(){
+    public void setLang() {
         new LanguageManager() {
             @Override
             public void engLanguage() {
@@ -202,7 +186,6 @@ public class SplashActivity extends BaseActivity {
                 mTitleButtonOne = getString(R.string.dialog_info_button_one_eng);
                 mTitleButtonTwo = getString(R.string.dialog_info_button_two_eng);
                 mDialogLangTitle = getString(R.string.drawer_item_language_eng);
-                mToastSuccessUpdate = getString(R.string.toast_update_success_eng);
             }
 
             @Override
@@ -212,7 +195,6 @@ public class SplashActivity extends BaseActivity {
                 mTitleButtonOne = getString(R.string.dialog_info_button_one_ukr);
                 mTitleButtonTwo = getString(R.string.dialog_info_button_two_ukr);
                 mDialogLangTitle = getString(R.string.drawer_item_language_ukr);
-                mToastSuccessUpdate = getString(R.string.toast_update_success_ukr);
             }
 
             @Override
@@ -222,7 +204,6 @@ public class SplashActivity extends BaseActivity {
                 mTitleButtonOne = getString(R.string.dialog_info_button_one_rus);
                 mTitleButtonTwo = getString(R.string.dialog_info_button_two_rus);
                 mDialogLangTitle = getString(R.string.drawer_item_language_rus);
-                mToastSuccessUpdate = getString(R.string.toast_update_success_rus);
             }
         };
     }
@@ -238,12 +219,7 @@ public class SplashActivity extends BaseActivity {
                     public void onClick(View v) {
                         mDialogInfoWithTwoButtons.getDialog().setOnDismissListener(null);
                         mDialogInfoWithTwoButtons.getDialog().dismiss();
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateData();
-                            }
-                        });
+                        updateData();
                     }
                 }, new View.OnClickListener() {
             @Override
@@ -272,12 +248,8 @@ public class SplashActivity extends BaseActivity {
         mDialogLang.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateData();
-                    }
-                });
+                updateData();
+                getDialogInfo();
             }
         });
         ((ImageView) mDialogLang.getDialog().getWindow().findViewById(R.id.dialog_list_done)).setImageResource(R.drawable.ic_tr);
@@ -304,6 +276,7 @@ public class SplashActivity extends BaseActivity {
 
     /**
      * Sets parameters for items using language of App
+     *
      * @param data input data for list
      * @return changed data for list
      */
@@ -327,6 +300,7 @@ public class SplashActivity extends BaseActivity {
 
     /**
      * Changes language of App and translate all elements in SplashActivity
+     *
      * @param position position of chosen item from DialogList object
      */
     public void changeLanguage(int position) {

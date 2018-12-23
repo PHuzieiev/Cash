@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CurrencyActivity extends AppCompatActivity {
+public class CurrencyActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
@@ -65,6 +66,8 @@ public class CurrencyActivity extends AppCompatActivity {
     private DialogList mDialogSort;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
     private PreferenceManager mPreferenceManager;
+    private String failureCall;
+
 
     /**
      * Creates all elements and do all work to show information in elements
@@ -161,6 +164,7 @@ public class CurrencyActivity extends AppCompatActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_eng);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_eng);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_eng);
+                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -168,6 +172,7 @@ public class CurrencyActivity extends AppCompatActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_ukr);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_ukr);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_ukr);
+                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -175,6 +180,7 @@ public class CurrencyActivity extends AppCompatActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_rus);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_rus);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_rus);
+                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }
@@ -300,13 +306,14 @@ public class CurrencyActivity extends AppCompatActivity {
                 }, new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
             @Override
             public void action(int position) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position)
-                        .getOrganization().getPhone()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
+                    showToast(failureCall);
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position)
+                            .getOrganization().getPhone()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
-                startActivity(intent);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
