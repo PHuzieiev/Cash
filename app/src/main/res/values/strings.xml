@@ -23,12 +23,12 @@
     <string name="dialog_info_title_warning_eng">Warning</string>
     <string name="dialog_info_message_eng">Your Internet connection is disable. Moreover, you do not have
         saved data in database to work with app without Internet.
-        Please, check your Internet connection and Internet permissions of application in device Settings.</string>
+        Please, check your Internet connection and Internet permissions of application in device Settings</string>
     <string name="dialog_info_button_one_eng">Repeat</string>
     <string name="dialog_info_button_two_eng">Exit</string>
     <string name="toast_message_server_error_eng">Your Internet connection
         is disable or app can not get answer from server. Your data is not updated.
-        Please, check your Internet connection  and Internet permissions of application in device Settings.</string>
+        Please, check your Internet connection  and Internet permissions of application in device Settings</string>
 
     <string name="org_list_item_type_bank_eng">Bank</string>
     <string name="org_list_item_type_other_eng">Exchange office</string>
@@ -101,24 +101,24 @@
     <string name="converter_sale_eng">Sale</string>
     <string name="converter_purchase_eng">Purchase</string>
     <string name="converter_dialog_action_title_eng">Procedure</string>
-    <string name="converter_toast_failure_eng">Your value was not converted. Please, type correct value.</string>
+    <string name="converter_toast_failure_eng">Your value was not converted. Please, type correct value</string>
 
     <string name="dialog_template_text_eng">Do you want to create new template or edit existing?</string>
     <string name="dialog_template_edit_eng">Edit</string>
     <string name="dialog_template_create_eng">Create</string>
-    <string name="converter_toast_template_edit_eng">Your template was edited.</string>
-    <string name="converter_toast_template_create_eng">New template was created.</string>
+    <string name="converter_toast_template_edit_eng">Your template was edited</string>
+    <string name="converter_toast_template_create_eng">New template was created</string>
 
     <string name="template_list_item_date_title_eng">"Last update of currency: "</string>
-    <string name="template_toast_list_empty_eng">You do not have templates to show in this window.
-        Please, open Converter and add new template.</string>
+    <string name="template_toast_list_empty_eng">You do not have templates.
+        Please, open Converter and add new template</string>
 
     <string name="converter_final_dialog_text_eng">Do you want to save template?</string>
     <string name="converter_final_dialog_yes_eng">Yes</string>
     <string name="converter_final_dialog_no_eng">No</string>
 
-    <string name="toast_update_success_eng">Currencies data was updated.</string>
-    <string name="toast_update_success_2_eng">Data was updated.</string>
+    <string name="toast_update_success_eng">Currencies data was updated</string>
+    <string name="toast_update_success_2_eng">Data was updated</string>
 
     <string name="button_cancel_eng">Cancel</string>
 
@@ -140,7 +140,7 @@
         Have a good time with our application!"</string>
 
     <string name="toast_phone_no_permissions_eng">Application do not have needed permission for calling.
-        Please, give this permission in Settings of device.</string>
+        Please, give this permission in Settings of device</string>
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -161,13 +161,13 @@
     <string name="dialog_info_message_rus">Ваше интернет-соединение отключено. Кроме того, у вас нет сохраненных
         данных в базе данных для работы с приложением без интернета.
         Пожалуйста, проверьте подключение к интернету
-        и предоставьте приложению разрешения на использование интернета в Настройках устройства.</string>
+        и предоставьте приложению разрешения на использование интернета в Настройках устройства</string>
     <string name="dialog_info_button_one_rus">Повторить</string>
     <string name="dialog_info_button_two_rus">Выход</string>
     <string name="toast_message_server_error_rus">Ваше интернет-соединение отключено
         или приложение не может получить ответа от сервера. Ваши данные не обновлены.
         Пожалуйста, проверьте подключение к интернету
-        и предоставьте приложению разрешения на использование интернета в Настройках устройства.</string>
+        и предоставьте приложению разрешения на использование интернета в Настройках устройства</string>
 
     <string name="org_list_item_type_bank_rus">Банк</string>
     <string name="org_list_item_type_other_rus">Обменный пункт</string>
@@ -191,24 +191,24 @@
     <string name="converter_sale_rus">Продажа</string>
     <string name="converter_purchase_rus">Покупка</string>
     <string name="converter_dialog_action_title_rus">Операция</string>
-    <string name="converter_toast_failure_rus">Конвертация не проведена. Пожалуйста, введите корректное значение.</string>
+    <string name="converter_toast_failure_rus">Конвертация не проведена. Пожалуйста, введите корректное значение</string>
 
-    <string name="dialog_template_text_rus">Вы хотите создать новый шаблон или отредактировать существующий?</string>
-    <string name="dialog_template_edit_rus">Редактировать</string>
+    <string name="dialog_template_text_rus">Вы хотите создать новый шаблон или изменить существующий?</string>
+    <string name="dialog_template_edit_rus">Изменить</string>
     <string name="dialog_template_create_rus">Создать</string>
-    <string name="converter_toast_template_edit_rus">Ваш шаблон был изменен.</string>
-    <string name="converter_toast_template_create_rus">Добавлен новый шаблон.</string>
+    <string name="converter_toast_template_edit_rus">Ваш шаблон был изменен</string>
+    <string name="converter_toast_template_create_rus">Добавлен новый шаблон</string>
 
     <string name="template_list_item_date_title_rus">"Дата обновления валюты: "</string>
-    <string name="template_toast_list_empty_rus">У вас нет шаблонов, которые можно отобразить в этом окне.
-        Пожалуйста, откройте Конвертер и добавте новый шаблон.</string>
+    <string name="template_toast_list_empty_rus">У вас нет шаблонов, которые можно отобразить.
+        Пожалуйста, откройте Конвертер и добавте новый шаблон</string>
 
     <string name="converter_final_dialog_text_rus">Вы хотите сохранить шаблон?</string>
     <string name="converter_final_dialog_yes_rus">Да</string>
     <string name="converter_final_dialog_no_rus">Нет</string>
 
-    <string name="toast_update_success_rus">Данные относительно курса валют были обновлены.</string>
-    <string name="toast_update_success_2_rus">Данные были обновлены.</string>
+    <string name="toast_update_success_rus">Данные относительно курса валют были обновлены</string>
+    <string name="toast_update_success_2_rus">Данные были обновлены</string>
 
     <string name="button_cancel_rus">Отмена</string>
 
@@ -232,7 +232,7 @@
         Приятной работы с нашим приложением!"</string>
 
     <string name="toast_phone_no_permissions_rus">У приложения нет разрешение на проведения звонков.
-        Пожалуйста, предоставте это разрешение в Настройках успройства.</string>
+        Пожалуйста, предоставте это разрешение в Настройках успройства</string>
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -253,11 +253,11 @@
     <string name="dialog_info_message_ukr">Відсутнє підключення до мережі інтернет. Крім того, у вас немає збережених
         даних у базі даних для роботи з додатком без інтернету.
         Будь-ласка, перевірте підключення до інтернету
-        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою.</string>
+        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою</string>
     <string name="toast_message_server_error_ukr">Відсутнє підключення до мережі інтернет або додаток
         не може отримати відповідь від сервера. Ваші дані не вдалось оновити.
         Будь-ласка, перевірте підключення до інтернету
-        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою.</string>
+        та надайте додатку дозволи на використання інтернету в Налаштуваннях пристрою</string>
     <string name="dialog_info_button_one_ukr">Повторити</string>
     <string name="dialog_info_button_two_ukr">Вихід</string>
     <string name="org_list_item_type_bank_ukr">Банк</string>
@@ -283,24 +283,24 @@
     <string name="converter_sale_ukr">Продаж</string>
     <string name="converter_purchase_ukr">Купівля</string>
     <string name="converter_dialog_action_title_ukr">Операція</string>
-    <string name="converter_toast_failure_ukr">Конвертація не проведена. Будь ласка, введіть коректне значення.</string>
+    <string name="converter_toast_failure_ukr">Конвертація не проведена. Будь ласка, введіть коректне значення</string>
 
-    <string name="dialog_template_text_ukr">Ви бажаєте створити новий шаблон або відредагувати наявний?</string>
-    <string name="dialog_template_edit_ukr">Редагувати</string>
+    <string name="dialog_template_text_ukr">Ви бажаєте створити новий шаблон або змінити наявний?</string>
+    <string name="dialog_template_edit_ukr">Змінити</string>
     <string name="dialog_template_create_ukr">Створити</string>
-    <string name="converter_toast_template_edit_ukr">Ваш шаблон був змінений.</string>
-    <string name="converter_toast_template_create_ukr">Додано новий шаблон.</string>
+    <string name="converter_toast_template_edit_ukr">Ваш шаблон був змінений</string>
+    <string name="converter_toast_template_create_ukr">Додано новий шаблон</string>
 
     <string name="template_list_item_date_title_ukr">"Дата оновлення валюти: "</string>
-    <string name="template_toast_list_empty_ukr">У вас немає шаблонів, які можна відобразити у цьому вікні.
-        Будь ласка, відкрийте Конвертер та додайте новий шаблон.</string>
+    <string name="template_toast_list_empty_ukr">У вас немає шаблонів, які можна відобразити.
+        Будь ласка, відкрийте Конвертер та додайте новий шаблон</string>
 
     <string name="converter_final_dialog_text_ukr">Ви бажаєте зберегти шаблон?</string>
     <string name="converter_final_dialog_yes_ukr">Так</string>
     <string name="converter_final_dialog_no_ukr">Ні</string>
 
-    <string name="toast_update_success_ukr">Дані щодо курсу валют були оновлені.</string>
-    <string name="toast_update_success_2_ukr">Дані були оновлені.</string>
+    <string name="toast_update_success_ukr">Дані щодо курсу валют були оновлені</string>
+    <string name="toast_update_success_2_ukr">Дані були оновлені</string>
 
     <string name="button_cancel_ukr">Відміна</string>
 
@@ -311,7 +311,7 @@
     <string name="finance_link_ukr">"https://finance.ua/ua/currency"</string>
 
     <string name="toast_phone_no_permissions_ukr">Додатку не надані необхідні дозволи на проведення дзвінків.
-        Будь ласка, надайте необхідні дозволи в Налаштуваннях пристрою.</string>
+        Будь ласка, надайте необхідні дозволи в Налаштуваннях пристрою</string>
 
     <string name="about_text_ukr">"        Призначення цього додатку полягає у конвертації обраних вами валют. Весь функціонал розбитий на чотири основні категорії. Список організацій і валют зробить перегляд і вивчення інформації більш простим і зрозумілим. Реалізована функція пошуку і сортування в списках. Основний розділ програми стосується безпосередньо конвертації валют по курсу, який вказує фінансова установа зі списку. Для переведення в гривню з потрібної валюти або навпаки, вам необхідно вибрати саму валюту, організацію, і тип майбутньої дії - покупка або продаж. Створення шаблонів зробить роботу з даними ще зручнішою. Дані в додатку оновлюються три рази в день. Також ви можете оновити їх з самого додатка в будь-який момент. Вся інформація по курсам валют завантажується з сайту finance.ua та ґрунтується на даних, що були надані фінансовими організаціями для цього ресурсу.
         Особливості додатку:

@@ -26,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -45,6 +46,14 @@ public class TemplatesFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates main objects of Fragment object
+     *
+     * @param inflater           object for inflating process
+     * @param container          root for inflating process
+     * @param savedInstanceState Bundle object of saved data
+     * @return main object of fragment interface
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,36 +66,47 @@ public class TemplatesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Does unbind process when Fragment object is on destroy stage
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
     }
 
+    /**
+     * Prepares data for main list of this fragment
+     */
     public void prepareDataForList() {
         mMainDataForList = mDatabaseManager.getTemplateList();
-        if(mMainDataForList.size()==0){
+        if (mMainDataForList.size() == 0) {
             new LanguageManager() {
                 @Override
                 public void engLanguage() {
-                    ((MainActivity)getActivity()).showToast(getString(R.string.template_toast_list_empty_eng));
+                    ((MainActivity) getActivity()).showToast(getString(R.string.template_toast_list_empty_eng));
                 }
+
                 @Override
                 public void ukrLanguage() {
-                    ((MainActivity)getActivity()).showToast(getString(R.string.template_toast_list_empty_rus));
+                    ((MainActivity) getActivity()).showToast(getString(R.string.template_toast_list_empty_ukr));
                 }
+
                 @Override
                 public void rusLanguage() {
-                    ((MainActivity)getActivity()).showToast(getString(R.string.template_toast_list_empty_ukr));
+                    ((MainActivity) getActivity()).showToast(getString(R.string.template_toast_list_empty_rus));
                 }
             };
-        }else {
+        } else {
             calculateValues();
         }
     }
 
-    public void calculateValues(){
-        for(int i=0;i<mMainDataForList.size();i++){
+    /**
+     * Converts values
+     */
+    public void calculateValues() {
+        for (int i = 0; i < mMainDataForList.size(); i++) {
             try {
                 String mStartValue = mMainDataForList.get(i).getStartValue();
                 String mDirection = mMainDataForList.get(i).getDirection();
@@ -134,6 +154,9 @@ public class TemplatesFragment extends Fragment {
 
     }
 
+    /**
+     * Sets main parameters for RecyclerView object
+     */
     public void createList() {
         prepareDataForList();
 
@@ -152,8 +175,8 @@ public class TemplatesFragment extends Fragment {
                         mPreferenceManager.setTemplateId(template.getId());
                         mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES);
 
-                        Intent intent=new Intent(((MainActivity)getActivity()).getContext(),ConverterActivity.class);
-                        startActivityForResult(intent,ConstantsManager.TEMPLATES_FRAGMENT_REQUEST_CODE);
+                        Intent intent = new Intent(((MainActivity) getActivity()).getContext(), ConverterActivity.class);
+                        startActivityForResult(intent, ConstantsManager.TEMPLATES_FRAGMENT_REQUEST_CODE);
 
                     }
                 },
@@ -167,6 +190,9 @@ public class TemplatesFragment extends Fragment {
         mRecyclerView.setAdapter(mRecycleViewAdapter);
     }
 
+    /**
+     * Updates main list of this fragment
+     */
     public void updateList() {
         mMainDataForList.clear();
         prepareDataForList();
@@ -175,12 +201,35 @@ public class TemplatesFragment extends Fragment {
     }
 
 
+    /**
+     * Updates main list
+     *
+     * @param requestCode value of last request
+     * @param resultCode  value of result
+     * @param data        object which contains values from previous activity
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==ConstantsManager.CONVERTER_ACTIVITY_RESULT_CODE_CHANGED){
+        if (resultCode == ConstantsManager.CONVERTER_ACTIVITY_RESULT_CODE_CHANGED) {
             updateList();
-            mRecyclerView.scrollToPosition(mMainDataForList.size()-1);
+            mRecyclerView.scrollToPosition(mMainDataForList.size() - 1);
         }
+    }
+
+    /**
+     * Method for onClick event of FAB object,
+     */
+    @OnClick(R.id.fragment_fab)
+    public void openConverter() {
+        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+        mPreferenceManager.setConverterOrganizationId(ConstantsManager.EMPTY_STRING_VALUE);
+        mPreferenceManager.setConverterCurrencyShortForm(ConstantsManager.CONVERTER_CURRENCY_SHORT_FORM_DEFAULT);
+        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+        mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_TEMPLATES);
+        Intent intent = new Intent(((MainActivity) getActivity()).getContext(), ConverterActivity.class);
+        startActivityForResult(intent, ConstantsManager.TEMPLATES_FRAGMENT_REQUEST_CODE);
     }
 }

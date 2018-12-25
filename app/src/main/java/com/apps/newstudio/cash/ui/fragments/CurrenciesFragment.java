@@ -42,7 +42,6 @@ public class CurrenciesFragment extends Fragment {
     @BindView(R.id.list)
     public RecyclerView mRecyclerView;
 
-    static final String TEG = ConstantsManager.TEG + "Curr Fragment";
     private String mTitleOfDialogFilter;
 
     private SearchView mSearchView = null;
@@ -61,6 +60,14 @@ public class CurrenciesFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Creates main objects of Fragment object
+     *
+     * @param inflater           object for inflating process
+     * @param container          root for inflating process
+     * @param savedInstanceState Bundle object of saved data
+     * @return main object of fragment interface
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,25 +80,34 @@ public class CurrenciesFragment extends Fragment {
 
     }
 
+    /**
+     * Does unbind process when Fragment object is on destroy stage
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
     }
 
+    /**
+     * Changes main menu of Activity and sets parameters for SearchView object
+     *
+     * @param menu     Main menu for inflation
+     * @param inflater object for inflation process
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         String queryHint = "";
         inflater.inflate(R.menu.menu_fragment, menu);
-        switch (DataManager.getInstance().getPreferenceManager().getLanguage()){
+        switch (DataManager.getInstance().getPreferenceManager().getLanguage()) {
             case ConstantsManager.LANGUAGE_ENG:
-                queryHint=getString(R.string.menu_item_search_hint_eng);
+                queryHint = getString(R.string.menu_item_search_hint_eng);
                 break;
             case ConstantsManager.LANGUAGE_RUS:
-                queryHint=getString(R.string.menu_item_search_hint_rus);
+                queryHint = getString(R.string.menu_item_search_hint_rus);
                 break;
             case ConstantsManager.LANGUAGE_UKR:
-                queryHint=getString(R.string.menu_item_search_hint_ukr);
+                queryHint = getString(R.string.menu_item_search_hint_ukr);
                 break;
         }
         MenuItem menuItemSearch = menu.findItem(R.id.search_in_list);
@@ -119,12 +135,15 @@ public class CurrenciesFragment extends Fragment {
                 return false;
             }
         });
-        if(!DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter().equals("")) {
-            mSearchView.setQuery(DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter(),false);
+        if (!DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter().equals("")) {
+            mSearchView.setQuery(DataManager.getInstance().getPreferenceManager().getCurrenciesSearchParameter(), false);
             mSearchView.setIconified(false);
         }
     }
 
+    /**
+     * Sets main Language parameters of Strings, TextView objects
+     */
     public void setLang() {
         new LanguageManager() {
             @Override
@@ -148,6 +167,7 @@ public class CurrenciesFragment extends Fragment {
                 }
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_ukr);
             }
+
             @Override
             public void rusLanguage() {
                 mRecycleViewLang = new RecyclerViewLangFragment("", getString(R.string.currency_activity_count_rus),
@@ -161,10 +181,16 @@ public class CurrenciesFragment extends Fragment {
         };
     }
 
+    /**
+     * Prepares data for main list of this fragment
+     */
     public void prepareDataForList() {
         mMainDataForList = mDatabaseManager.getAllCurrenciesForCurrenciesFragment(true);
     }
 
+    /**
+     * Sets main parameters for RecyclerView object
+     */
     public void createList() {
         prepareDataForList();
 
@@ -175,7 +201,7 @@ public class CurrenciesFragment extends Fragment {
                 new RecyclerViewAdapterFragment.ActionForItem() {
                     @Override
                     public void action(int position) {
-                        Intent intent = new Intent(((MainActivity) getActivity()).getContext(),CurrencyActivity.class);
+                        Intent intent = new Intent(((MainActivity) getActivity()).getContext(), CurrencyActivity.class);
                         intent.putExtra(ConstantsManager.CURRENCY_SHORT_FORM, mMainDataForList.get(position)
                                 .getCurrency()
                                 .getShortTitle());
@@ -193,12 +219,15 @@ public class CurrenciesFragment extends Fragment {
                                         .getCurrency().getTitleUkr());
                                 break;
                         }
-                        startActivityForResult(intent,ConstantsManager.CURRENCY_FRAGMENT_REQUEST_CODE);
+                        startActivityForResult(intent, ConstantsManager.CURRENCY_FRAGMENT_REQUEST_CODE);
                     }
                 });
         mRecyclerView.setAdapter(mRecycleViewAdapter);
     }
 
+    /**
+     * Updates main list of this fragment
+     */
     public void updateList() {
         mMainDataForList.clear();
         prepareDataForList();
@@ -207,6 +236,10 @@ public class CurrenciesFragment extends Fragment {
         mRecycleViewAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Method for onClick event of FAB object,
+     * creates dialog for filtration of main list
+     */
     @OnClick(R.id.fragment_fab)
     public void getFilter() {
         mDataForDialogList = mDatabaseManager.getDataForListDialogCurrencies();
@@ -223,11 +256,10 @@ public class CurrenciesFragment extends Fragment {
                                 mDataForDialogList.get(position).setChecked(true);
                             }
                             int checked = 0;
-                            m:
                             for (int i = 1; i < mDataForDialogList.size(); i++) {
                                 if (mDataForDialogList.get(i).isChecked()) {
                                     checked = 1;
-                                    break m;
+                                    break;
                                 }
                             }
                             if (checked == 0) {
@@ -264,18 +296,27 @@ public class CurrenciesFragment extends Fragment {
 
     }
 
+    /**
+     * Sets checked parameter for items of RecyclerViewDataDialogList list object of Filter dialog
+     */
     public void checkDialogListData() {
         String filter = DataManager.getInstance().getPreferenceManager().getCurrenciesFilterParameter();
         if (!filter.equals("")) {
             mDataForDialogList.get(0).setChecked(false);
-            for(int i=1;i<mDataForDialogList.size();i++){
-                if(filter.contains(mDataForDialogList.get(i).getTitleEng())){
+            for (int i = 1; i < mDataForDialogList.size(); i++) {
+                if (filter.contains(mDataForDialogList.get(i).getTitleEng())) {
                     mDataForDialogList.get(i).setChecked(true);
                 }
             }
         }
     }
 
+    /**
+     * Creates String object for filtration of main list,
+     * String object contains values from checked items of Filter dialog
+     *
+     * @return object for filtration process
+     */
     public String getFilterParameter() {
         String result = "(";
         if (mDataForDialogList.get(0).isChecked()) {

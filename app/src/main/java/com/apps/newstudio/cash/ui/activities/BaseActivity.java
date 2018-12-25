@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.newstudio.cash.R;
@@ -30,13 +33,12 @@ public class BaseActivity extends AppCompatActivity {
                 0, message.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         Toast toast = Toast.makeText(this, spannableStringBuilder, Toast.LENGTH_LONG);
         View viewToast = toast.getView();
+        TextView textView = (TextView) ((LinearLayout)viewToast).getChildAt(0);
+        textView.setGravity(Gravity.CENTER);
         viewToast.setPadding(toastPadding, toastPadding, toastPadding, toastPadding);
-
         viewToast.setBackground(getResources().getDrawable(R.drawable.rectangle_for_toast));
-
         toast.show();
     }
-
 
 
     /**

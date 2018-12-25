@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity
 
     private String mStringUpdateTitle, mTitle, mMessage, mTitleButtonOne, mTitleButtonTwo, mToastSuccessUpdate;
     private String mDialogLangTitle;
+    private String mToastNoInfornation;
     private int checkedItemId = 0;
 
     /**
@@ -100,15 +101,16 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    public void removeNotification(){
+    public void removeNotification() {
         try {
             NotificationManager notificationManager = (NotificationManager) CashApplication.getContext()
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(1);
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
     }
+
     /**
      * Saves data in Bundle object
      *
@@ -141,6 +143,7 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        boolean hasInformation = true;
         if (checkedItemId != item.getItemId() && item.getItemId() == R.id.item_organizations) {
             DataManager.getInstance().getPreferenceManager().setOrganizationsFilterParameter("");
             DataManager.getInstance().getPreferenceManager().setOrganizationsSearchParameter("");
@@ -159,8 +162,17 @@ public class MainActivity extends BaseActivity
             mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
             mPreferenceManager.setConverterRoot(ConstantsManager.EMPTY_STRING_VALUE);
         }
-        checkItemOfNavigationView(item.getItemId());
-        return true;
+        if(checkedItemId!=R.id.item_templates&&
+                item.getItemId()==R.id.item_templates&&mDataManager.getDatabaseManager().getTemplateList().size()==0){
+            hasInformation=false;
+            showToast(mToastNoInfornation);
+        }
+
+        if(hasInformation) {
+            checkItemOfNavigationView(item.getItemId());
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -240,6 +252,7 @@ public class MainActivity extends BaseActivity
                         .setText(getString(R.string.nav_header_title_eng));
                 mToastSuccessUpdate = getString(R.string.toast_update_success_eng);
                 mDialogLangTitle = getString(R.string.drawer_item_language_eng);
+                mToastNoInfornation = getString(R.string.template_toast_list_empty_eng);
             }
 
             @Override
@@ -258,6 +271,7 @@ public class MainActivity extends BaseActivity
                         .setText(getString(R.string.nav_header_title_ukr));
                 mToastSuccessUpdate = getString(R.string.toast_update_success_ukr);
                 mDialogLangTitle = getString(R.string.drawer_item_language_ukr);
+                mToastNoInfornation = getString(R.string.template_toast_list_empty_ukr);
             }
 
             @Override
@@ -276,6 +290,7 @@ public class MainActivity extends BaseActivity
                         .setText(getString(R.string.nav_header_title_rus));
                 mToastSuccessUpdate = getString(R.string.toast_update_success_rus);
                 mDialogLangTitle = getString(R.string.drawer_item_language_rus);
+                mToastNoInfornation = getString(R.string.template_toast_list_empty_rus);
             }
         };
         getDialogInfo();
@@ -294,7 +309,7 @@ public class MainActivity extends BaseActivity
     /**
      * Getter for Context object of MainActivity object
      *
-     * @return
+     * @return Context object of MainActivity object
      */
     public Context getContext() {
         return MainActivity.this;

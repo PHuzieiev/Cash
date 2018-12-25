@@ -16,5 +16,10 @@
         android:paddingRight="@dimen/spacing_smaller_8dp"/>
 
 
+    <android.support.design.widget.FloatingActionButton
+        style="@style/Fab"
+        android:id="@+id/fragment_fab"
+        android:src="@drawable/ic_converter_white"/>
+
 
 </RelativeLayout>

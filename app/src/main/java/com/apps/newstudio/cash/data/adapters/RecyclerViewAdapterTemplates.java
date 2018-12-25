@@ -114,6 +114,16 @@ public class RecyclerViewAdapterTemplates extends RecyclerView.Adapter<RecyclerV
         holder.currencyOneValue.setText(template.getFirstValue());
         holder.currencyTwoValue.setText(template.getSecondValue());
         holder.buttonShow.setText(buttonTitle);
+
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) holder.cardView.getLayoutParams();
+        if (position == getItemCount() - 1) {
+            layoutParams.bottomMargin = CashApplication.getContext().getResources()
+                    .getDimensionPixelSize(R.dimen.spacing_big_88dp);
+        } else {
+            layoutParams.bottomMargin = 0;
+        }
+        holder.cardView.setLayoutParams(layoutParams);
+
     }
 
     /**

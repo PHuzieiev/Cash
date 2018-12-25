@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.ConverterFragment"
-    android:background="@color/background">
+    android:background="@color/background"
+    tools:context=".ui.fragments.ConverterFragment">
 
 
     <FrameLayout
@@ -44,83 +44,91 @@
         android:orientation="horizontal"
         tools:ignore="DisableBaselineAlignment">
 
-        <ScrollView style="@style/scroll_fragment"
+        <ScrollView
+            style="@style/scroll_fragment"
             android:layout_weight="1">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/converter_input_value_cv"
-            style="@style/card_view_fragment">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <LinearLayout style="@style/vll_in_card_view_fragment">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/converter_input_value_cv"
+                    style="@style/card_view_fragment"
+                    android:layout_marginBottom="@dimen/spacing_big_88dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    <LinearLayout style="@style/vll_in_card_view_fragment">
 
-                    <TextView
-                        android:id="@+id/converter_input_value_currency_one_title"
-                        style="@style/ltv_in_card_view_fragment"
-                        android:layout_width="match_parent"
-                        android:layout_marginRight="0dp"
-                        android:layout_marginEnd="0dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/converter_input_value_currency_one_value"
-                        style="@style/let_in_card_view_fragment"
-                        android:layout_marginTop="@dimen/spacing_smaller_8dp"
-                        android:layout_width="match_parent"
-                        android:layout_marginRight="0dp"
-                        android:layout_marginEnd="0dp" />
+                            <TextView
+                                android:id="@+id/converter_input_value_currency_one_title"
+                                style="@style/ltv_in_card_view_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_marginEnd="0dp"
+                                android:layout_marginRight="0dp" />
 
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_smaller_8dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/converter_input_value_currency_two_title"
-                        style="@style/rtv_in_card_view_fragment"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                            <EditText
+                                android:id="@+id/converter_input_value_currency_one_value"
+                                style="@style/let_in_card_view_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="@dimen/spacing_smaller_8dp"
+                                android:layout_marginEnd="0dp"
+                                android:layout_marginRight="0dp" />
 
 
-                    <EditText
-                        android:id="@+id/converter_input_value_currency_two_value"
-                        style="@style/ret_in_card_view_fragment"
-                        android:layout_marginTop="@dimen/spacing_smaller_8dp"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
-                </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_smaller_8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/converter_input_value_currency_two_title"
+                                style="@style/rtv_in_card_view_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginLeft="0dp" />
+
+
+                            <EditText
+                                android:id="@+id/converter_input_value_currency_two_value"
+                                style="@style/ret_in_card_view_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginLeft="0dp"
+                                android:layout_marginTop="@dimen/spacing_smaller_8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
             </LinearLayout>
-        </android.support.v7.widget.CardView>
         </ScrollView>
 
 
-        <ScrollView style="@style/scroll_fragment"
+        <ScrollView
+            style="@style/scroll_fragment"
             android:layout_weight="1">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/spacing_big_88dp">
-
+                android:orientation="vertical">
 
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/converter_currency_cv"
                     style="@style/card_view_fragment">
 
-                    <LinearLayout style="@style/hll_in_card_view_fragment"
+                    <LinearLayout
+                        style="@style/hll_in_card_view_fragment"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
@@ -131,9 +139,9 @@
                         <TextView
                             android:id="@+id/converter_currency_tv"
                             style="@style/item_dialog_list_tv"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp"
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="@dimen/spacing_normal_24dp" />
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -153,12 +161,12 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp"
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
+                            android:layout_marginEnd="@dimen/spacing_smaller_8dp"
                             android:layout_marginRight="@dimen/spacing_smaller_8dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/spacing_normal_24dp"
-                            android:layout_marginEnd="@dimen/spacing_smaller_8dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/converter_organization_title_tv"
@@ -167,8 +175,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/spacing_smallest_2dp"
                                 android:layout_marginTop="@dimen/spacing_smallest_2dp"
+                                android:layout_marginBottom="@dimen/spacing_smallest_2dp"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -191,9 +199,9 @@
                         <ImageView
                             android:id="@+id/converter_organization_phone_iv"
                             style="@style/normal_image_ico"
-                            android:src="@drawable/ic_phone"
-                            android:layout_marginRight="@dimen/spacing_smaller_8dp"
                             android:layout_marginEnd="@dimen/spacing_smaller_8dp"
+                            android:layout_marginRight="@dimen/spacing_smaller_8dp"
+                            android:src="@drawable/ic_phone"
                             tools:ignore="ContentDescription" />
 
                     </LinearLayout>
@@ -201,9 +209,11 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/converter_sale_or_purchase_cv"
-                    style="@style/card_view_fragment">
+                    style="@style/card_view_fragment"
+                    android:layout_marginBottom="@dimen/spacing_big_88dp">
 
-                    <LinearLayout style="@style/hll_in_card_view_fragment"
+                    <LinearLayout
+                        style="@style/hll_in_card_view_fragment"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
@@ -214,9 +224,9 @@
                         <TextView
                             android:id="@+id/converter_sale_or_purchase_tv"
                             style="@style/item_dialog_list_tv"
+                            android:layout_marginStart="@dimen/spacing_normal_24dp"
                             android:layout_marginLeft="@dimen/spacing_normal_24dp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="@dimen/spacing_normal_24dp" />
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
