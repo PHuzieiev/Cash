@@ -44,7 +44,6 @@ import butterknife.Unbinder;
 public class OrganizationsFragment extends Fragment {
 
 
-    static final String TEG = ConstantsManager.TEG + "Org Fragment";
     private String mTitleOfDialogFilter;
 
     private RecyclerViewLangFragment mRecycleViewLang;

@@ -8,7 +8,7 @@
     <color name="color_accent_dark">#a45d1e</color>
     <color name="color_accent_tr">#7ddf8231</color>
 
-
+    <color name="grey_zero">#3c3e3c3c</color>
     <color name="grey_one">#af3e3c3c</color>
     <color name="grey_two">#c83e3c3c</color>
     <color name="grey_three">#fa313131</color>

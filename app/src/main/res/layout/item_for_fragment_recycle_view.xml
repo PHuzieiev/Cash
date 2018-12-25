@@ -29,9 +29,7 @@
 
                 <TextView
                     android:id="@+id/item_type_tv"
-                    style="@style/item_date_tv"
-                    />
-
+                    style="@style/item_date_tv"/>
 
                 <EditText
                     android:id="@+id/item_title_tv"
@@ -53,7 +51,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/grey_one" />
+            android:background="@color/grey_zero" />
 
 
         <RelativeLayout

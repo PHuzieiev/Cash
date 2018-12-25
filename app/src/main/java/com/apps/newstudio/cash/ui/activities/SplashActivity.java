@@ -1,5 +1,7 @@
 package com.apps.newstudio.cash.ui.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -18,6 +20,9 @@ import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
+import com.apps.newstudio.cash.utils.BackgroundUpdateReceiver;
+import com.apps.newstudio.cash.utils.BackgroundUpdateTask;
+import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
 import java.util.ArrayList;
@@ -57,6 +62,8 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+
+        setBackgroundTask();
 
         int data[] = new int[]{getResources().getColor(R.color.color_primary),
                 getResources().getColor(R.color.color_primary),
@@ -133,6 +140,13 @@ public class SplashActivity extends BaseActivity {
                 }
             }
         }, 1000);
+    }
+
+    /**
+     * Creates BackgroundUpdateTask objects
+     */
+    public void setBackgroundTask(){
+        new BackgroundUpdateTask();
     }
 
     /**

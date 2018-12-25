@@ -3,8 +3,8 @@ package com.apps.newstudio.cash.utils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
+import com.apps.newstudio.cash.R;
 import com.apps.newstudio.cash.data.storage.models.DaoMaster;
 import com.apps.newstudio.cash.data.storage.models.DaoSession;
 
@@ -24,7 +24,7 @@ public class CashApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = this;
-        sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sSharedPreferences = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"cash-db");
         Database db = helper.getWritableDb();

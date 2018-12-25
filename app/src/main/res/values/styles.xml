@@ -236,7 +236,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:layout_marginLeft">@dimen/spacing_big_72dp</item>
-        <item name="android:background">@color/grey_one</item>
+        <item name="android:background">@color/grey_zero</item>
     </style>
 
     <style name="normal_image_ico">

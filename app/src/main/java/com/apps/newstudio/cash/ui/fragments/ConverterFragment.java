@@ -50,7 +50,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
 public class ConverterFragment extends Fragment {
 
     @BindView(R.id.converter_count_tv)

@@ -2,6 +2,7 @@ package com.apps.newstudio.cash.ui.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.apps.newstudio.cash.ui.fragments.ConverterFragment;
 import com.apps.newstudio.cash.ui.fragments.CurrenciesFragment;
 import com.apps.newstudio.cash.ui.fragments.OrganizationsFragment;
 import com.apps.newstudio.cash.ui.fragments.TemplatesFragment;
+import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
 import java.util.ArrayList;
@@ -78,6 +80,8 @@ public class MainActivity extends BaseActivity
         ButterKnife.bind(this);
         mFragmentManager = getFragmentManager();
 
+        removeNotification();
+
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -96,8 +100,18 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    public void removeNotification(){
+        try {
+            NotificationManager notificationManager = (NotificationManager) CashApplication.getContext()
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(1);
+        }catch (Exception ignored){
+
+        }
+    }
     /**
      * Saves data in Bundle object
+     *
      * @param outState object for saving data
      */
     @Override
@@ -120,6 +134,7 @@ public class MainActivity extends BaseActivity
 
     /**
      * Does some work when item of drawer menu is selected
+     *
      * @param item item which is selected
      * @return boolean value
      */
@@ -150,6 +165,7 @@ public class MainActivity extends BaseActivity
 
     /**
      * Loads fragments, changes ToolBar title and call updateDate method
+     *
      * @param id id of selected item of drawer menu
      */
     public void checkItemOfNavigationView(int id) {
@@ -197,7 +213,9 @@ public class MainActivity extends BaseActivity
                 fragmentTransaction.commit();
             }
         }
-        drawer.closeDrawer(GravityCompat.START);
+        if (id != R.id.item_update) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         updateDate();
     }
 
@@ -275,6 +293,7 @@ public class MainActivity extends BaseActivity
 
     /**
      * Getter for Context object of MainActivity object
+     *
      * @return
      */
     public Context getContext() {
@@ -433,6 +452,7 @@ public class MainActivity extends BaseActivity
 
     /**
      * Sets parameters for RecyclerViewDataDialogList object for DialogList object
+     *
      * @param data input data list for DialogList object
      * @return RecyclerViewDataDialogList list object after changing
      */
@@ -474,7 +494,6 @@ public class MainActivity extends BaseActivity
 
         setLang();
         updateDate();
-
         switch (checkedItemId) {
             case R.id.item_organizations:
                 ((OrganizationsFragment) mFragment).setLang();

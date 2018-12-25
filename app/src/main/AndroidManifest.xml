@@ -22,6 +22,7 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,7 +37,11 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activities.ConverterActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+
+        <receiver
+            android:name=".utils.BackgroundUpdateReceiver"
+            android:enabled="true" />
     </application>
 
 </manifest>

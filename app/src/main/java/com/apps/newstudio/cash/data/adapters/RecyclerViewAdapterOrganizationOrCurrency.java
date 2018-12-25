@@ -157,7 +157,7 @@ public class RecyclerViewAdapterOrganizationOrCurrency
             holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.tr));
         } else {
             layoutParams.bottomMargin = 0;
-            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.grey_one));
+            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.grey_zero));
         }
         holder.itemLayout.setLayoutParams(layoutParams);
     }
@@ -219,7 +219,7 @@ public class RecyclerViewAdapterOrganizationOrCurrency
             holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.tr));
         } else {
             layoutParams.bottomMargin = 0;
-            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.grey_one));
+            holder.line.setBackgroundColor(CashApplication.getContext().getResources().getColor(R.color.grey_zero));
         }
         holder.itemLayout.setLayoutParams(layoutParams);
     }
