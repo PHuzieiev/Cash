@@ -24,6 +24,7 @@ import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
 import com.apps.newstudio.cash.data.storage.models.CurrenciesEntity;
+import com.apps.newstudio.cash.ui.dialogs.DialogInfoCall;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
 
@@ -59,10 +60,10 @@ public class OrganizationActivity extends BaseActivity {
     private List<CurrenciesEntity> mData;
     private RecyclerViewAdapterOrganizationOrCurrency mAdapter;
     private PreferenceManager mPreferenceManager;
-    private String failureCall;
 
     /**
      * Creates all elements and do all work to show information in elements
+     *
      * @param savedInstanceState object for loading saved data
      */
     @Override
@@ -106,6 +107,7 @@ public class OrganizationActivity extends BaseActivity {
 
     /**
      * Sets menu for Activity
+     *
      * @param menu object for inflating
      * @return value true
      */
@@ -129,6 +131,7 @@ public class OrganizationActivity extends BaseActivity {
 
     /**
      * if item is selected, you will call organization
+     *
      * @param item item of Menu
      * @return value true
      */
@@ -137,8 +140,9 @@ public class OrganizationActivity extends BaseActivity {
         if (item.getItemId() == R.id.call) {
             if (mOrgPhone != null) {
                 if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    showToast(failureCall);
-                }else{
+                    new DialogInfoCall(OrganizationActivity.this);
+
+                } else {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mOrgPhone));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -158,7 +162,6 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_eng);
                 mTypeBank = getString(R.string.org_list_item_type_bank_eng);
                 mTypeOther = getString(R.string.org_list_item_type_other_eng);
-                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -166,7 +169,6 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_ukr);
                 mTypeBank = getString(R.string.org_list_item_type_bank_ukr);
                 mTypeOther = getString(R.string.org_list_item_type_other_ukr);
-                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -174,7 +176,6 @@ public class OrganizationActivity extends BaseActivity {
                 mOrgDate = getString(R.string.nav_header_subtitle_rus);
                 mTypeBank = getString(R.string.org_list_item_type_bank_rus);
                 mTypeOther = getString(R.string.org_list_item_type_other_rus);
-                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }
@@ -260,20 +261,35 @@ public class OrganizationActivity extends BaseActivity {
                             startActivityForResult(intent, ConstantsManager.ORGANIZATION_ACTIVITY_REQUEST_CODE);
                         }
                     }
+                },
+                new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconConverter() {
+                    @Override
+                    public void action(int position) {
+                        mPreferenceManager.setConverterOrganizationId(mOrganizationId);
+                        mPreferenceManager.setConverterCurrencyShortForm(mData.get(position).getShortTitle());
+                        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+                        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+                        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+                        mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+                        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_ORGANIZATION);
+                        Intent intent = new Intent(OrganizationActivity.this, ConverterActivity.class);
+                        startActivity(intent);
+                    }
                 });
         mRecyclerView.setAdapter(mAdapter);
     }
 
     /**
      * Change some information in Activity
+     *
      * @param requestCode value which defines code of request
-     * @param resultCode value which defines what will be done
-     * @param data object which is contains information from previous Activity
+     * @param resultCode  value which defines what will be done
+     * @param data        object which is contains information from previous Activity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == ConstantsManager.CURRENCY_ACTIVITY_RESULT_CODE_CHANGE_DATA) {
-            data.putExtra(ConstantsManager.START_ACTIVITY_MODE,0);
+            data.putExtra(ConstantsManager.START_ACTIVITY_MODE, 0);
             setIntent(data);
             setData();
             createList();
@@ -285,7 +301,7 @@ public class OrganizationActivity extends BaseActivity {
      * OnClick event for FAB object in Activity, opens Converter with special parameters
      */
     @OnClick(R.id.fab)
-    public void showConverter(){
+    public void showConverter() {
         mPreferenceManager.setConverterOrganizationId(mOrganizationId);
         mPreferenceManager.setConverterCurrencyShortForm(mData.get(0).getShortTitle());
         mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
@@ -293,11 +309,13 @@ public class OrganizationActivity extends BaseActivity {
         mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
         mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
         mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_ORGANIZATION);
-        Intent intent=new Intent(this,ConverterActivity.class);
+        Intent intent = new Intent(this, ConverterActivity.class);
         startActivity(intent);
     }
+
     /**
      * Getter for Context object of this Activity
+     *
      * @return Context object of OrganizationActivity
      */
     public Context getContext() {

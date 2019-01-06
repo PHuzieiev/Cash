@@ -31,6 +31,8 @@ public class RecyclerViewAdapterOrganizationOrCurrency
 
     private ActionForIcon mActionForIcon;
     private ActionForIconTwo mActionForIconTwo;
+    private ActionForIconConverter mActionForIconConverter;
+
 
     public final static int TYPE_ONE = 1;
     public final static int TYPE_TWO = 2;
@@ -40,10 +42,13 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * Constructor for RecyclerViewAdapterOrganizationOrCurrency object
      * @param data main data for items in list
      * @param actionForIcon main action for items ImageView
+     * @param actionForIconConverter main action for ImageView object which opens converter
      */
-    public RecyclerViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon) {
+    public RecyclerViewAdapterOrganizationOrCurrency(List<CurrenciesEntity> data, ActionForIcon actionForIcon,
+                                                     ActionForIconConverter actionForIconConverter) {
         mData = data;
         mActionForIcon = actionForIcon;
+        mActionForIconConverter = actionForIconConverter;
         mActionForIconTwo = null;
         mTypeOfList = TYPE_ONE;
     }
@@ -53,11 +58,13 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * @param data main data for items in list
      * @param actionForIcon main action for ImageView object in items
      * @param actionForIconTwo main action for ImageView object in items
+     * @param actionForIconConverter main action for ImageView object which opens converter
      */
     public RecyclerViewAdapterOrganizationOrCurrency(List<RecyclerViewDataOrganizationOrCurrency> data, ActionForIcon actionForIcon,
-                                                     ActionForIconTwo actionForIconTwo) {
+                                                     ActionForIconTwo actionForIconTwo, ActionForIconConverter actionForIconConverter) {
         mDataTwo = data;
         mActionForIcon = actionForIcon;
+        mActionForIconConverter = actionForIconConverter;
         mActionForIconTwo = actionForIconTwo;
         mTypeOfList = TYPE_TWO;
     }
@@ -98,7 +105,8 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         }
 
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        return new RecyclerViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon, mActionForIconTwo);
+        return new RecyclerViewAdapterOrganizationOrCurrency.ViewHolder(view, mActionForIcon,
+                mActionForIconTwo, mActionForIconConverter);
     }
 
     /**
@@ -262,6 +270,9 @@ public class RecyclerViewAdapterOrganizationOrCurrency
         @BindView(R.id.item_show_details)
         ImageView details;
 
+        @BindView(R.id.item_converter)
+        ImageView converter;
+
         @BindView(R.id.item_v)
         View line;
 
@@ -272,8 +283,9 @@ public class RecyclerViewAdapterOrganizationOrCurrency
 
         TextView shortTitle;
 
-        ActionForIcon mActionForIcon;
-        ActionForIconTwo mActionForIconTwo;
+        private ActionForIcon mActionForIcon;
+        private ActionForIconTwo mActionForIconTwo;
+        private ActionForIconConverter mActionForIconConverter;
 
 
         /**
@@ -283,18 +295,19 @@ public class RecyclerViewAdapterOrganizationOrCurrency
          * @param actionForIconTwo action for item ImageView
          */
         public ViewHolder(View itemView, RecyclerViewAdapterOrganizationOrCurrency.ActionForIcon actionForIcon,
-                          ActionForIconTwo actionForIconTwo) {
+                          ActionForIconTwo actionForIconTwo, ActionForIconConverter actionForIconConverter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mActionForIcon = actionForIcon;
             mActionForIconTwo = actionForIconTwo;
+            mActionForIconConverter = actionForIconConverter;
             details.setOnClickListener(this);
+            converter.setOnClickListener(this);
             if (actionForIconTwo == null) {
                 shortTitle = itemView.findViewById(R.id.item_short_tv);
             } else {
                 call = itemView.findViewById(R.id.item_call_iv);
                 call.setOnClickListener(this);
-
             }
         }
 
@@ -306,6 +319,9 @@ public class RecyclerViewAdapterOrganizationOrCurrency
                     break;
                 case R.id.item_call_iv:
                     mActionForIconTwo.action(getAdapterPosition());
+                    break;
+                case R.id.item_converter:
+                    mActionForIconConverter.action(getAdapterPosition());
                     break;
             }
         }
@@ -323,6 +339,14 @@ public class RecyclerViewAdapterOrganizationOrCurrency
      * Interface which creates action method for onClick event of ImageView of item in list
      */
     public interface ActionForIconTwo {
+        void action(int position);
+    }
+
+
+    /**
+     * Interface which creates action method for onClick event of ImageView Converter of item in list
+     */
+    public interface ActionForIconConverter {
         void action(int position);
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.text.SpannableStringBuilder;
@@ -35,6 +36,7 @@ import com.apps.newstudio.cash.data.storage.models.TemplateEntity;
 import com.apps.newstudio.cash.ui.activities.BaseActivity;
 import com.apps.newstudio.cash.ui.activities.ConverterActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
+import com.apps.newstudio.cash.ui.dialogs.DialogInfoCall;
 import com.apps.newstudio.cash.ui.dialogs.DialogInfoWithTwoButtons;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
@@ -132,7 +134,6 @@ public class ConverterFragment extends Fragment {
     private String mTitleButtonTwoFinal;
     private String mTemplateId;
     private String mRootParameter;
-    private String failureCall;
 
     private int mPositionOfCurInList = -1;
     private int mPositionOfOrgInList = -1;
@@ -327,7 +328,6 @@ public class ConverterFragment extends Fragment {
                 mMessageFinal = getString(R.string.converter_final_dialog_text_eng);
                 mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_eng);
                 mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_eng);
-                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -356,7 +356,6 @@ public class ConverterFragment extends Fragment {
                 mMessageFinal = getString(R.string.converter_final_dialog_text_ukr);
                 mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_ukr);
                 mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_ukr);
-                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -385,7 +384,6 @@ public class ConverterFragment extends Fragment {
                 mMessageFinal = getString(R.string.converter_final_dialog_text_rus);
                 mTitleButtonOneFinal = getString(R.string.converter_final_dialog_yes_rus);
                 mTitleButtonTwoFinal = getString(R.string.converter_final_dialog_no_rus);
-                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
         getDataForActionDialog();
@@ -454,7 +452,7 @@ public class ConverterFragment extends Fragment {
     @OnClick(R.id.converter_organization_phone_iv)
     public void callToOrg() {
         if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            mBaseActivity.showToast(failureCall);
+            new DialogInfoCall(mContext);
         } else {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +
                     mMainListForActions.get(mPositionOfCurInList).getOrganizations().get(mPositionOfOrgInList).getPhone()));

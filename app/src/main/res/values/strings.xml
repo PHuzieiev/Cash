@@ -139,8 +139,10 @@
         Big thanks to finance.ua for actual information. To visit this resource, you can use the special button below.
         Have a good time with our application!"</string>
 
-    <string name="toast_phone_no_permissions_eng">Application do not have needed permission for calling.
+    <string name="toast_phone_no_permissions_eng">Application does not have needed permission for calling.
         Please, give this permission in Settings of device</string>
+
+    <string name="button_settings_title_eng">Settings</string>
 
     //Values in Russian
     <string name="nav_header_title_rus">Money Converter (Украина)</string>
@@ -231,8 +233,11 @@
         Огромная благодарность finance.ua за актуальные данные. Для перехода на ресурс, вы можете использовать специальную кнопку внизу.
         Приятной работы с нашим приложением!"</string>
 
-    <string name="toast_phone_no_permissions_rus">У приложения нет разрешение на проведения звонков.
-        Пожалуйста, предоставте это разрешение в Настройках успройства</string>
+    <string name="toast_phone_no_permissions_rus">У приложения нет разрешения на проведения звонков.
+        Пожалуйста, предоставьте это разрешение в Настройках устройства</string>
+
+    <string name="button_settings_title_rus">Настройки</string>
+
 
     //Values in Ukraine
     <string name="nav_header_title_ukr">Money Converter (Україна)</string>
@@ -310,8 +315,8 @@
 
     <string name="finance_link_ukr">"https://finance.ua/ua/currency"</string>
 
-    <string name="toast_phone_no_permissions_ukr">Додатку не надані необхідні дозволи на проведення дзвінків.
-        Будь ласка, надайте необхідні дозволи в Налаштуваннях пристрою</string>
+    <string name="toast_phone_no_permissions_ukr">Додатку не надано необхідний дозвіл на проведення дзвінків.
+        Будь ласка, надайте необхідний дозвіл в Налаштуваннях пристрою</string>
 
     <string name="about_text_ukr">"        Призначення цього додатку полягає у конвертації обраних вами валют. Весь функціонал розбитий на чотири основні категорії. Список організацій і валют зробить перегляд і вивчення інформації більш простим і зрозумілим. Реалізована функція пошуку і сортування в списках. Основний розділ програми стосується безпосередньо конвертації валют по курсу, який вказує фінансова установа зі списку. Для переведення в гривню з потрібної валюти або навпаки, вам необхідно вибрати саму валюту, організацію, і тип майбутньої дії - покупка або продаж. Створення шаблонів зробить роботу з даними ще зручнішою. Дані в додатку оновлюються три рази в день. Також ви можете оновити їх з самого додатка в будь-який момент. Вся інформація по курсам валют завантажується з сайту finance.ua та ґрунтується на даних, що були надані фінансовими організаціями для цього ресурсу.
         Особливості додатку:
@@ -326,6 +331,6 @@
         Величезна подяка finance.ua за актуальні дані. Для переходу на ресурс, ви можете скористатись спеціальною кнопкою внизу.
         Приємної роботи з нашим додатком!"</string>
 
-
+    <string name="button_settings_title_ukr">Налаштування</string>
 
 </resources>

@@ -27,6 +27,7 @@ import com.apps.newstudio.cash.data.adapters.RecyclerViewDataOrganizationOrCurre
 import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.managers.PreferenceManager;
+import com.apps.newstudio.cash.ui.dialogs.DialogInfoCall;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -57,7 +58,6 @@ public class CurrencyActivity extends BaseActivity {
 
     private String mShortTitle, mSecondTitle;
     private String mTitleOfDialogFilter;
-    private String failureCall;
     private String[] mItemsDialogSort;
     private List<RecyclerViewDataOrganizationOrCurrency> mData;
     private List<RecyclerViewDataDialogList> mDataForDialogList;
@@ -161,7 +161,6 @@ public class CurrencyActivity extends BaseActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_eng);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_eng);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_eng);
-                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -169,7 +168,6 @@ public class CurrencyActivity extends BaseActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_ukr);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_ukr);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_ukr);
-                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -177,7 +175,6 @@ public class CurrencyActivity extends BaseActivity {
                 mSecondTitle = getString(R.string.currency_activity_count_rus);
                 mTitleOfDialogFilter = getString(R.string.menu_order_item_title_rus);
                 mItemsDialogSort = getResources().getStringArray(R.array.currencies_order_by_options_rus);
-                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }
@@ -300,19 +297,34 @@ public class CurrencyActivity extends BaseActivity {
                             startActivityForResult(intent, ConstantsManager.CURRENCY_ACTIVITY_REQUEST_CODE);
                         }
                     }
-                }, new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
-            @Override
-            public void action(int position) {
-                if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    showToast(failureCall);
-                }else{
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position)
-                            .getOrganization().getPhone()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
+                },
+                new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconTwo() {
+                    @Override
+                    public void action(int position) {
+                        if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            new DialogInfoCall(CurrencyActivity.this);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(position)
+                                    .getOrganization().getPhone()));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }
+                },
+                new RecyclerViewAdapterOrganizationOrCurrency.ActionForIconConverter() {
+                    @Override
+                    public void action(int position) {
+                        mPreferenceManager.setConverterOrganizationId(mData.get(position).getOrganization().getId());
+                        mPreferenceManager.setConverterCurrencyShortForm(mShortTitle);
+                        mPreferenceManager.setConverterAction(ConstantsManager.CONVERTER_ACTION_SALE);
+                        mPreferenceManager.setConverterDirection(ConstantsManager.CONVERTER_DIRECTION_TO_UAH);
+                        mPreferenceManager.setConverterValue(ConstantsManager.CONVERTER_VALUE_DEFAULT);
+                        mPreferenceManager.setTemplateId(ConstantsManager.CONVERTER_TEMPLATE_ID_DEFAULT);
+                        mPreferenceManager.setConverterRoot(ConstantsManager.CONVERTER_OPEN_FROM_CURRENCY);
+                        Intent intent = new Intent(CurrencyActivity.this, ConverterActivity.class);
+                        startActivity(intent);
+                    }
+                });
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -437,6 +449,7 @@ public class CurrencyActivity extends BaseActivity {
 
     /**
      * Getter for Context object of this Activity
+     *
      * @return Context object of CurrencyActivity
      */
     public Context getContext() {

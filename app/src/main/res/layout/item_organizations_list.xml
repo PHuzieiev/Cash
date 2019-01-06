@@ -69,6 +69,14 @@
 
         <ImageView
             style="@style/normal_image_ico"
+            android:id="@+id/item_converter"
+            android:src="@drawable/ic_converter_2"
+            android:layout_marginRight="@dimen/spacing_smaller_4dp"
+            android:layout_marginEnd="@dimen/spacing_smaller_4dp"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            style="@style/normal_image_ico"
             android:id="@+id/item_show_details"
             android:layout_marginRight="@dimen/spacing_small_14dp"
             android:src="@drawable/ic_show_details"

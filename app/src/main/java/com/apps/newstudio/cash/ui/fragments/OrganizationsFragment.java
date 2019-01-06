@@ -27,8 +27,10 @@ import com.apps.newstudio.cash.data.managers.DataManager;
 import com.apps.newstudio.cash.data.managers.DatabaseManager;
 import com.apps.newstudio.cash.data.managers.LanguageManager;
 import com.apps.newstudio.cash.data.storage.models.OrganizationsEntity;
+import com.apps.newstudio.cash.ui.activities.CurrencyActivity;
 import com.apps.newstudio.cash.ui.activities.MainActivity;
 import com.apps.newstudio.cash.ui.activities.OrganizationActivity;
+import com.apps.newstudio.cash.ui.dialogs.DialogInfoCall;
 import com.apps.newstudio.cash.ui.dialogs.DialogList;
 import com.apps.newstudio.cash.utils.CashApplication;
 import com.apps.newstudio.cash.utils.ConstantsManager;
@@ -47,7 +49,6 @@ public class OrganizationsFragment extends Fragment {
     public RecyclerView mRecyclerView;
 
     private String mTitleOfDialogFilter;
-    private String failureCall;
 
     private RecyclerViewLangFragment mRecycleViewLang;
     private List<OrganizationsEntity> mMainDataForList;
@@ -167,7 +168,7 @@ public class OrganizationsFragment extends Fragment {
                     @Override
                     public void action(int position) {
                         if (ActivityCompat.checkSelfPermission(CashApplication.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            ((MainActivity) getActivity()).showToast(failureCall);
+                            new DialogInfoCall(((MainActivity) getActivity()).getContext());
                         } else {
                             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mMainDataForList.get(position).getPhone()));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -228,7 +229,6 @@ public class OrganizationsFragment extends Fragment {
                 }
 
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_eng);
-                failureCall = getString(R.string.toast_phone_no_permissions_eng);
             }
 
             @Override
@@ -242,7 +242,6 @@ public class OrganizationsFragment extends Fragment {
                     mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_ukr));
                 }
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_ukr);
-                failureCall = getString(R.string.toast_phone_no_permissions_ukr);
             }
 
             @Override
@@ -256,7 +255,6 @@ public class OrganizationsFragment extends Fragment {
                     mSearchView.setQueryHint(getString(R.string.menu_item_search_hint_rus));
                 }
                 mTitleOfDialogFilter = getString(R.string.dialog_list_filter_title_rus);
-                failureCall = getString(R.string.toast_phone_no_permissions_rus);
             }
         };
     }
